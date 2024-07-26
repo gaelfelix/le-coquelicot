@@ -1,0 +1,74 @@
+{% extends "layout.html.twig" %}
+
+{% block main %}
+<main class="main-homepage">
+    <h1>Bienvenue sur le site du Coquelicot</h1>
+    <section class="home-next-events blue">
+        <h2>Les prochains rendez-vous</h2>
+        <div class="home-next-events-container">
+            <div class="center">
+                <div class="wrapper">
+                    <div class="home-events-container"> {# INNER #}
+                        {% for event in events %}
+                            <article class="event-card" style="background-image: url('assets/img/fleuves.jpeg')" alt="">
+                                <div class="card-block-date mono">
+                                    <time datetime="{{ event.date|date("D") }}">{{ event.date|date("D") }}</time>
+                                    <time class="date" datetime="{{ event.date|date("d") }}">{{ event.date|date("d") }}</time>
+                                    <time datetime="{{ event.date|date("M") }}">{{ event.date|date("M") }}</time>
+                                </div>
+                                <div class="info-event-container">
+                                    <h3 class="mono">{{ event.name }}</h3>
+                                    <div class="rect-event-container">
+                                    <div class="rect-event type">{{ event.type_id }}Concert</div>
+                                    <div class="rect-event style">{{ event.style1_id }}Traditionnel</div>
+                                    <div class="rect-event style">{{ event.style2_id }}Jazz Fusion</div>
+                                    </div>
+                                </div>
+
+                            </article>
+                        {% endfor %}
+                    </div>
+                </div
+            </div>
+                <div class="map">
+                    <button class="active first"></button>
+                    <button class="second"></button>
+                    <button class="third"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="home-last-actualities beige">
+        <h2>Dernières actualités</h2>
+        <div class="home-last-actualities-container">
+            {% for actuality in actualities %}
+                <article class="actuality-card">
+                    <img href="{{ actuality.media_id.name }}" alt="{{ actuality.media_id.alt }}"</img>
+                    <p>{{ actuality.title }}</p>
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="home-newsletter blue">
+        <h2>Pour ne plus rien rater</h2>
+        <p>Parce que rater des choses c’est pas cool, inscris-toi à la newsletter du Coquelicot !</p>
+        <p>Tu recevras la programmation toute chaude, les dernières actus et aussi quelques secrets directement dans ta boîte mail... Alors, elle est pas belle la vie ?</p>
+        <form action="">
+            <div class="home-newsletter-input-container">
+                <label for="">Prénom</label>
+                <input type="text">
+
+                <label for="">Nom</label>
+                <input type="text">
+            </div>
+
+            <label for="">Adresse mail</label>
+            <input type="email" name="" id="">
+
+            <input type="button" value="S'inscrire">
+        </form>
+    </section>
+</main>
+{% endblock %}

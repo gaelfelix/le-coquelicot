@@ -1,0 +1,41 @@
+// import
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('../../fonts/OpenDyslexic3-Regular.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('../../fonts/OpenDyslexic3-Bold.ttf') format('ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+  
+// Colors
+$beige: #F3F2E9;
+$blue: #2E2D52;
+$orange : #FFB571;
+$red: #D13B2C;
+$black: #000000;
+  
+// fonts
+$roboto: "Roboto", sans-serif;
+$robotoMono: "Roboto Mono", monospace;
+$openDyslexic: "OpenDyslexic";
+
+@keyframes transformMenu {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: initial;
+    }
+}
+
+@mixin circle($i) {
+    border-radius: 100%;
+    height: $i;
+    width: $i;
+}

@@ -1,0 +1,19 @@
+{% extends "layout.html.twig" %}
+
+{% block main %}
+    <section class="pogrammation-all-events">
+        <h2>Programmation</h2>
+        <div class="programmation-events-container">
+            {% for event in events %}
+                <article class="event-card">
+                    <h2>{{ event.name }}</h2>
+                    <p>{{ event.date|date("D d M") }}</p>
+                    <img href="{{ event.media_id.name }}" alt="{{ event.media_id.alt }}"</img>
+                    <p>{{ event.type_id }}</p>
+                    <p>{{ event.style1_id }}</p>
+                    <p>{{ event.style2_id }}</p>
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

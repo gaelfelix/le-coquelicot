@@ -1,0 +1,20 @@
+{
+    "autoload": {
+        "classmap": [
+            "controllers/",
+            "managers/",
+            "models/",
+            "services/"
+        ]
+    },
+    "scripts": {
+        "watch-sass": "sass --watch assets/styles/sass:assets/styles/css",
+        "compile-sass": "sass assets/styles/sass/style.scss assets/styles/css/style.css"
+    },
+    "require": {
+        "twig/twig": "^3.0",
+        "symfony/dotenv": "^7.1",
+        "vlucas/phpdotenv": "^5.6",
+        "twig/intl-extra": "^3.10"
+    }
+}
