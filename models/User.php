@@ -4,7 +4,7 @@ class User
 {
     private ? int $id = null;
 
-    public function __construct(private string $firstName, private string $lastName, private string $email, private string $password, private string $role = "USER", private ?int $media_id)
+    public function __construct(private string $firstName, private string $lastName, private string $email, private string $password, private string $role = "USER", private ?int $mediaId, private DateTime $createdAt = new DateTime())
     {
 
     }
@@ -72,12 +72,22 @@ class User
 
     public function getMediaId(): ?int
     {
-        return $this->media_id;
+        return $this->mediaId;
     }
 
-    public function setMediaId(?int $media_id): void
+    public function setMediaId(?int $mediaId): void
     {
-        $this->media_id = $media_id;
+        $this->mediaId = $mediaId;
     }
-    
+
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
 }

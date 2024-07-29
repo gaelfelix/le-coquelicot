@@ -33,11 +33,4 @@ class DefaultController extends AbstractController
         $this->render("adherer_faire_un_don.html.twig", []);
     }
 
-    public function carousel() : void
-    {
-        $em = new EventManager();
-
-        $events = $em->findLatest();
-        $this->render("carousel.html.twig", ["events" => $events]);
-    }
 }

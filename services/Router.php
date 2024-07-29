@@ -2,7 +2,7 @@
 
 class Router
 {
-    //private AuthController $ac;
+    private AuthController $ac;
     private DefaultController $dc;
     private ActualityController $actuc;
     private EventController $ec;
@@ -11,7 +11,7 @@ class Router
 
     public function __construct()
     {
-        //$this->ac = new AuthController();
+        $this->ac = new AuthController();
         $this->dc = new DefaultController();
         $this->ec = new EventController();
         $this->actuc = new ActualityController();
@@ -23,9 +23,25 @@ class Router
         {
             $this->dc->home();
         }
-        else if(isset($get["route"]) && $get["route"] === "carousel")
+        else if(isset($get["route"]) && $get["route"] === "inscription")
         {
-            $this->dc->carousel();
+            $this->ac->register();
+        }
+        else if(isset($get["route"]) && $get["route"] === "check-register")
+        {
+            $this->ac->checkRegister();
+        }
+        else if(isset($get["route"]) && $get["route"] === "connexion")
+        {
+            $this->ac->login();
+        }
+        else if(isset($get["route"]) && $get["route"] === "check-login")
+        {
+            $this->ac->checkLogin();
+        }
+        else if(isset($get["route"]) && $get["route"] === "deconnexion")
+        {
+            $this->ac->logout();
         }
         else if(isset($get["route"]) && $get["route"] === "programmation")
         {

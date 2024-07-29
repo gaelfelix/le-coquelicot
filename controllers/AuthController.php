@@ -5,12 +5,12 @@ class AuthController extends AbstractController
     
     public function __construct()
     {
-
+        parent::__construct(); 
     }
     
     public function login() : void
     {
-        $this->render("login", []);
+        $this->render("connexion.html.twig", []);
     }
 
     public function checkLogin() : void
@@ -33,41 +33,41 @@ class AuthController extends AbstractController
 
                         unset($_SESSION["error-message"]);
 
-                        $this->redirect("index.php");
+                        $this->render("accueil.html.twig", []);
                     }
                     else
                     {
-                        $_SESSION["error-message"] = "Invalid login information";
-                        $this->redirect("index.php?route=login");
+                        $_SESSION["error-message"] = "Informations de connexion invalides";
+                        $this->render("connexion.html.twig", []);
                     }
                 }
                 else
                 {
-                    $_SESSION["error-message"] = "Invalid login information";
-                    $this->redirect("index.php?route=login");
+                    $_SESSION["error-message"] = "Informations de connexion invalides";
+                    $this->render("connexion.html.twig", []);
                 }
             }
             else
             {
-                $_SESSION["error-message"] = "Invalid CSRF token";
-                $this->redirect("index.php?route=login");
+                $_SESSION["error-message"] = "Invalidité du jeton CSRF";
+                $this->render("connexion.html.twig", []);
             }
         }
         else
         {
-            $_SESSION["error-message"] = "Missing fields";
-            $this->redirect("index.php?route=login");
+            $_SESSION["error-message"] = "Veuillez remplir tous les champs";
+            $this->render("connexion.html.twig", []);
         }
     }
 
     public function register() : void
     {
-        $this->render("register", []);
+        $this->render("inscription.html.twig", []);
     }
 
     public function checkRegister() : void
     {
-        if(isset($_POST["username"]) && isset($_POST["email"])
+        if(isset($_POST["firstName"]) && isset($_POST["lastName"]) && isset($_POST["email"])
             && isset($_POST["password"]) && isset($_POST["confirm-password"]))
         {
             $tokenManager = new CSRFTokenManager();
@@ -95,35 +95,35 @@ class AuthController extends AbstractController
 
                             unset($_SESSION["error-message"]);
 
-                            $this->redirect("index.php");
+                            $this->render("accueil.html.twig", []);
                         }
                         else
                         {
-                            $_SESSION["error-message"] = "User already exists";
-                            $this->redirect("index.php?route=register");
+                            $_SESSION["error-message"] = "Cette adresse e-mail est déjà utilisée";
+                            $this->render("inscription.html.twig", []);
                         }
                     }
                     else {
-                        $_SESSION["error-message"] = "Password is not strong enough";
-                        $this->redirect("index.php?route=register");
+                        $_SESSION["error-message"] = "Le mot de passe doit contenir une lettre majuscule, une lettre minuscule, un chiffre, un caractère spécial et avoir une longueur minimale de 8 caractères";
+                        $this->render("inscription.html.twig", []);
                     }
                 }
                 else
                 {
-                    $_SESSION["error-message"] = "The passwords do not match";
-                    $this->redirect("index.php?route=register");
+                    $_SESSION["error-message"] = "Les mots de passe ne sont pas identiques";
+                    $this->render("inscription.html.twig", []);
                 }
             }
             else
             {
-                $_SESSION["error-message"] = "Invalid CSRF token";
-                $this->redirect("index.php?route=register");
+                $_SESSION["error-message"] = "Invalidité du jeton CSRF";
+                $this->render("inscription.html.twig", []);
             }
         }
         else
         {
-            $_SESSION["error-message"] = "Missing fields";
-            $this->redirect("index.php?route=register");
+            $_SESSION["error-message"] = "Veuillez remplir tous les champs";
+            $this->render("inscription.html.twig", []);
         }
     }
 
@@ -131,6 +131,6 @@ class AuthController extends AbstractController
     {
         session_destroy();
 
-        $this->redirect("index.php");
+        $this->render("accueil.html.twig", []);
     }
 }

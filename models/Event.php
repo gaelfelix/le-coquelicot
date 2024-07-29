@@ -4,7 +4,7 @@ class Event
 
     private ? int $id = null;
 
-    public function __construct(private string $name, private string $main_description, private string $description, private DateTime $date, private DateTime $debut, private DateTime $end, private int $ticket_price, private ?int $media_id, private ?int $type_id, private ?int $style1_id, private ?int $style2_id, private ?string $video_link)
+    public function __construct(private string $name, private string $main_description, private string $description, private DateTime $date, private DateTime $debut, private DateTime $end, private int $ticket_price, private ?int $mediaId, private ?int $type_id, private ?int $style1_id, private ?int $style2_id, private ?string $video_link)
     {
         
     }
@@ -91,12 +91,12 @@ class Event
 
     public function getMediaId(): ?int
     {
-        return $this->media_id;
+        return $this->mediaId;
     }
 
-    public function setMediaId(?int $media_id): void
+    public function setMediaId(?int $mediaId): void
     {
-        $this->media_id = $media_id;
+        $this->mediaId = $mediaId;
     }
 
     public function getTypeId(): ?int
