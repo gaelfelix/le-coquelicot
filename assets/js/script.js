@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function(){
     
+/* Ouverture du menu burger et overlay opacité sur le reste du content */
     const menuToggle = document.querySelector('.burger-menu');
     const mainNav = document.querySelector('.nav');
     const overlayMenu = document.querySelector('.overlay-menu-mobile');
@@ -15,26 +16,40 @@ document.addEventListener('DOMContentLoaded', function(){
         overlayMenu.classList.remove('menu-active');
     });
 
-    const buttonsWrapper = document.querySelector(".map");
-    const slides = document.querySelector(".home-events-container");
 
-    buttonsWrapper.addEventListener("click", e => {
-        if (e.target.nodeName === "BUTTON") {
-            Array.from(buttonsWrapper.children).forEach(item =>
-            item.classList.remove("active")
-            );
-            if (e.target.classList.contains("first")) {
-            slides.style.transform = "translateX(-10%)";
-            e.target.classList.add("active");
-            } else if (e.target.classList.contains("second")) {
-                slides.style.transform = "translateX(-33.33333333333333%)";
-                /* slides.style.transform = "translateX(-22.2222222222%)"; */
-            e.target.classList.add("active");
-            } else if (e.target.classList.contains('third')){
-                /* slides.style.transform = "translateX(-33.33333333333%)"; */
-                slides.style.transform = 'translatex(-66.6666666667%)';
-            e.target.classList.add('active');
-            }
+/* Carousel des events */
+  new Glider(document.querySelector('.glider'), {
+    // Mobile-first defaults
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    scrollLock: true,
+    dots: '#dots',
+    arrows: {
+      prev: '.glider-prev',
+      next: '.glider-next'
+    },
+    responsive: [
+      {
+        // screens greater than >= 775px
+        breakpoint: 775,
+        settings: {
+          // Set to `auto` and provide item width to adjust to viewport
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          itemWidth: 150,
+          duration: 0.25
         }
-    });
+      },{
+        // screens greater than >= 1024px
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          itemWidth: 150,
+          duration: 0.25
+        }
+      }
+    ]
+  });
+
 });

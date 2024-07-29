@@ -5,37 +5,36 @@
     <h1>Bienvenue sur le site du Coquelicot</h1>
     <section class="home-next-events blue">
         <h2>Les prochains rendez-vous</h2>
-        <div class="home-next-events-container">
-            <div class="center">
-                <div class="wrapper">
-                    <div class="home-events-container"> {# INNER #}
-                        {% for event in events %}
-                            <article class="event-card" style="background-image: url('assets/img/fleuves.jpeg')" alt="">
-                                <div class="card-block-date mono">
-                                    <time datetime="{{ event.date|date("D") }}">{{ event.date|date("D") }}</time>
-                                    <time class="date" datetime="{{ event.date|date("d") }}">{{ event.date|date("d") }}</time>
-                                    <time datetime="{{ event.date|date("M") }}">{{ event.date|date("M") }}</time>
-                                </div>
-                                <div class="info-event-container">
-                                    <h3 class="mono">{{ event.name }}</h3>
-                                    <div class="rect-event-container">
-                                    <div class="rect-event type">{{ event.type_id }}Concert</div>
-                                    <div class="rect-event style">{{ event.style1_id }}Traditionnel</div>
-                                    <div class="rect-event style">{{ event.style2_id }}Jazz Fusion</div>
-                                    </div>
-                                </div>
 
-                            </article>
-                        {% endfor %}
-                    </div>
-                </div
+        <div class="glider-contain">
+            <button class="glider-prev">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <div class="glider">
+                    {% for event in events %}
+                    <article class="event-card" style="background-image: url('assets/img/fleuves.jpeg')" alt="">
+                        <div class="card-block-date mono">
+                            <time datetime="{{ event.date|date("D") }}">{{ event.date|date("D") }}</time>
+                            <time class="date" datetime="{{ event.date|date("d") }}">{{ event.date|date("d") }}</time>
+                            <time datetime="{{ event.date|date("M") }}">{{ event.date|date("M") }}</time>
+                        </div>
+                        <div class="info-event-container">
+                            <h3 class="mono">{{ event.name }}</h3>
+                            <div class="rect-event-container">
+                            <div class="rect-event type">{{ event.type_id }}Concert</div>
+                            <div class="rect-event style">{{ event.style1_id }}Traditionnel</div>
+                            <div class="rect-event style">{{ event.style2_id }}Jazz Fusion</div>
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
             </div>
-                <div class="map">
-                    <button class="active first"></button>
-                    <button class="second"></button>
-                    <button class="third"></button>
-                </div>
-            </div>
+
+            <button class="glider-next">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+            <div id="dots" class="glider-dots"></div>
         </div>
     </section>
     
