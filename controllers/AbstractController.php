@@ -11,7 +11,8 @@ abstract class AbstractController
         $twig = new \Twig\Environment($loader,[
             'debug' => true,
         ]);
-
+        
+        $twig->addGlobal('session', $_SESSION);
         $twig->addExtension(new \Twig\Extension\DebugExtension());
 
         $this->twig = $twig;
@@ -21,4 +22,10 @@ abstract class AbstractController
     {
         echo $this->twig->render($template, $data);
     }
+    
+    protected function redirect(string $route) : void
+    {
+        header("Location: $route");
+    }
+
 }

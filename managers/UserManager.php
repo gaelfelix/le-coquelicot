@@ -20,7 +20,7 @@ class UserManager extends AbstractManager
 
         if($result)
         {
-            $user = new User($result["firstName"], $result["lastName"], $result["email"], $result["password"], $result["role"], $result["media_id"], $result["created_at"]);
+            $user = new User($result["first_name"], $result["last_name"], $result["email"], $result["password"], $result["role"], $result["media_id"], new DateTime($result["created_at"]));
             $user->setId($result["id"]);
 
             return $user;
@@ -42,7 +42,7 @@ class UserManager extends AbstractManager
 
         if($result)
         {
-            $user = new User($result["firstName"], $result["lastName"], $result["email"], $result["password"], $result["role"], $result["media_id"], $result["created_at"]);
+            $user = new User($result["first_name"], $result["last_name"], $result["email"], $result["password"], $result["role"], $result["media_id"], new DateTime($result["created_at"]));
             $user->setId($result["id"]);
 
             return $user;
@@ -55,10 +55,10 @@ class UserManager extends AbstractManager
     {
         $currentDateTime = date('Y-m-d H:i:s');
 
-        $query = $this->db->prepare('INSERT INTO users (id, first_name, last_name, email, password, role, created_at) VALUES (NULL, :username, :email, :password, :role, :created_at)');
+        $query = $this->db->prepare('INSERT INTO users (id, first_name, last_name, email, password, role, created_at) VALUES (NULL, :first_name, :last_name, :email, :password, :role, :created_at)');
         $parameters = [
-            "firstName" => $user->getFirstName(),
-            "lastName" => $user->getLastName(),
+            "first_name" => $user->getFirstName(),
+            "last_name" => $user->getLastName(),
             "password" => $user->getPassword(),
             "email" => $user->getEmail(),
             "role" => $user->getRole(),

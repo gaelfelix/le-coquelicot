@@ -6,4 +6,33 @@ Se connecter
 
 {% block main %}
     <h1>SE CONNECTER</h1>
+
+    {% if  session.error_message is not null %}
+        <div class="alert">
+            <p>{{ session.error_message }}</p>
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+    {% endif %}
+
+    <form action="index.php?route=check-login" method="post">
+        <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session.csrf_token }}" />
+        <fieldset class="form">
+            <label for="email" class="form-label">
+                Adresse mail
+            </label>
+            <input type="email" name="email" id="email" class="form-control"/>
+        </fieldset>
+        <fieldset class="form">
+            <label for="password" class="form-label">
+                Mot de passe
+            </label>
+            <input type="password" name="password" id="password" class="form-control" />
+        </fieldset>
+        <fieldset>
+            <button type="submit" class="submit-button">Se connecter</button>
+        </fieldset>
+    </form>
+    <a href="">Mot de passe oublié ?</a>
+    <a href="index.php?route=inscription">Créer un compte</a>
+
 {% endblock %}

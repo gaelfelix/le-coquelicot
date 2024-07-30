@@ -4,7 +4,7 @@ class User
 {
     private ? int $id = null;
 
-    public function __construct(private string $firstName, private string $lastName, private string $email, private string $password, private string $role = "USER", private ?int $mediaId, private DateTime $createdAt = new DateTime())
+    public function __construct(private string $firstName, private string $lastName, private string $email, private string $password, private string $role = "USER", private ?int $mediaId = null, private DateTime $createdAt = new DateTime())
     {
 
     }

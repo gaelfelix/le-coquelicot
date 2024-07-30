@@ -16,6 +16,13 @@ document.addEventListener('DOMContentLoaded', function(){
         overlayMenu.classList.remove('menu-active');
     });
 
+/* INSCRIPTION - Fermer message erreur */
+/*     const closeAlert = document.querySelector('.fa-xmark');
+
+    closeAlert.addEventListener('click', function() {
+
+  }); */
+
 
 /* Carousel des events */
   new Glider(document.querySelector('.glider'), {
