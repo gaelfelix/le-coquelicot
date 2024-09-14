@@ -1,0 +1,70 @@
+footer {
+    background-color: $beige;
+    
+    > div:nth-child(1),
+    > div:nth-child(3) {
+        display: flex;
+        justify-content: center;
+
+        > i {
+            font-size: calc(0.7rem + 1.3vw);
+            padding-right: 10px;
+        }
+    }
+
+    > div:nth-child(1) {
+        padding: calc(1rem + 2.5vw) 10px; 
+
+        & > a > img {
+            margin-right: calc(0.6rem + 2vw);
+            width: calc(8.5rem + 6.5vw);
+        }
+
+        & > p {
+            margin: 0;
+            text-align: left;
+            font-size: calc(0.8rem + 1.3vw);
+        }
+
+        & > div > div {
+            display: flex;
+        }
+
+        & > div > div:nth-child(1) {
+            padding-top: 1rem;
+        }
+    }
+
+    > div:nth-child(3) {
+        height: 2px;
+        width: 90%;
+        margin: 0 auto calc(1rem + 2.5vw) auto;
+        background-color: #000000;
+    }
+
+    > div:nth-child(4) {
+        text-align: left;
+
+        & > i,
+        & > li {
+            padding: calc(0.2rem + 1.5vw) 0;
+        }
+
+        > div:nth-child(1),
+        > div:nth-child(2) {
+            font-size: calc(0.8rem + 1.5vw);
+            margin: 0 calc(0.5rem + 4vw);
+
+            & > i {
+                font-size: calc(2rem + 3vw);
+                margin: 0 calc(0.5rem + 5vw) calc(0.5rem + 3vw) 0;
+            }
+
+        }
+    }
+
+    > p:first-of-type {
+        font-size: calc(0.8rem + 1.3vw);
+        margin-top: calc(5rem + 2.5vw);
+    }
+}

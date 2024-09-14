@@ -1,0 +1,283 @@
+#overlay-mobile {
+    z-index: 9998;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background:rgba(0, 0, 0, 0.6);
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s;
+
+    &.overlay-visible {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    &.overlay-hidden {
+      visibility: hidden;
+      opacity: 0;
+    }
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $beige;
+    height: 9rem;
+    box-shadow: inset 0px -4px 0px $orange;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 1.2rem;
+    box-sizing: border-box;
+    z-index: 9999;
+  
+    > div:first-of-type a img {
+        max-height: calc(3em + 1.6vw);
+    }
+
+    > div:nth-of-type(2) {
+        > div p {
+        color: $red;
+        margin: 0;
+        font-size: calc(1.4rem + 1vw);
+        font-weight: bold;
+        }
+
+        > span {
+            font-size: calc(1.1rem + 1vw);
+        }
+
+        > div nav {
+            z-index: 1000;
+            padding: 0px;
+            background-color: $beige;
+            position: fixed;
+            top: 90px;
+            right: 0;
+        
+            > div {
+                margin-right: auto;
+                margin-left: auto;
+                padding-left: 5px;
+                padding-right: 5px;
+        
+                > ul {
+                    display: flex;
+                    flex-direction: column;
+                    text-align: start;
+                    text-transform: uppercase;
+                    position: absolute;
+                    background: $beige;
+                    top: 100%;
+                    right: 0;
+                    width: 100vw;
+                    max-width: 48rem;
+                    height: 100vh;
+                    border-left: 5px solid $orange;
+                    transform: translate(+100%);
+                    transition: transform 0.4s ease-out !important;
+                    overflow: hidden;
+        
+                    > li {
+                        width: 100%;
+            
+                        > a {
+                            color: $blue;
+                            font-weight: bolder;
+                            width: 100%;
+                            padding: 32px;
+                            display: inline-block;
+                            position: relative;
+                        }
+                        
+                        & :hover {
+                            background: linear-gradient(to right, rgba(255, 181, 113,0.2) 0%, rgba(255, 181, 113,0.3) 60%, rgba(255, 181, 113,0.5) 90%);
+                        }
+    
+                        & ::after {
+                            content: '>';
+                            display: inline-block;
+                            position: absolute;
+                            top: 31%;
+                            right: 15px;
+                            text-align: end;
+                            font-size: 1.6em;
+                            font-weight: 300;
+                        }
+    
+                    }
+                }
+        
+                & .open {
+                    transform: translate(0%);
+                }
+            }
+        }
+    }
+
+    > div:nth-of-type(3) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > button {
+            width: 25px;
+            height: 25px; 
+            padding: 0;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            position: relative;
+    
+            > span {
+                display: block;
+                width: 100%;
+                height: 2px;
+                background: $black;
+                position: absolute;
+                pointer-events: none;
+                transition: opacity 0.3s 0.15s ease-out;
+            }
+    
+            > span:nth-child(1),
+            span:nth-child(3) {
+                transition: transform 0.3s ease-out;
+            }
+    
+            > span:nth-child(1) {
+                transform: translateY(7px);
+            }
+    
+            > span:nth-child(3) {
+                transform: translateY(-7px);
+            }
+        }
+    
+        > button.open span:nth-child(1) {
+            transform: translate(0) rotate(135deg);
+        }
+    
+        > button.open span:nth-child(2) {
+            opacity: 0;
+            transition: opacity 0s ease-out;
+        }
+    
+        > button.open span:nth-child(3) {
+            transform: translate(0) rotate(-135deg);
+        }
+        > div {
+            font-size: calc(2rem + 1.5vw);
+            margin-right: 2.5vw;
+            cursor: pointer;
+        }
+    }
+
+    @media #{$large} {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        > div:nth-of-type(1) {
+            width: 20%;
+
+            > a > img {
+                margin-right: 60%;
+            }
+        }
+
+        > div:nth-of-type(2) {
+            width: 60%;
+            > div {
+
+                > nav {
+                    left: 0;
+                    width: 100vw;
+                    min-height: 75px;
+                    box-shadow: inset 0px -4px 0px $orange;
+                    
+                    > div {
+                        margin: 0 30px;
+                
+                        > ul {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+                            align-items: center;
+                            background: none;
+                            top: 0;
+                            left: 0;
+                            margin: 0 auto;
+                            height: 100%;
+                            max-width: none;
+                            width: 90%;
+                            border-left: none;
+                            transform: none;
+                
+                            > li {
+                                font-size: 1.6rem;
+                                width: fit-content;
+        
+                                > a {
+                                    padding: 0;
+                                    margin: 0;
+                                    width: fit-content;
+                                    display: inline-block;
+                                    position: relative;
+                                }
+        
+                                & :hover {
+                                    background: none;
+                                    background-color: $orange;
+                                }
+                
+                                & ::after {
+                                    content: '';
+                                    display: block;
+                                    position: relative;
+                                    right: 0;
+                                    bottom: -5px;
+                                    width: 100%;
+                                    height: 3px;
+                                    background: $blue;
+                                    transform: scaleX(0);
+                                    transform-origin: left;
+                                    transition: transform 0.3s ease-out;
+                                }
+                
+                                & :hover::after {
+                                    transform: scaleX(1);
+                                }
+        
+                            }
+                        }
+        
+                    }
+                }
+            }
+        }
+            
+
+            > div:nth-of-type(3) {
+                width: 20%;
+                justify-content: center;
+                cursor: default;
+
+                > div {
+                    font-size: 1.6rem;
+
+                    > div {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: flex-start;
+                        align-items: center;
+                    }
+                }
+            }
+        }
+}

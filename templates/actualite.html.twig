@@ -1,9 +1,14 @@
 {% extends "layout.html.twig" %}
 
+{% block description %}
+{% endblock %}
+
 {% block title %}
-{{ actualitiy.title }}
+{{ actuality.getTitle() }}
 {% endblock %}
 
 {% block main %}
     <h1>JE SUIS UNE ACTU</h1>
+    <img href="{{ actuality.media_id.name }}" alt="{{ actuality.media_id.alt }}"</img>
+    <p>{{ actuality.title }}</p>
 {% endblock %}

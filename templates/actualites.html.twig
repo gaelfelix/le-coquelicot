@@ -1,9 +1,20 @@
 {% extends "layout.html.twig" %}
 
+{% block description %}
+{% endblock %}
+
 {% block title %}
 Actualités
 {% endblock %}
 
 {% block main %}
     <h1>JE SUIS LES ACTUS</h1>
+    {% for actuality in actualities %}
+    <article class="actuality-card">
+        <a href="index.php?route=actualite&id={{ actuality.id }}">
+            <img href="{{ actuality.media_id.name }}" alt="{{ actuality.media_id.alt }}"</img>
+            <p>{{ actuality.title }}</p>
+        </a>
+    </article>
+    {% endfor %}
 {% endblock %}

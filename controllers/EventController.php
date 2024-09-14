@@ -24,11 +24,11 @@ class EventController extends AbstractController
 
         if ($event !== null)
         {
-        $this->render("fiche_evenement.html.twig", ["event" => $event]);
+        $this->render("evenement.html.twig", ["event" => $event]);
         }
         else
         {
-            $this->redirect("index.php");
+            $this->redirect("index.php?route=programmation");
         }
     }
 

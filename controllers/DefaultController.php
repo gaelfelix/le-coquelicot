@@ -7,15 +7,16 @@ class DefaultController extends AbstractController
         parent::__construct(); 
     }
 
-    public function home() : void
+    public function accueil() : void
     {
         $em = new EventManager();
-        $am = new ActualityManager;
+        $am = new ActualityManager();
 
         $events = $em->findLatest();
+        $event = null;
         $actualities = $am->findLatest();
 
-        $this->render("accueil.html.twig", ["events" => $events, "actualities" => $actualities]);
+        $this->render("accueil.html.twig", ["events" => $events, "event" => $event, "actualities" => $actualities]);
     }
 
     public function association() : void
@@ -31,6 +32,16 @@ class DefaultController extends AbstractController
     public function adhesionDonate() : void
     {
         $this->render("adherer_faire_un_don.html.twig", []);
+    }
+
+    public function artistePro() : void
+    {
+        $this->render("artiste-pro.html.twig", []);
+    }
+
+    public function error404() : void
+    {
+        $this->render("erreur-404.html.twig", []);
     }
 
 }

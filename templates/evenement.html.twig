@@ -4,9 +4,10 @@
 {% endblock %}
 
 {% block title %}
-Administration
+{{ event.getName() }}
 {% endblock %}
 
 {% block main %}
-    <h1>ESPACE ADMIN</h1>
+    <h1>JE SUIS UN EVENEMENT</h1>
+    <h3 class="mono">{{ event.name }}</h3>
 {% endblock %}

@@ -1,11 +1,14 @@
 {% extends "layout.html.twig" %}
 
+{% block description %}
+{% endblock %}
+
 {% block title %}
 Accueil
 {% endblock %}
 
 {% block main %}
-<main class="main-homepage">
+<main id="homepage">
     <h1>Bienvenue sur le site du Coquelicot</h1>
     <section class="home-next-events blue">
         <h2>Les prochains rendez-vous</h2>
@@ -18,19 +21,21 @@ Accueil
             <div class="glider">
                     {% for event in events %}
                     <article class="event-card" style="background-image: url('assets/img/fleuves.jpeg')" alt="">
-                        <div class="card-block-date mono">
-                            <time datetime="{{ event.date|date("D") }}">{{ event.date|date("D") }}</time>
-                            <time class="date" datetime="{{ event.date|date("d") }}">{{ event.date|date("d") }}</time>
-                            <time datetime="{{ event.date|date("M") }}">{{ event.date|date("M") }}</time>
-                        </div>
-                        <div class="info-event-container">
-                            <h3 class="mono">{{ event.name }}</h3>
-                            <div class="rect-event-container">
-                            <div class="rect-event type">{{ event.type_id }}Concert</div>
-                            <div class="rect-event style">{{ event.style1_id }}Traditionnel</div>
-                            <div class="rect-event style">{{ event.style2_id }}Jazz Fusion</div>
+                        <a href="index.php?route=evenement&id={{ event.id }}">
+                            <div class="card-block-date mono">
+                                <time datetime="{{ event.date|date("D") }}">{{ event.date|date("D") }}</time>
+                                <time class="date" datetime="{{ event.date|date("d") }}">{{ event.date|date("d") }}</time>
+                                <time datetime="{{ event.date|date("M") }}">{{ event.date|date("M") }}</time>
                             </div>
-                        </div>
+                            <div class="info-event-container">
+                                <h3 class="mono">{{ event.name }}</h3>
+                                <div class="rect-event-container">
+                                <div class="rect-event type">{{ event.type_id }}Concert</div>
+                                <div class="rect-event style">{{ event.style1_id }}Traditionnel</div>
+                                <div class="rect-event style">{{ event.style2_id }}Jazz Fusion</div>
+                                </div>
+                            </div>
+                        </a>
                     </article>
                     {% endfor %}
             </div>
@@ -42,19 +47,21 @@ Accueil
         </div>
     </section>
     
-    <section class="home-last-actualities beige">
+    <section class="home-last-actualities">
         <h2>Dernières actualités</h2>
         <div class="home-last-actualities-container">
             {% for actuality in actualities %}
                 <article class="actuality-card">
-                    <img href="{{ actuality.media_id.name }}" alt="{{ actuality.media_id.alt }}"</img>
-                    <p>{{ actuality.title }}</p>
+                    <a href="index.php?route=actualite&id={{ actuality.id }}">
+                        <img href="{{ actuality.media_id.name }}" alt="{{ actuality.media_id.alt }}"</img>
+                        <p>{{ actuality.title }}</p>
+                    </a>
                 </article>
             {% endfor %}
         </div>
     </section>
 
-    <section class="home-newsletter blue">
+    <section class="home-newsletter">
         <h2>Pour ne plus rien rater</h2>
         <p>Parce que rater des choses c’est pas cool, inscris-toi à la newsletter du Coquelicot !</p>
         <p>Tu recevras la programmation toute chaude, les dernières actus et aussi quelques secrets directement dans ta boîte mail... Alors, elle est pas belle la vie ?</p>

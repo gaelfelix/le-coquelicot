@@ -13,18 +13,19 @@
     font-style: normal;
 }
   
-// Colors
+// COLORS
 $beige: #f3f2e9;
 $blue: #2E2D52;
-$orange : #ffb571;
+$orange : #FFB571;
 $red: #D13B2C;
 $black: #000000;
   
-// fonts
+// FONTS
 $roboto: "Roboto", sans-serif;
 $robotoMono: "Roboto Mono", monospace;
 $openDyslexic: "OpenDyslexic";
 
+// ANIMATIONS
 @keyframes transformMenu {
     0% {
         transform: translateX(100%);
@@ -34,8 +35,39 @@ $openDyslexic: "OpenDyslexic";
     }
 }
 
+// MIXINS
+
 @mixin circle($i) {
     border-radius: 100%;
     height: $i;
     width: $i;
 }
+
+// RESPONSIVE
+
+// Styles par défaut pour les mobiles
+$mobile: "only screen and (max-width: 575px)";
+
+// Petits appareils (téléphones en mode paysage, 576px et plus)
+$small: "only screen and (min-width: 576px)";
+
+// Appareils moyens (tablettes, 768px et plus)
+$medium: "only screen and (min-width: 768px)";
+
+// Appareils intermédiaires (entre tablettes et ordinateurs portables, 850px et plus)
+$medium-large: "only screen and (min-width: 850px)";
+
+// Grands appareils (ordinateurs de bureau, 992px et plus)
+$large: "only screen and (min-width: 992px)";
+
+// Appareils larges (ordinateurs de bureau plus grands, 1100px et plus)
+$larger: "only screen and (min-width: 1100px)";
+
+// Très grands appareils (grands écrans d'ordinateurs, 1200px et plus)
+$extra: "only screen and (min-width: 1200px)";
+
+// Super grands écrans (1400px et plus)
+$extra-large: "only screen and (min-width: 1400px)";
+
+// Ultra grands écrans (1600px et plus)
+$ultra: "only screen and (min-width: 1600px)";

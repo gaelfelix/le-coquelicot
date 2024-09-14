@@ -27,8 +27,14 @@ class AuthController extends AbstractController
 
                 if($user !== null)
                 {
+                    
                     if(password_verify($_POST["password"], $user->getPassword()))
                     {
+                        
+                        if (session_status() == PHP_SESSION_NONE) {
+                            session_start();
+                        }
+
                         $_SESSION["user"] = $user->getId();
 
                         unset($_SESSION["error_message"]);
@@ -127,6 +133,16 @@ class AuthController extends AbstractController
             $_SESSION["error-message"] = "Veuillez remplir tous les champs";
             $this->render("inscription.html.twig", []);
         }
+    }
+
+    public function espacePerso() : void
+    {
+        $this->render("adherer_faire_un_don.html.twig", []);
+    }
+
+    public function espace() : void
+    {
+        $this->render("adherer_faire_un_don.html.twig", []);
     }
 
     public function logout() : void

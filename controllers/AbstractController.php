@@ -27,5 +27,4 @@ abstract class AbstractController
     {
         header("Location: $route");
     }
-
 }
