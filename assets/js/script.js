@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function(){
   burgerToggler.addEventListener('click', toggleNav);
   main.addEventListener('click', closeNav);
   footer.addEventListener('click', closeNav);
+  overlayMobile.addEventListener('click', closeNav);
 
   // Add a scroll event listener to the window element
   // that calls the closeNav function when scrolled
@@ -69,8 +70,8 @@ document.addEventListener('DOMContentLoaded', function(){
     },
     responsive: [
       {
-        // screens greater than >= 850px
-        breakpoint: 850,
+        // screens greater than >= 768px
+        breakpoint: 768,
         settings: {
           // Set to `auto` and provide item width to adjust to viewport
           slidesToShow: 2,

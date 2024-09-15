@@ -90,7 +90,7 @@ header > div:nth-of-type(2) > div nav > div > ul {
   top: 100%;
   right: 0;
   width: 100vw;
-  max-width: 48rem;
+  max-width: 50rem;
   height: 100vh;
   border-left: 5px solid #FFB571;
   transform: translate(100%);
@@ -180,13 +180,13 @@ header > div:nth-of-type(3) > div {
     align-items: center;
   }
   header > div:nth-of-type(1) {
-    width: 20%;
+    width: 25%;
   }
   header > div:nth-of-type(1) > a > img {
     margin-right: 60%;
   }
   header > div:nth-of-type(2) {
-    width: 60%;
+    width: 50%;
   }
   header > div:nth-of-type(2) > div > nav {
     left: 0;
@@ -246,18 +246,68 @@ header > div:nth-of-type(3) > div {
     transform: scaleX(1);
   }
   header > div:nth-of-type(3) {
-    width: 20%;
-    justify-content: center;
-    cursor: default;
+    width: 25%;
+    display: block;
   }
   header > div:nth-of-type(3) > div {
+    margin: 1rem 0 0 18%;
     font-size: 1.6rem;
   }
   header > div:nth-of-type(3) > div > div {
+    height: 1.6rem;
+    margin: 0 0 1.2rem 0.5rem;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    color: #2E2D52;
+  }
+  header > div:nth-of-type(3) > div > div:hover {
+    color: #FFB571;
+  }
+  header > div:nth-of-type(3) > div > div:hover > p {
+    text-decoration: underline;
+  }
+  header > div:nth-of-type(3) > div > div > p {
+    margin-left: 1rem;
+  }
+  header > div:nth-of-type(3) > div .artist-pro-button {
+    width: -moz-fit-content;
+    width: fit-content;
+    margin: 0 0 1.2rem 0;
+    padding: 0.8rem 2.5rem;
+    font-weight: bold;
+    background-color: #2E2D52;
+    border-radius: 2rem;
+  }
+  header > div:nth-of-type(3) > div .artist-pro-button:hover {
+    background-color: #FFB571;
+  }
+  header > div:nth-of-type(3) > div .artist-pro-button:hover > a {
+    color: #2E2D52;
+  }
+  header > div:nth-of-type(3) > div .artist-pro-button > a {
+    color: #f3f2e9;
+  }
+}
+@media only screen and (min-width: 1100px) {
+  header > div:nth-of-type(3) > div {
+    margin: 1rem 0 0 25%;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  header > div:nth-of-type(3) > div {
+    margin: 1rem 0 0 30%;
+  }
+}
+@media only screen and (min-width: 1400px) {
+  header > div:nth-of-type(3) > div {
+    margin: 1rem 0 0 35%;
+  }
+}
+@media only screen and (min-width: 1600px) {
+  header > div:nth-of-type(3) > div {
+    margin: 1rem 0 0 40%;
   }
 }
 
@@ -531,6 +581,15 @@ footer > p:first-of-type {
 #homepage .rect-event-container .style {
   background-color: #FFB571;
 }
+@media only screen and (min-width: 768px) {
+  #homepage .glider {
+    width: 90%;
+  }
+  #homepage .event-card {
+    max-height: 31.5rem;
+    max-width: 22.5rem;
+  }
+}
 @media only screen and (min-width: 850px) {
   #homepage .glider {
     width: 90%;
@@ -703,7 +762,7 @@ h1 {
 }
 
 h2 {
-  margin: 2rem;
+  margin: 4rem 2rem;
   font-size: calc(1.6rem + 1.6vw);
   text-transform: uppercase;
 }
@@ -753,7 +812,8 @@ main section:nth-child(even) {
   main {
     margin-top: 165px;
   }
-  .burger {
+  .burger,
+  #menu-toggle {
     display: none;
   }
   .desktop {

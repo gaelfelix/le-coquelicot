@@ -224,6 +224,15 @@
 
 @media #{$medium} {
     // Styles pour les appareils moyens (min-width: 768px)
+     .glider {
+      width: 90%;
+    }
+
+    .event-card {
+      max-height: 31.5rem;
+      max-width: 22.5rem;
+    }
+
 }
 
 @media #{$medium-large} {
