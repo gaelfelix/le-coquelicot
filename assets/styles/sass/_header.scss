@@ -41,15 +41,8 @@ header {
     }
 
     > div:nth-of-type(2) {
-        > div p {
-        color: $red;
-        margin: 0;
-        font-size: calc(1.4rem + 1vw);
-        font-weight: bold;
-        }
-
-        > span {
-            font-size: calc(1.1rem + 1vw);
+        > div h1 span {
+            font-size: calc(1rem + 1.2vw);
         }
 
         > div nav {
@@ -282,7 +275,7 @@ header {
 
                     &:hover {
                         color: $orange;
-                        
+
                         > p {
                             text-decoration: underline;
                         }

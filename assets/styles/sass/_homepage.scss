@@ -157,14 +157,14 @@
   }
   
   .card-block-date {
-    margin-top: 2.2rem;
+    margin-top: 2.4rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     font-size: 2rem;
     font-weight: bold;
     line-height: 3rem;
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: $black;
     width: 7rem;
     height: 10rem;
     /* transform: translateX(-.6rem); */

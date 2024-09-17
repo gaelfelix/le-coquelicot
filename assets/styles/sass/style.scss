@@ -1,3 +1,4 @@
+@import "_reset";
 @import "_vars";
 
 @import "_header";
@@ -33,16 +34,15 @@ body {
 }
 
 h1 {
-  margin: 2rem 2rem 0 2rem;
-  font-size: calc(2rem + 1.6vw);
+  margin: 1rem;
+  font-size: calc(1.2rem + 1.6vw);
   text-transform: uppercase;
-  color: $beige;
-  background-color: $blue;
+  color: $red;
 }
 
 h2 {
-  margin: 4rem 2rem;
-  font-size: calc(1.6rem + 1.6vw);
+  margin: 1.5rem;
+  font-size: calc(1.6rem + 1vw);
   text-transform: uppercase;
 }
 
@@ -60,18 +60,17 @@ a {
 
 main {
   margin-top: 90px;
-  padding-top: 2rem;
   
   section {
     width: 100%;
     padding: 2rem;
     border-bottom: 5px solid $orange;
 
-    &:nth-child(odd){
+    &:nth-child(even){
       background-color: $beige;
       color: $blue;
     }
-    &:nth-child(even){
+    &:nth-child(odd){
       background-color: $blue;
       color: $beige;
     }
