@@ -2,11 +2,16 @@
 
 class Actuality
 {
-    private ? int $id = null;
+    private ?int $id = null;
+    private ?Media $media = null;
 
-    public function __construct(private string $title, private DateTime $date, private string $content, private ?int $mediaId)
-    {
-        
+    public function __construct(
+        private string $title,
+        private DateTime $date,
+        private string $content,
+        private ?Media $mediaId,
+    ) {
+
     }
 
     public function getId(): ?int
@@ -49,14 +54,13 @@ class Actuality
         $this->content = $content;
     }
 
-    public function getMediaId(): ?int
+    public function getMedia(): ?Media
     {
-        return $this->mediaId;
+        return $this->media;
     }
 
-    public function setMediaId(?int $mediaId): void
+    public function setMedia(?Media $media): void
     {
-        $this->mediaId = $mediaId;
+        $this->media = $media;
     }
-
 }

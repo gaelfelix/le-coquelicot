@@ -1,11 +1,27 @@
 <?php
+
 class Event
 {
+    private ?int $id = null;
+    private ?Media $media = null;
+    private ?Type $type = null;
+    private ?Style $style1 = null;
+    private ?Style $style2 = null;
 
-    private ? int $id = null;
-
-    public function __construct(private string $name, private string $main_description, private string $description, private DateTime $date, private DateTime $debut, private DateTime $end, private int $ticket_price, private ?int $mediaId, private ?int $type_id, private ?int $style1_id, private ?int $style2_id, private ?string $video_link)
-    {
+    public function __construct(
+        private string $name,
+        private string $main_description,
+        private string $description,
+        private DateTime $date,
+        private DateTime $debut,
+        private DateTime $end,
+        private int $ticket_price,
+        private ?int $mediaId,
+        private ?int $type_id,
+        private ?int $style1_id,
+        private ?int $style2_id,
+        private ?string $video_link,
+    ) {
         
     }
 
@@ -89,44 +105,44 @@ class Event
         $this->ticket_price = $ticket_price;
     }
 
-    public function getMediaId(): ?int
+    public function getMedia(): ?Media
     {
-        return $this->mediaId;
+        return $this->media;
     }
 
-    public function setMediaId(?int $mediaId): void
+    public function setMedia(?Media $media): void
     {
-        $this->mediaId = $mediaId;
+        $this->media = $media;
     }
 
-    public function getTypeId(): ?int
+    public function getType(): ?Type
     {
-        return $this->type_id;
+        return $this->type;
     }
 
-    public function setTypeId(?int $type_id): void
+    public function setType(?Type $type): void
     {
-        $this->type_id = $type_id;
+        $this->type = $type;
     }
 
-    public function getStyle1Id(): ?int
+    public function getStyle1(): ?Style
     {
-        return $this->style1_id;
+        return $this->style1;
     }
 
-    public function setStyle1Id(?int $style1_id): void
+    public function setStyle1(?Style $style1): void
     {
-        $this->style1_id = $style1_id;
+        $this->style1 = $style1;
     }
 
-    public function getStyle2Id(): ?int
+    public function getStyle2(): ?Style
     {
-        return $this->style2_id;
+        return $this->style2;
     }
 
-    public function setStyle2Id(?int $style2_id): void
+    public function setStyle2(?Style $style2): void
     {
-        $this->style2_id = $style2_id;
+        $this->style2 = $style2;
     }
 
     public function getVideoLink(): ?string
@@ -138,5 +154,4 @@ class Event
     {
         $this->video_link = $video_link;
     }
-
 }

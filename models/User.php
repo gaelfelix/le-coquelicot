@@ -2,13 +2,20 @@
 
 class User
 {
-    private ? int $id = null;
+    private ?int $id = null;
 
-    public function __construct(private string $firstName, private string $lastName, private string $email, private string $password, private string $role = "USER", private ?int $mediaId = null, private DateTime $createdAt = new DateTime())
-    {
-
+    public function __construct(
+        private string $firstName,
+        private string $lastName,
+        private string $email,
+        private string $password,
+        private string $role = "USER",
+        private ?Media $media = null,
+        private ?DateTime $createdAt = null // Permettre une valeur par défaut
+    ) {
+        // Initialiser createdAt si non fourni
+        $this->createdAt = $this->createdAt ?? new DateTime();
     }
-
 
     public function getId(): ?int
     {
@@ -70,14 +77,14 @@ class User
         $this->role = $role;
     }
 
-    public function getMediaId(): ?int
+    public function getMedia(): ?Media
     {
-        return $this->mediaId;
+        return $this->media;
     }
 
-    public function setMediaId(?int $mediaId): void
+    public function setMedia(?Media $media): void
     {
-        $this->mediaId = $mediaId;
+        $this->media = $media;
     }
 
     public function getCreatedAt(): DateTime
@@ -89,5 +96,4 @@ class User
     {
         $this->createdAt = $createdAt;
     }
-
 }

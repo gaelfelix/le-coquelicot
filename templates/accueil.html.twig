@@ -18,25 +18,23 @@ Accueil
             </button>
 
             <div class="glider">
-                    {% for event in events %}
-                    <article class="event-card" style="background-image: url('assets/img/fleuves.jpeg')" alt="">
+                {% for event in events %}
+                    <article class="event-card" style="background-image: url('{{ event.media.url }}');" alt="{{ event.media.alt }}">
                         <a href="index.php?route=evenement&id={{ event.id }}">
                             <div class="card-block-date mono">
-                                <time datetime="{{ event.date|date("D") }}">{{ event.date|date("D") }}</time>
-                                <time class="date" datetime="{{ event.date|date("d") }}">{{ event.date|date("d") }}</time>
-                                <time datetime="{{ event.date|date("M") }}">{{ event.date|date("M") }}</time>
+                                <time datetime="{{ event.date|date("c") }}">{{ event.date|date("D d M") }}</time>
                             </div>
                             <div class="info-event-container">
                                 <h3 class="mono">{{ event.name }}</h3>
                                 <div class="rect-event-container">
-                                <div class="rect-event type">{{ event.type_id }}Concert</div>
-                                <div class="rect-event style">{{ event.style1_id }}Traditionnel</div>
-                                <div class="rect-event style">{{ event.style2_id }}Jazz Fusion</div>
+                                    <div class="rect-event type">{{ event.type.name }}</div>
+                                    <div class="rect-event style">{{ event.style1.name }}</div>
+                                    <div class="rect-event style">{{ event.style2.name }}</div>
                                 </div>
                             </div>
                         </a>
                     </article>
-                    {% endfor %}
+                {% endfor %}
             </div>
 
             <button class="glider-next">
@@ -50,12 +48,11 @@ Accueil
         <h2>Dernières actualités</h2>
         <div class="home-last-actualities-container">
             {% for actuality in actualities %}
-                <article class="actuality-card">
-                    <a href="index.php?route=actualite&id={{ actuality.id }}">
-                        <img href="{{ actuality.media_id.name }}" alt="{{ actuality.media_id.alt }}"</img>
-                        <p>{{ actuality.title }}</p>
-                    </a>
-                </article>
+            <article class="actuality-card" style="background-image: url('{{ actuality.media.url }}');" alt="{{ actuality.media.alt }}">
+                <a href="index.php?route=actualite&id={{ actuality.id }}">
+                    <h3>{{ actuality.title }}</h3>
+                </a>
+            </article>
             {% endfor %}
         </div>
     </section>
@@ -66,17 +63,17 @@ Accueil
         <p>Tu recevras la programmation toute chaude, les dernières actus et aussi quelques secrets directement dans ta boîte mail... Alors, elle est pas belle la vie ?</p>
         <form action="">
             <div class="home-newsletter-input-container">
-                <label for="">Prénom</label>
-                <input type="text">
+                <label for="firstname">Prénom</label>
+                <input type="text" id="firstname" required>
 
-                <label for="">Nom</label>
-                <input type="text">
+                <label for="lastname">Nom</label>
+                <input type="text" id="lastname" required>
             </div>
 
-            <label for="">Adresse mail</label>
-            <input type="email" name="" id="">
+            <label for="email">Adresse mail</label>
+            <input type="email" id="email" required>
 
-            <input type="button" value="S'inscrire">
+            <input type="submit" value="S'inscrire">
         </form>
     </section>
 </main>

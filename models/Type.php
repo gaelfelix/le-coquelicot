@@ -2,13 +2,13 @@
 
 class Type
 {
-    private ? int $id = null;
+    private ?int $id = null;
 
-    public function __construct(private string $name)
-    {
-
+    public function __construct(
+        private string $name
+    ) {
+        
     }
-
 
     public function getId(): ?int
     {
@@ -29,5 +29,4 @@ class Type
     {
         $this->name = $name;
     }
-
 }

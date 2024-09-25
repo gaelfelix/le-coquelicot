@@ -8,7 +8,11 @@
 {% endblock %}
 
 {% block main %}
-    <h1>JE SUIS UNE ACTU</h1>
-    <img href="{{ actuality.media_id.name }}" alt="{{ actuality.media_id.alt }}"</img>
-    <p>{{ actuality.title }}</p>
+<main id="actualite">
+    <section>
+        <h2>{{ actuality.title }}</h2>
+        <img src="{{ actuality.media.url }}" alt="{{ actuality.media.alt }}"</img>
+        <p>{{ actuality.content }}</p>
+    </section>
+</main>
 {% endblock %}

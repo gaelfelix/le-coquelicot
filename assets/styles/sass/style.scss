@@ -3,7 +3,12 @@
 
 @import "_header";
 @import "_footer";
+@import "_eventCard";
+@import "_glider";
+
 @import "_homepage";
+
+
 
 
 /********** GLOBAL STYLES **********/
@@ -29,20 +34,22 @@ html {
 body {
   font-size: 1.6rem;
   font-family: $roboto;
-  background-color: $blue;
+  background-color: $beige;
   text-align: center;
 }
 
 h1 {
   margin: 1rem;
   font-size: calc(1.2rem + 1.6vw);
+  font-weight: 600;
   text-transform: uppercase;
   color: $red;
 }
 
 h2 {
-  margin: 1.5rem;
+  margin: 4rem auto;
   font-size: calc(1.6rem + 1vw);
+  font-weight: 600;
   text-transform: uppercase;
 }
 
@@ -88,11 +95,17 @@ main {
   display: none;
 }
 
-/********** GLOBAL RESPONSIVE **********/
-
-@media #{$mobile} {
-    // Styles pour les appareils mobiles (max-width: 575px)
+.dyslexie {
+  font-family: $openDyslexic;
 }
+
+.line-spacing {
+  line-height: 200%;
+}
+
+
+
+/********** GLOBAL RESPONSIVE **********/
 
 @media #{$small} {
     // Styles pour les petits appareils (min-width: 576px)

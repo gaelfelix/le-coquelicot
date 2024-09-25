@@ -19,14 +19,19 @@ class Router
 
     public function handleRequest(array $get) : void
     {
+        // Si aucune route n'est définie, charger la page d'accueil
         if (!isset($get["route"])) {
-            $this->dc->accueil();
+            $eventId = isset($get['eventId']) ? $get['eventId'] : null;
+            $actualityId = isset($get['actualityId']) ? $get['actualityId'] : null;
+            $this->dc->accueil($eventId, $actualityId);
             return;
         }
 
         switch ($get["route"]) {
             case "accueil":
-                $this->dc->accueil();
+                $eventId = isset($get['eventId']) ? $get['eventId'] : null;
+                $actualityId = isset($get['actualityId']) ? $get['actualityId'] : null;
+                $this->dc->accueil($eventId, $actualityId);
                 break;
 
             case "inscription":

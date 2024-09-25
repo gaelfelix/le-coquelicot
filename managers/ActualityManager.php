@@ -2,9 +2,12 @@
 
 class ActualityManager extends AbstractManager
 {
+    private MediaManager $mm;
+
     public function __construct()
     {
-        parent::__construct(); 
+        parent::__construct();
+        $this->mm = new MediaManager();
     }
 
     public function findAll() : array
@@ -14,12 +17,22 @@ class ActualityManager extends AbstractManager
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $actualities = [];
 
-        foreach($result as $item)
+        foreach ($result as $item)
         {
             $date = new DateTime($item["date"]);
 
-            $actuality = new Actuality($item["title"], $date, $item["content"], $item["media_id"]);
+            $media = $item['media_id'] ? $this->mm->findOne($item['media_id']) : null;
+
+            $actuality = new Actuality(
+                $item["title"],
+                $date,
+                $item["content"],
+                $media
+            );
+
+            $actuality->setMedia($media);
             $actuality->setId($item["id"]);
+
             $actualities[] = $actuality;
         }
 
@@ -33,19 +46,23 @@ class ActualityManager extends AbstractManager
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $actualities = [];
 
-        foreach($result as $item)
+        foreach ($result as $item)
         {
             $date = new DateTime($item["date"]);
+            $media = $item['media_id'] ? $this->mm->findOne($item['media_id']) : null;
 
-            $actuality = new Actuality($item["title"], $date, $item["content"], $item["media_id"]);
+            $actuality = new Actuality($item["title"], $date, $item["content"], $media);
+
+            $actuality->setMedia($media);
             $actuality->setId($item["id"]);
+            
             $actualities[] = $actuality;
         }
 
         return $actualities;
     }
 
-    public function findOne(int $id) : ? Actuality
+    public function findOne(int $id) : ?Actuality
     {
         $query = $this->db->prepare('SELECT * FROM actualities WHERE id=:id');
         $parameters = [
@@ -54,11 +71,14 @@ class ActualityManager extends AbstractManager
         $query->execute($parameters);
         $result = $query->fetch(PDO::FETCH_ASSOC);
 
-        if($result)
+        if ($result)
         {
             $date = new DateTime($result["date"]);
+            $media = $result['media_id'] ? $this->mm->findOne($result['media_id']) : null;
 
-            $actuality = new Actuality($result["title"], $date, $result["content"], $result["media_id"]);
+            $actuality = new Actuality($result["title"], $date, $result["content"], $media);
+
+            $actuality->setMedia($media);
             $actuality->setId($result["id"]);
 
             return $actuality;
@@ -66,6 +86,4 @@ class ActualityManager extends AbstractManager
 
         return null;
     }
-
 }
-

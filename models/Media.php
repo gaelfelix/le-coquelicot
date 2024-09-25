@@ -2,11 +2,13 @@
 
 class Media
 {
-    private ? int $id = null;
+    private ?int $id = null;
 
-    public function __construct(private string $name, private string $alt)
-    {
-
+    public function __construct(
+        private string $url,
+        private string $alt
+    ) {
+        
     }
 
     public function getId(): ?int
@@ -19,14 +21,14 @@ class Media
         $this->id = $id;
     }
 
-    public function getName(): string
+    public function getUrl(): string
     {
-        return $this->name;
+        return $this->url;
     }
 
-    public function setName(string $name): void
+    public function setUrl(string $url): void
     {
-        $this->name = $name;
+        $this->url = $url;
     }
 
     public function getAlt(): string
@@ -38,5 +40,4 @@ class Media
     {
         $this->alt = $alt;
     }
-
 }

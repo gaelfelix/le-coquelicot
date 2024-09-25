@@ -1,0 +1,153 @@
+.event-card {
+display: block;
+margin: 0 auto 1.5rem auto;
+height: 31.5rem;
+width: 22.5rem;
+border-radius: 1.8em;
+box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+background-size: cover;
+background-position: center;
+box-shadow: inset 20em 1em rgba(0, 0, 0, 0.1);
+
+    > a {
+        .card-block-date {
+            margin-top: 2.4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            line-height: 3rem;
+            background-color: $black;
+            width: 7rem;
+            height: 10rem;
+    
+            time {
+                margin: 0 1rem;
+            }
+    
+            .date {
+                margin-left: .9rem;
+                font-size: 3.5rem;
+            }
+        }
+
+        .info-event-container {
+
+            h3.mono {
+                height: 5rem;
+                width: 20rem;
+                margin: 9rem 0 .5rem 0;
+                padding: 0 0 0 1rem;
+                text-align: left;
+                font-size: 2.4rem;
+                font-weight: 500;
+                line-height: 2.8rem;
+                text-shadow: -6px 4px 8px rgba(0,0,0,0.7);
+            }
+
+            .rect-event-container {
+                display: flex;
+                justify-content: space-between;
+                margin: 0 1rem;
+
+                .rect-event {
+                    height: 1.6rem;
+                    width: 6.5rem;
+                    border-radius: 0.4rem;
+                    font-size: 1rem;
+                    padding-top: 0.2rem;
+                    color: $black;
+                    margin: 1rem 0 2rem 0;
+                }
+
+                .type{
+                    background-color: $beige;
+                }
+                .style {
+                    background-color: $orange;
+                }
+            }
+        }
+    }
+
+    @media #{$medium} {
+    // Styles pour les appareils moyens (min-width: 768px)
+        max-height: 31.5rem;
+        max-width: 22.5rem;
+    }
+
+    @media #{$medium-large} {
+    // Styles pour les appareils intermédiaires (min-width: 850px)
+        display: block;
+        margin: 0 auto;
+        max-height: 42rem;
+        max-width: 30rem;
+        border-radius: 2.2em;
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+        background-size: cover;
+        background-position: center;
+        box-shadow: inset 20em 1em rgba(0, 0, 0, 0.1);
+
+        > a {
+            .card-block-date {
+                margin-top: 2.4rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                font-size: 2.8rem;
+                font-weight: bold;
+                line-height: 4rem;
+                background-color: $black;
+                width: 9rem;
+                height: 12.5rem;
+            
+                time {
+                    margin: 0 1.2rem;
+                }
+            
+                .date {
+                    margin: 0 1.5rem;
+                    font-size: 4.8rem;
+                }
+            }
+
+            .info-event-container {
+                h3.mono {
+                    height: 7rem;
+                    width: 27rem;
+                    margin: 12rem 0 .5rem 0;
+                    padding: 0 0 0 1rem;
+                    text-align: left;
+                    font-size: 3.2rem;
+                    font-weight: 500;
+                    line-height: 3.1rem;
+                    text-shadow: -6px 4px 8px rgba(0,0,0,0.7);
+                }
+
+                .rect-event-container {
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 0 1rem;
+        
+                    .rect-event {
+                        height: 2.3rem;
+                        width: 8.6rem;
+                        border-radius: 0.55rem;
+                        font-size: 1.4rem;
+                        padding-top: 0.3rem;
+                        color: $black;
+                        margin: 1rem 0 2rem 0;
+                    }
+        
+                    .type{
+                        background-color: $beige;
+                    }
+                    .style {
+                        background-color: $orange;
+                    }
+                }
+            }
+        }
+    }
+}

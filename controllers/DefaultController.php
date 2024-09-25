@@ -7,16 +7,22 @@ class DefaultController extends AbstractController
         parent::__construct(); 
     }
 
-    public function accueil() : void
+    public function accueil(string $eventId = null, string $actualityId = null) : void
     {
         $em = new EventManager();
         $am = new ActualityManager();
 
         $events = $em->findLatest();
-        $event = null;
+        $event = $eventId ? $em->findOne(intval($eventId)) : null;
         $actualities = $am->findLatest();
+        $actuality = $actualityId ? $am->findOne(intval($actualityId)) : null;
 
-        $this->render("accueil.html.twig", ["events" => $events, "event" => $event, "actualities" => $actualities]);
+        $this->render("accueil.html.twig", [
+            "events" => $events,
+            "event" => $event,
+            "actualities" => $actualities,
+            "actuality" => $actuality
+        ]);
     }
 
     public function association() : void

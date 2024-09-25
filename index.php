@@ -21,6 +21,8 @@ if(!isset($_SESSION["csrf_token"]))
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
+
+
 // Initialize the router
 $router = new Router();
 

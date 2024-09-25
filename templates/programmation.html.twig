@@ -8,28 +8,28 @@ Programmation
 {% endblock %}
 
 {% block main %}
-    <section class="pogrammation-all-events">
+<main id="programmation">
+    <section>
         <h2>Programmation</h2>
         <div class="programmation-events-container">
             {% for event in events %}
-            <article class="event-card" style="background-image: url('assets/img/fleuves.jpeg')" alt="">
-                <a href="index.php?route=evenement&id={{ event.id }}">
-                    <div class="card-block-date mono">
-                        <time datetime="{{ event.date|date("D") }}">{{ event.date|date("D") }}</time>
-                        <time class="date" datetime="{{ event.date|date("d") }}">{{ event.date|date("d") }}</time>
-                        <time datetime="{{ event.date|date("M") }}">{{ event.date|date("M") }}</time>
-                    </div>
-                    <div class="info-event-container">
-                        <h3 class="mono">{{ event.name }}</h3>
-                        <div class="rect-event-container">
-                        <div class="rect-event type">{{ event.type_id }}Concert</div>
-                        <div class="rect-event style">{{ event.style1_id }}Traditionnel</div>
-                        <div class="rect-event style">{{ event.style2_id }}Jazz Fusion</div>
+                <article class="event-card" style="background-image: url('{{ event.media.url }}');" alt="{{ event.media.alt }}">
+                    <a href="index.php?route=evenement&id={{ event.id }}">
+                        <div class="card-block-date mono">
+                            <time datetime="{{ event.date|date("c") }}">{{ event.date|date("D d M") }}</time>
                         </div>
-                    </div>
-                </a>
-            </article>
+                        <div class="info-event-container">
+                            <h3 class="mono">{{ event.name }}</h3>
+                            <div class="rect-event-container">
+                                <div class="rect-event type">{{ event.type.name }}</div>
+                                <div class="rect-event style">{{ event.style1.name }}</div>
+                                <div class="rect-event style">{{ event.style2.name }}</div>
+                            </div>
+                        </div>
+                    </a>
+                </article>
             {% endfor %}
         </div>
     </section>
+</main>
 {% endblock %}
