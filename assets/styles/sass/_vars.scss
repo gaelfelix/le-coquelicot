@@ -17,8 +17,9 @@
 $beige: #f3f2e9;
 $blue: #2E2D52;
 $orange : #FFB571;
+$focus: #FF922C;
 $red: #D13B2C;
-$black: #000000;
+$black: #000F08;
   
 // FONTS
 $roboto: "Roboto", sans-serif;
@@ -33,14 +34,6 @@ $openDyslexic: "OpenDyslexic";
     100% {
         transform: initial;
     }
-}
-
-// MIXINS
-
-@mixin circle($i) {
-    border-radius: 100%;
-    height: $i;
-    width: $i;
 }
 
 // RESPONSIVE

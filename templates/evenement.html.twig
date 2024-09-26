@@ -11,21 +11,23 @@
 <main id="event">
     <section>
         <h2>{{ event.name }}</h2>
-        <article class="event-card" style="background-image: url('{{ event.media.url }}');" alt="{{ event.media.alt }}">
-            <a href="index.php?route=evenement&id={{ event.id }}">
-                <div class="card-block-date mono">
-                    <time datetime="{{ event.date|date("c") }}">{{ event.date|date("D d M") }}</time>
-                </div>
-                <div class="info-event-container">
-                    <h3 class="mono">{{ event.name }}</h3>
-                    <div class="rect-event-container">
-                        <div class="rect-event type">{{ event.type.name }}</div>
-                        <div class="rect-event style">{{ event.style1.name }}</div>
-                        <div class="rect-event style">{{ event.style2.name }}</div>
+        <div class="event-card-container">
+            <article class="event-card" style="background-image: url('{{ event.media.url }}');" alt="{{ event.media.alt }}">
+                <a>
+                    <div class="card-block-date mono">
+                        <time datetime="{{ event.date|date("c") }}">{{ event.date|date("D d M") }}</time>
                     </div>
-                </div>
-            </a>
-        </article>
+                    <div class="info-event-container">
+                        <h3 class="mono">{{ event.name }}</h3>
+                        <div class="rect-event-container">
+                            <div class="rect-event type">{{ event.type.name }}</div>
+                            <div class="rect-event style">{{ event.style1.name }}</div>
+                            <div class="rect-event style">{{ event.style2.name }}</div>
+                        </div>
+                    </div>
+                </a>
+            </article>
+        </div>
         <h3>{{ event.main_description }}</h3>
         <time datetime|format_datetime(locale: 'fr', timezone: 'Europe/Paris' }}">
             {{ event.date|date('l d F Y', 'Europe/Paris')|capitalize }} - 
@@ -33,9 +35,13 @@
             {{ event.end|date('H:i') }}
         </time>
         <p>{{ event.description }}</p>
-        <p>Tarif : {{ event.ticket_price }}€</p>
-        <a href="">Réservez</a>
+        {% if event.getTicketPrice() == 0 or event.getTicketPrice() is null %}
+            <p>Tarif : Gratuit</p>
+        {% else %}
+            <p>Tarif : {{ event.getTicketPrice() }}€</p>
+            <a href="">Réservez</a>
+        {% endif %}
         <video src="{{ event.video_link }}" controls></video>
     </section>
-</main
+</main>
 {% endblock %}

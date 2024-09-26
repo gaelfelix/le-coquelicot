@@ -22,6 +22,8 @@ class EventController extends AbstractController
 
         $event = $em->findOne(intval($eventId));
 
+        var_dump($event->getTicketPrice());
+
         if ($event !== null)
         {
         $this->render("evenement.html.twig", ["event" => $event]);

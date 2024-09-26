@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Newsletter
 {
     private ?int $id = null;
 
@@ -8,14 +8,11 @@ class User
         private string $firstName,
         private string $lastName,
         private string $email,
-        private string $password,
-        private string $role = "USER",
-        private ?Media $media = null,
         private ?DateTime $createdAt = null
-    ) {
-        // Initialiser createdAt si non fourni
-        $this->createdAt = $this->createdAt ?? new DateTime();
-    }
+        ) {
+            // Initialiser createdAt si non fourni
+            $this->createdAt = $this->createdAt ?? new DateTime();
+        }
 
     public function getId(): ?int
     {
@@ -55,36 +52,6 @@ class User
     public function setEmail(string $email): void
     {
         $this->email = $email;
-    }
-
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): void
-    {
-        $this->password = $password;
-    }
-
-    public function getRole(): string
-    {
-        return $this->role;
-    }
-
-    public function setRole(string $role): void
-    {
-        $this->role = $role;
-    }
-
-    public function getMedia(): ?Media
-    {
-        return $this->media;
-    }
-
-    public function setMedia(?Media $media): void
-    {
-        $this->media = $media;
     }
 
     public function getCreatedAt(): DateTime

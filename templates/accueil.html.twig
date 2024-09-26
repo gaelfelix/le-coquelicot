@@ -48,11 +48,11 @@ Accueil
         <h2>Dernières actualités</h2>
         <div class="home-last-actualities-container">
             {% for actuality in actualities %}
-            <article class="actuality-card" style="background-image: url('{{ actuality.media.url }}');" alt="{{ actuality.media.alt }}">
-                <a href="index.php?route=actualite&id={{ actuality.id }}">
-                    <h3>{{ actuality.title }}</h3>
-                </a>
-            </article>
+            <a class="actuality-card" href="index.php?route=actualite&id={{ actuality.id }}">
+                <img src='{{ actuality.media.url }}');" alt="{{ actuality.media.alt }}" "class="actuality-card">
+                <h3>{{ actuality.title }}</h3>
+            </a>
+
             {% endfor %}
         </div>
     </section>
@@ -61,19 +61,22 @@ Accueil
         <h2>Pour ne plus rien rater</h2>
         <p>Parce que rater des choses c’est pas cool, inscris-toi à la newsletter du Coquelicot !</p>
         <p>Tu recevras la programmation toute chaude, les dernières actus et aussi quelques secrets directement dans ta boîte mail... Alors, elle est pas belle la vie ?</p>
-        <form action="">
+        <form action="index.php?route=inscription-newsletter" method-"post">
             <div class="home-newsletter-input-container">
-                <label for="firstname">Prénom</label>
-                <input type="text" id="firstname" required>
-
+                <div class="firstname-newsletter-input">
+                    <label for="firstname">Prénom</label>
+                    <input type="text" id="firstname" required>
+                </div>
+                <div class="lastname-newsletter-input">
                 <label for="lastname">Nom</label>
                 <input type="text" id="lastname" required>
+                </div>
             </div>
 
             <label for="email">Adresse mail</label>
             <input type="email" id="email" required>
 
-            <input type="submit" value="S'inscrire">
+            <input type="submit" name="orange" value="S'inscrire">
         </form>
     </section>
 </main>

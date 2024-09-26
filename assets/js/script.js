@@ -80,8 +80,8 @@ document.addEventListener('DOMContentLoaded', function(){
           duration: 0.5
         }
       },{
-        // screens greater than >= 1250px
-        breakpoint: 1250,
+        // screens greater than >= 1350px
+        breakpoint: 1350,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,

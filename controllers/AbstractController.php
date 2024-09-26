@@ -4,7 +4,7 @@ abstract class AbstractController
 {
     
     private \Twig\Environment $twig;
-    
+
     public function __construct()
     {
         $loader = new \Twig\Loader\FilesystemLoader('templates');
@@ -27,4 +27,5 @@ abstract class AbstractController
     {
         header("Location: $route");
     }
+
 }

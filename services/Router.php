@@ -7,6 +7,7 @@ class Router
     private ActualityController $actuc;
     private EventController $ec;
     private TicketingController $tc;
+    private NewsletterController $nc;
 
     public function __construct()
     {
@@ -15,9 +16,10 @@ class Router
         $this->ec = new EventController();
         $this->actuc = new ActualityController();
         $this->tc = new TicketingController();
+        $this->nc = new NewsletterController(); // Ajout du NewsletterController
     }
 
-    public function handleRequest(array $get) : void
+    public function handleRequest(array $get): void
     {
         // Si aucune route n'est définie, charger la page d'accueil
         if (!isset($get["route"])) {
@@ -114,6 +116,10 @@ class Router
 
             case "artiste-pro":
                 $this->dc->artistePro();
+                break;
+
+            case 'subscribe-newsletter':
+                $this->nc->subscribe();
                 break;
 
             default:
