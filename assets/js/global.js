@@ -1,6 +1,8 @@
-document.addEventListener('DOMContentLoaded', function(){
-  
-  // Get the burger toggler element and the nav links container
+document.addEventListener('DOMContentLoaded', function() {
+
+// MENU BURGER JS
+
+    // Get the burger toggler element and the nav links container
   const burgerToggler = document.getElementById('menu-toggle');
   const navLinksContainer = document.getElementById('nav-links-container');
   const overlayMobile = document.querySelector('#overlay-mobile');
@@ -48,57 +50,5 @@ document.addEventListener('DOMContentLoaded', function(){
       overlayMobile.classList.remove('overlay-visible');
     }
   }).observe(document.body);
-
-/* INSCRIPTION - Fermer message erreur */
-/*     const closeAlert = document.querySelector('.fa-xmark');
-
-    closeAlert.addEventListener('click', function() {
-
-  }); */
-
-
-/* Carousel des events */
-  new Glider(document.querySelector('.glider'), {
-    // Mobile-first defaults
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    scrollLock: true,
-    dots: '#dots',
-    arrows: {
-      prev: '.glider-prev',
-      next: '.glider-next'
-    },
-    responsive: [
-      {
-        // screens greater than >= 768px
-        breakpoint: 768,
-        settings: {
-          // Set to `auto` and provide item width to adjust to viewport
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          itemWidth: 150,
-          duration: 0.5
-        }
-      },{
-        // screens greater than >= 1350px
-        breakpoint: 1350,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          itemWidth: 150,
-          duration: 0.5
-        }
-      },{
-        // screens greater than >= 1700px
-        breakpoint: 1700,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 4,
-          itemWidth: 150,
-          duration: 0.5
-        }
-      }
-    ]
-  });
-
+  
 });

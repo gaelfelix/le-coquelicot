@@ -11,18 +11,23 @@ class DefaultController extends AbstractController
     {
         $em = new EventManager();
         $am = new ActualityManager();
-
+        
         $events = $em->findLatest();
         $event = $eventId ? $em->findOne(intval($eventId)) : null;
         $actualities = $am->findLatest();
         $actuality = $actualityId ? $am->findOne(intval($actualityId)) : null;
 
+        $scripts = $this->addScripts([
+            'assets/js/glider.js',
+            'assets/js/ajaxNewsletter.js'
+        ]);
+
         $this->render("accueil.html.twig", [
             "events" => $events,
             "event" => $event,
             "actualities" => $actualities,
-            "actuality" => $actuality
-        ]);
+            "actuality" => $actuality,
+        ], $scripts);
     }
 
     public function association() : void

@@ -18,8 +18,10 @@ abstract class AbstractController
         $this->twig = $twig;
     }
 
-    protected function render(string $template, array $data) : void
+    protected function render(string $template, array $data = [], array $scripts = []) : void
     {
+        $data['scripts'] = $scripts;
+    
         echo $this->twig->render($template, $data);
     }
     
@@ -28,4 +30,15 @@ abstract class AbstractController
         header("Location: $route");
     }
 
+    protected function addScripts(array $scripts): array
+    {
+        return array_merge($this->getDefaultScripts(), $scripts);
+    }
+
+    protected function getDefaultScripts(): array
+    {
+        return [
+            'assets/js/global.js',
+        ];
+    }
 }

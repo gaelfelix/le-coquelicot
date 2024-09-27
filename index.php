@@ -27,4 +27,4 @@ $dotenv->load();
 $router = new Router();
 
 // Handle the request
-$router->handleRequest($_GET);
+$router->handleRequest($_GET, $_POST);

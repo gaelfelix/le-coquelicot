@@ -114,7 +114,11 @@
     <p class="footer-copyright">&copy; 2024 Le Coquelicot, Café-Concert associatif. Created by Gaël Felix</p>
 </footer>
 
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/glider.js"></script>
+{% if scripts is defined %}
+    {% for script in scripts %}
+        <script src="{{ script }}"></script>
+    {% endfor %}
+{% endif %}
+
 </body>
 </html>

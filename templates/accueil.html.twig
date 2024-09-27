@@ -57,26 +57,28 @@ Accueil
         </div>
     </section>
 
-    <section class="home-newsletter">
+    <section class="home-newsletter" id="home-newsletter">
         <h2>Pour ne plus rien rater</h2>
         <p>Parce que rater des choses c’est pas cool, inscris-toi à la newsletter du Coquelicot !</p>
         <p>Tu recevras la programmation toute chaude, les dernières actus et aussi quelques secrets directement dans ta boîte mail... Alors, elle est pas belle la vie ?</p>
-        <form action="index.php?route=inscription-newsletter" method-"post">
+        <form action="index.php?route=inscription-newsletter" method="post" novalidate>
             <div class="home-newsletter-input-container">
                 <div class="firstname-newsletter-input">
-                    <label for="firstname">Prénom</label>
-                    <input type="text" id="firstname" required>
+                    <label for="firstName">Prénom</label>
+                    <input type="text" id="firstName" name="firstName" required>
                 </div>
                 <div class="lastname-newsletter-input">
-                <label for="lastname">Nom</label>
-                <input type="text" id="lastname" required>
+                <label for="lastName">Nom</label>
+                <input type="text" id="lastName" name="lastName" required>
                 </div>
             </div>
 
             <label for="email">Adresse mail</label>
-            <input type="email" id="email" required>
+            <input type="email" id="email" name="email" required>
 
             <input type="submit" name="orange" value="S'inscrire">
+
+            <p id="message"></p>
         </form>
     </section>
 </main>

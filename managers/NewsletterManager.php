@@ -11,7 +11,7 @@ class NewsletterManager extends AbstractManager
     public function addSubscriber(Newsletter $newsletter): bool
     {
         $query = $this->db->prepare("
-            INSERT INTO newsletter_subscribers (first_name, last_name, email, created_at)
+            INSERT INTO newsletter (first_name, last_name, email, created_at)
             VALUES (:firstName, :lastName, :email, :createdAt)
         ");
         $query->bindValue(':firstName', $newsletter->getFirstName());
@@ -25,7 +25,7 @@ class NewsletterManager extends AbstractManager
     // Méthode pour trouver un abonné par email
     public function findByEmail(string $email): ?Newsletter
     {
-        $query = $this->db->prepare("SELECT * FROM newsletter_subscribers WHERE email = :email");
+        $query = $this->db->prepare("SELECT * FROM newsletter WHERE email = :email");
         $query->bindValue(':email', $email);
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);

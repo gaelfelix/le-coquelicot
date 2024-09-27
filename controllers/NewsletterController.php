@@ -1,18 +1,20 @@
 <?php
-
-class NewsletterController
+class NewsletterController extends AbstractController
 {
-    private NewsletterManager $newsletterManager;
-
     public function __construct()
     {
-        $this->newsletterManager = new NewsletterManager();
+        parent::__construct(); 
     }
 
     // Méthode pour gérer l'inscription à la newsletter
     public function subscribe(): void
     {
+        $nm = new NewsletterManager();
+        $response = ["success" => false, "message" => ""];
+
+        // Vérifier que la requête est en POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Récupérer les données du formulaire
             $firstName = $_POST['firstName'] ?? '';
             $lastName = $_POST['lastName'] ?? '';
             $email = $_POST['email'] ?? '';
@@ -20,23 +22,29 @@ class NewsletterController
             // Validation basique
             if (!empty($firstName) && !empty($lastName) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 // Vérifier si l'email existe déjà
-                if ($this->newsletterManager->findByEmail($email) === null) {
+                if ($nm->findByEmail($email) === null) {
                     $newsletter = new Newsletter($firstName, $lastName, $email);
 
                     // Ajouter l'abonné
-                    if ($this->newsletterManager->addSubscriber($newsletter)) {
-                        // Redirection ou message de succès
-                        header('Location: index.php?route=newsletter-success');
-                        exit();
+                    if ($nm->addSubscriber($newsletter)) {
+                        $response["success"] = true;
+                        $response["message"] = "Inscription réussie !";
                     } else {
-                        echo "Erreur lors de l'inscription.";
+                        $response["message"] = "Erreur lors de l'inscription.";
                     }
                 } else {
-                    echo "Cet email est déjà inscrit à la newsletter.";
+                    $response["message"] = "Cet email est déjà inscrit à la newsletter.";
                 }
             } else {
-                echo "Veuillez remplir tous les champs correctement.";
+                $response["message"] = "Veuillez remplir tous les champs correctement.";
             }
+        } else {
+            $response["message"] = "Méthode de requête invalide. Veuillez utiliser POST.";
         }
+
+        // Envoyer la réponse en JSON
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit();
     }
 }

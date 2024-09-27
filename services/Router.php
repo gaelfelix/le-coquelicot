@@ -19,7 +19,7 @@ class Router
         $this->nc = new NewsletterController(); // Ajout du NewsletterController
     }
 
-    public function handleRequest(array $get): void
+    public function handleRequest(array $get, array $post): void
     {
         // Si aucune route n'est définie, charger la page d'accueil
         if (!isset($get["route"])) {
@@ -118,8 +118,13 @@ class Router
                 $this->dc->artistePro();
                 break;
 
-            case 'subscribe-newsletter':
-                $this->nc->subscribe();
+            case 'inscription-newsletter': // Mise à jour de la route pour la requête AJAX
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $this->nc->subscribe(); // Appeler la méthode subscribe sans paramètres
+                } else {
+                    http_response_code(405);
+                    echo json_encode(["success" => false, "message" => "Méthode non autorisée."]);
+                }
                 break;
 
             default:
