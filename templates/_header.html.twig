@@ -1,0 +1,40 @@
+<header id="header">
+    <div>
+        <a href="index.php?route=accueil"><img src="assets/img/logo_coquelicot.png" alt="Logo du Coquelicot"></a>
+    </div>
+
+    <div>
+        <div>
+            <h1>LE COQUELICOT<span> || Café Concert</span></h1>
+        </div>
+
+        <div>
+            <nav class="nav">
+                <div>
+                    <ul id='nav-links-container'>
+                        {% include "_li-nav.html.twig" %}
+                        <li class="burger"><a href="index.php?route=artiste-pro">Espace Artiste / Pro</a></li>
+                        <li class="burger"><a href-"">Personnaliser la page</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div>
+        <button id="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+            <span id="burger"></span>
+            <span id="burger"></span>
+            <span id="burger"></span>
+        </button>
+
+        <div class="header-accessibility-menu-container desktop">
+            <div class="header-accessibility-menu-container">
+                <i class="fa-solid fa-universal-access"></i>
+                <p>Personnaliser la page</p>
+            </div>
+            <p class="artist-pro-button"><a href="index.php?route=artiste-pro">Espace Artiste / Pro</a></p>
+        </div>
+    </div>
+
+</header>

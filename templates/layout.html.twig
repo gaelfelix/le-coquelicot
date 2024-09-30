@@ -1,124 +1,40 @@
 <!doctype html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="{% block description %}{% endblock %}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/3c515cc4da.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="assets/styles/css/style.css" />
-    <title>{% block title %}{% endblock %} | Le Coquelicot</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="{% block description %}{% endblock %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/3c515cc4da.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="assets/styles/css/style.css" />
+        <title>{% block title %}{% endblock %} | Le Coquelicot</title>
+    </head>
 
-    <div id="overlay-mobile"></div>
-    
-<header>
-    <div>
-        <a href="index.php?route=accueil"><img src="assets/img/logo_coquelicot.png" alt="Logo du Coquelicot"></a>
-    </div>
+    <body>
 
-    <div>
-        <div>
-            <h1>LE COQUELICOT<span> || Café Concert</span></h1>
-        </div>
+        <div id="overlay-mobile"></div>
 
-        <div>
-            <nav class="nav">
-                <div>
-                    <ul id='nav-links-container'>
-                        {% block li_nav %}
-                        <li><a href="index.php?route=accueil">Accueil</a></li>
-                        <li><a href="index.php?route=programmation">Programmation</a></li>
-                        <li><a href="index.php?route=actualites">Actualités</a></li>
-                        <li><a href="index.php?route=l-association">L'association</a></li>
-                        <li><a href="index.php?route=billetterie">Billetterie</a></li>
-                        <li><a href="index.php?route=adherer-faire-un-don">Adhérer / Faire un don</a></li>
-                        <li><a href="index.php?route=info-contact">Infos / Contact</a></li>
-                        {% endblock %}
-                        <li class="burger"><a href="index.php?route=artiste-pro">Espace Artiste / Pro</a></li>
-                        <li class="burger"><a href-"">Personnaliser la page</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </div>
+    {# Header #}
+    {% include "_header.html.twig" %}
+    {# Header #}
 
-    <div>
-        <button id="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
-            <span id="burger"></span>
-            <span id="burger"></span>
-            <span id="burger"></span>
-        </button>
+    {# Page content #}
+        {% block main %}{% endblock %}
+    {# Page content #}
 
-        <div class="header-accessibility-menu-container desktop">
-            <div class="header-accessibility-menu-container">
-                <i class="fa-solid fa-universal-access"></i>
-                <p>Personnaliser la page</p>
-            </div>
-            <p class="artist-pro-button"><a href="index.php?route=artiste-pro">Espace Artiste / Pro</a></p>
-        </div>
-    </div>
+    {# Footer #}
+    {% include "_footer.html.twig" %}
+    {# Footer #}
 
-</header>
+    {# Scripts JS #}
+    {% if scripts is defined %}
+        {% for script in scripts %}
+            <script src="{{ script }}"></script>
+        {% endfor %}
+    {% endif %}
+    {# Scripts JS #}
 
-{# Page content #}
-    {% block main %}{% endblock %}
-{# Page content #}
-
-<footer>
-    <div class="footer-flex-container">
-        <div class="footer-top">
-            <a href="index.php?route=accueil"><img src="assets/img/logo_coquelicot.png" alt="Logo du Coquelicot"></a>
-            
-            <div class="footer-address">
-                <p>Le Coquelicot</p>
-                <p>Café concert associatif</p>
-                <p>18 Rue de Vitré</p>
-                <p>35300 Fougères</p>
-                <div class="footer-tel-container">
-                    <i class="fa-sharp fa-solid fa-phone" style="color: #2e2d52;"></i>
-                    <p>02 99 99 84 52</p>
-                </div>
-                <div class="footer-mail-container">
-                    <i class="fa-solid fa-envelope" style="color: #2e2d52;"></i>
-                    <p>communicationjazzetjava@gmail.com</p>
-                </div>
-            </div>
-        </div>
-        <div class="footer-separation"></div>
-        <div class="footer-bottom">
-            <div class="footer-nav">
-                <nav>
-                    <ul>
-                        {{ block('li_nav') }}
-                        <li><a href="index.php?route=artiste-pro">Espace Artiste / Pro</a></li>
-                    </ul>
-                </nav>
-            </div>
-
-            <div class="footer-rs-legal">
-                <i class="fa-brands fa-facebook"></i>
-                <i class="fa-brands fa-instagram"></i>
-                <i class="fa-solid fa-arrow-up"></i>
-                <ul>
-                    <li><a href=""></a>Politique de confidentialité</li>
-                    <li><a href=""></a>Conditions générales de vente</li>
-                    <li><a href=""></a>Mentions légales</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <p class="footer-copyright">&copy; 2024 Le Coquelicot, Café-Concert associatif. Created by Gaël Felix</p>
-</footer>
-
-{% if scripts is defined %}
-    {% for script in scripts %}
-        <script src="{{ script }}"></script>
-    {% endfor %}
-{% endif %}
-
-</body>
+    </body>
 </html>
