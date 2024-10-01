@@ -1,0 +1,130 @@
+#programmation {
+
+    fieldset {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+
+        form,
+        select {
+            width: 85%;
+            margin: 0 0 3rem 0;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+    
+            input[type="search"] {
+                border-radius: 14px 0 0 14px;
+                margin: 0;
+            }
+    
+            button {
+                margin: 0;
+                padding: 12px;
+                background-color: $orange;
+                border: none;
+                color: $beige;
+                border-radius: 0 14px 14px 0;
+                cursor: pointer;
+    
+                i {
+                    font-size: 2rem;
+                }
+    
+                &:hover {
+                    color: $blue;
+                }
+            }
+        }
+    }
+
+    .programmation-events-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        max-width: 1400px;
+        margin: 2rem auto;
+        padding: 2rem;
+        border-radius: 3rem;
+
+        .event-card-container {
+          margin: 1.5rem;
+          transition: transform 0.2s ease-in-out;
+        
+          &:hover {
+            transform: scale(1.05);
+          }
+        }
+
+        .event-card {
+          border: 2px solid $beige;
+        }
+
+        .search-error {
+          font-size: 2rem;
+          font-weight: bold;
+        }
+    }
+
+  @media #{$small} {
+    // Styles pour les petits appareils (min-width: 576px)
+    fieldset {
+
+        form,
+        select {
+            width: 80%;
+        }
+
+        .search-bar button i {
+            font-size: 2.2rem;
+        }
+    }
+  }
+  
+  @media #{$medium} {
+    // Styles pour les appareils moyens (min-width: 768px)
+    fieldset .search-bar button i {
+        font-size: 2.3rem;
+    }
+  }
+  
+  @media #{$medium-large} {
+    // Styles pour les appareils intermédiaires (min-width: 850px)
+    fieldset {
+        justify-content: center;
+        gap: 10%;
+
+        form,
+        select {
+            width: 30%;
+            max-width: 500px;
+        }
+    }
+
+    .programmation-events-container .event-card-container {
+        margin: 2rem;
+    }
+  }
+  
+  @media #{$large} {
+    // Styles pour les grands appareils (min-width: 992px)
+  }
+  
+  @media #{$larger} {
+    // Styles pour les appareils larges (min-width: 1100px)
+  }
+  
+  @media #{$extra} {
+    // Styles pour les très grands appareils (min-width: 1200px)
+  }
+  
+  @media #{$extra-large} {
+    // Styles pour les super grands écrans (min-width: 1400px)
+  }
+  
+  @media #{$ultra} {
+    // Styles pour les ultra grands écrans (min-width: 1600px)
+  }
+  
+}

@@ -32,27 +32,42 @@ class DefaultController extends AbstractController
 
     public function association() : void
     {
-        $this->render("association.html.twig", []);
+        $scripts = $this->addScripts([
+        ]);
+
+        $this->render("association.html.twig", [], $scripts);
     }
 
     public function infoContact() : void
     {
-        $this->render("info_contact.html.twig", []);
+        $scripts = $this->addScripts([
+        ]);
+
+        $this->render("info_contact.html.twig", [], $scripts);
     }
 
     public function adhesionDonate() : void
     {
-        $this->render("adherer_faire_un_don.html.twig", []);
+        $scripts = $this->addScripts([
+        ]);
+
+        $this->render("adherer_faire_un_don.html.twig", [], $scripts);
     }
 
     public function artistePro() : void
     {
-        $this->render("artiste-pro.html.twig", []);
+        $scripts = $this->addScripts([
+        ]);
+        
+        $this->render("artiste-pro.html.twig", [], $scripts);
     }
 
     public function error404() : void
     {
-        $this->render("erreur-404.html.twig", []);
+        $scripts = $this->addScripts([
+        ]);
+
+        $this->render("erreur-404.html.twig", [], $scripts);
     }
 
 }

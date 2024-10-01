@@ -2,30 +2,35 @@
 
 abstract class AbstractController
 {
-    
     private \Twig\Environment $twig;
 
     public function __construct()
     {
         $loader = new \Twig\Loader\FilesystemLoader('templates');
-        $twig = new \Twig\Environment($loader,[
+        $this->twig = new \Twig\Environment($loader, [
             'debug' => true,
         ]);
         
-        $twig->addGlobal('session', $_SESSION);
-        $twig->addExtension(new \Twig\Extension\DebugExtension());
-
-        $this->twig = $twig;
+        // Ajouter la session comme variable globale
+        $this->twig->addGlobal('session', $_SESSION);
+        
+        // Vérifier les préférences d'accessibilité et les ajouter comme variables globales
+        $dyslexiaActive = isset($_SESSION['dyslexia']) && $_SESSION['dyslexia'] == true;
+        $lineSpacingActive = isset($_SESSION['lineSpacing']) && $_SESSION['lineSpacing'] == true;
+        
+        $this->twig->addGlobal('dyslexiaActive', $dyslexiaActive);
+        $this->twig->addGlobal('lineSpacingActive', $lineSpacingActive);
+        
+        $this->twig->addExtension(new \Twig\Extension\DebugExtension());
     }
 
-    protected function render(string $template, array $data = [], array $scripts = []) : void
+    protected function render(string $template, array $data = [], array $scripts = []): void
     {
         $data['scripts'] = $scripts;
-    
         echo $this->twig->render($template, $data);
     }
     
-    protected function redirect(string $route) : void
+    protected function redirect(string $route): void
     {
         header("Location: $route");
     }
@@ -41,4 +46,10 @@ abstract class AbstractController
             'assets/js/global.js',
         ];
     }
+
+    protected function isAjaxRequest(): bool
+{
+    return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+}
+
 }

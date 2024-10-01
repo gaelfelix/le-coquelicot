@@ -10,11 +10,16 @@ class AuthController extends AbstractController
     
     public function login() : void
     {
-        $this->render("connexion.html.twig", []);
+        $scripts = $this->addScripts([
+        ]);
+
+        $this->render("connexion.html.twig", [], $scripts);
     }
 
     public function checkLogin() : void
     {
+        $scripts = $this->addScripts([
+        ]);
 
         if(isset($_POST["email"]) && isset($_POST["password"]))
         {
@@ -44,35 +49,42 @@ class AuthController extends AbstractController
                     else
                     {
                         $_SESSION["error_message"] = "Informations de connexion invalides";
-                        $this->render("connexion.html.twig", []);
+                        $this->render("connexion.html.twig", [], $scripts);
                     }
                 }
                 else
                 {
                     $_SESSION["error_message"] = "Informations de connexion invalides";
-                    $this->render("connexion.html.twig", []);
+                    $this->render("connexion.html.twig", [], $scripts);
                 }
             }
             else
             {
                 $_SESSION["error_message"] = "Invalidité du jeton CSRF";
-                $this->render("connexion.html.twig", []);
+                $this->render("connexion.html.twig", [], $scripts);
             }
         }
         else
         {
             $_SESSION["error_message"] = "Veuillez remplir tous les champs";
-            $this->render("connexion.html.twig", []);
+            $this->render("connexion.html.twig", [], $scripts);
         }
     }
 
     public function register() : void
     {
-        $this->render("inscription.html.twig", []);
+        $scripts = $this->addScripts([
+        ]);
+
+        $this->render("inscription.html.twig", [], $scripts);
     }
+
 
     public function checkRegister() : void
     {
+        $scripts = $this->addScripts([
+        ]);
+        
         if(isset($_POST["first-name"]) && isset($_POST["last-name"]) && isset($_POST["email"])
             && isset($_POST["password"]) && isset($_POST["confirm-password"]))
         {
@@ -108,41 +120,39 @@ class AuthController extends AbstractController
                         else
                         {
                             $_SESSION["error_message"] = "Cette adresse e-mail est déjà utilisée";
-                            $this->render("inscription.html.twig", []);
+                            $this->render("inscription.html.twig", [], $scripts);
                         }
                     }
                     else {
                         $_SESSION["error_message"] = "Le mot de passe doit contenir une lettre majuscule, une lettre minuscule, un chiffre, un caractère spécial et avoir une longueur minimale de 8 caractères";
-                        $this->render("inscription.html.twig", []);
+                        $this->render("inscription.html.twig", [], $scripts);
                     }
                 }
                 else
                 {
                     $_SESSION["error_message"] = "Les mots de passe ne sont pas identiques";
-                    $this->render("inscription.html.twig", []);
+                    $this->render("inscription.html.twig", [], $scripts);
                 }
             }
             else
             {
                 $_SESSION["error_message"] = "Invalidité du jeton CSRF";
-                $this->render("inscription.html.twig", []);
+                $this->render("inscription.html.twig", [], $scripts);
             }
         }
         else
         {
             $_SESSION["error-message"] = "Veuillez remplir tous les champs";
-            $this->render("inscription.html.twig", []);
+            $this->render("inscription.html.twig", [], $scripts);
         }
     }
 
     public function espacePerso() : void
     {
-        $this->render("adherer_faire_un_don.html.twig", []);
-    }
+        $scripts = $this->addScripts([
+        ]);
 
-    public function espace() : void
-    {
-        $this->render("adherer_faire_un_don.html.twig", []);
+        $this->render("adherer_faire_un_don.html.twig", [], $scripts);
     }
 
     public function logout() : void

@@ -55,13 +55,13 @@ table {
 
 @font-face {
   font-family: "OpenDyslexic";
-  src: url("../../fonts/OpenDyslexic3-Regular.ttf") format("ttf");
+  src: url("../../fonts/OpenDyslexic3-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "OpenDyslexic";
-  src: url("../../fonts/OpenDyslexic3-Bold.ttf") format("ttf");
+  src: url("../../fonts/OpenDyslexic3-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
@@ -92,6 +92,107 @@ table {
 #overlay-mobile.overlay-hidden {
   visibility: hidden;
   opacity: 0;
+}
+
+#customization-modal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+#customization-modal .modal-content {
+  background-color: #f3f2e9;
+  margin: 10% auto;
+  padding: 20px;
+  border: 5px solid #FFB571;
+  border-radius: 20px;
+  width: 300px;
+  text-align: left;
+}
+#customization-modal .modal-content .close {
+  color: #000F08;
+  float: right;
+  font-size: 2.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+#customization-modal .modal-content h3 {
+  text-align: left;
+  margin-bottom: 20px;
+  font-size: 2.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+#customization-modal .modal-content .toggle-option {
+  background-color: #FFB571;
+  border: 3px solid #2E2D52;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+#customization-modal .modal-content .toggle-option > label {
+  color: #2E2D52;
+  font-size: 2rem;
+  font-weight: bold;
+}
+#customization-modal .modal-content .toggle-option .toggle-container {
+  display: flex;
+  align-items: center;
+}
+#customization-modal .modal-content .toggle-option .toggle-container .toggle {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+  width: 60px;
+  height: 34px;
+}
+#customization-modal .modal-content .toggle-option .toggle-container .toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+#customization-modal .modal-content .toggle-option .toggle-container .toggle .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #2E2D52;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+#customization-modal .modal-content .toggle-option .toggle-container .toggle .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #f3f2e9;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+#customization-modal .modal-content .toggle-option .toggle-container .toggle input:checked + .slider {
+  background-color: #51CB5F;
+}
+#customization-modal .modal-content .toggle-option .toggle-container .toggle input:checked + .slider:before {
+  transform: translateX(26px);
+}
+#customization-modal .modal-content .toggle-option .toggle-container #toggle-dyslexia-label,
+#customization-modal .modal-content .toggle-option .toggle-container #toggle-line-spacing-label {
+  color: #2E2D52;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-left: 15px;
+}
+
+.header-accessibility {
+  cursor: pointer;
 }
 
 header {
@@ -1119,6 +1220,90 @@ footer .footer-copyright {
   }
 }
 
+#programmation fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+#programmation fieldset form,
+#programmation fieldset select {
+  width: 85%;
+  margin: 0 0 3rem 0;
+}
+#programmation fieldset .search-bar {
+  display: flex;
+  align-items: center;
+}
+#programmation fieldset .search-bar input[type=search] {
+  border-radius: 14px 0 0 14px;
+  margin: 0;
+}
+#programmation fieldset .search-bar button {
+  margin: 0;
+  padding: 12px;
+  background-color: #FFB571;
+  border: none;
+  color: #f3f2e9;
+  border-radius: 0 14px 14px 0;
+  cursor: pointer;
+}
+#programmation fieldset .search-bar button i {
+  font-size: 2rem;
+}
+#programmation fieldset .search-bar button:hover {
+  color: #2E2D52;
+}
+#programmation .programmation-events-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 3rem;
+}
+#programmation .programmation-events-container .event-card-container {
+  margin: 1.5rem;
+  transition: transform 0.2s ease-in-out;
+}
+#programmation .programmation-events-container .event-card-container:hover {
+  transform: scale(1.05);
+}
+#programmation .programmation-events-container .event-card {
+  border: 2px solid #f3f2e9;
+}
+#programmation .programmation-events-container .search-error {
+  font-size: 2rem;
+  font-weight: bold;
+}
+@media only screen and (min-width: 576px) {
+  #programmation fieldset form,
+  #programmation fieldset select {
+    width: 80%;
+  }
+  #programmation fieldset .search-bar button i {
+    font-size: 2.2rem;
+  }
+}
+@media only screen and (min-width: 768px) {
+  #programmation fieldset .search-bar button i {
+    font-size: 2.3rem;
+  }
+}
+@media only screen and (min-width: 850px) {
+  #programmation fieldset {
+    justify-content: center;
+    gap: 10%;
+  }
+  #programmation fieldset form,
+  #programmation fieldset select {
+    width: 30%;
+    max-width: 500px;
+  }
+  #programmation .programmation-events-container .event-card-container {
+    margin: 2rem;
+  }
+}
 /********** GLOBAL STYLES **********/
 html,
 body {
@@ -1241,7 +1426,6 @@ textarea:focus {
 
 select {
   cursor: pointer;
-  font-size: 1.4rem;
 }
 select option {
   width: 100%;
@@ -1279,12 +1463,13 @@ main section:nth-child(odd) {
   display: none;
 }
 
-.dyslexie {
+.dyslexia {
   font-family: "OpenDyslexic";
+  font-size: 1.4rem;
 }
 
 .line-spacing {
-  line-height: 200%;
+  line-height: 1.8;
 }
 
 /********** GLOBAL RESPONSIVE **********/

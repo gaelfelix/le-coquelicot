@@ -59,6 +59,20 @@ class Router
             case "programmation":
                 $this->ec->events();
                 break;
+                
+            case "search":
+                $this->ec->search();
+                break;
+            
+            case "filterEvents":
+                if (isset($get['type'])) {
+                    $this->ec->filterEvents($get['type']);
+                } else {
+                    // Gérer le cas où aucun type n'est spécifié
+                    http_response_code(400);
+                    echo json_encode(["success" => false, "message" => "Type non spécifié."]);
+                }
+                break;
 
             case "evenement":
                 if (isset($get["id"])) {

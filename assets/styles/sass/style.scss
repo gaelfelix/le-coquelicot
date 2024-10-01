@@ -8,6 +8,7 @@
 @import "_glider";
 
 @import "_homepage";
+@import "_programmation";
 
 
 
@@ -86,7 +87,6 @@ textarea:focus {
 
 select {
   cursor: pointer;
-  font-size: 1.4rem;
 
   option {
     width: 100%
@@ -128,12 +128,13 @@ main {
   display: none;
 }
 
-.dyslexie {
+.dyslexia {
   font-family: $openDyslexic;
+  font-size: 1.4rem;
 }
 
 .line-spacing {
-  line-height: 200%;
+  line-height: 1.8;
 }
 
 

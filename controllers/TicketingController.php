@@ -13,7 +13,12 @@ class TicketingController extends AbstractController
 
         $events = $em->upcomingEvents();
 
-        $this->render("billetterie.html.twig", ["events" => $events]);
+        $scripts = $this->addScripts([
+        ]);
+
+        $this->render("billetterie.html.twig", [
+            "events" => $events
+        ], $scripts);
     }
 
 }

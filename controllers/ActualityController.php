@@ -13,7 +13,12 @@ class ActualityController extends AbstractController
 
         $actualities = $am->findAll();
 
-        $this->render("actualites.html.twig", ["actualities" => $actualities]);
+        $scripts = $this->addScripts([
+        ]);
+
+        $this->render("actualites.html.twig", [
+            "actualities" => $actualities
+        ], $scripts);
     }
 
     public function actuality(string $actualityId) : void
@@ -22,9 +27,14 @@ class ActualityController extends AbstractController
 
         $actuality = $am->findOne(intval($actualityId));
 
+        $scripts = $this->addScripts([
+        ]);
+
         if ($actuality !== null)
         {
-        $this->render("actualite.html.twig", ["actuality" => $actuality]);
+        $this->render("actualite.html.twig", [
+            "actuality" => $actuality
+        ], $scripts);
         }
         else
         {

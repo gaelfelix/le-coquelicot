@@ -18,11 +18,11 @@
                         <time datetime="{{ event.date|date("c") }}">{{ event.date|date("D d M") }}</time>
                     </div>
                     <div class="info-event-container">
-                        <h3 class="mono">{{ event.name }}</h3>
+                        <h3 class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.name }}</h3>
                         <div class="rect-event-container">
-                            <div class="rect-event type">{{ event.type.name }}</div>
-                            <div class="rect-event style">{{ event.style1.name }}</div>
-                            <div class="rect-event style">{{ event.style2.name }}</div>
+                            <div class="rect-event type no-toggle-dyslexia no-toggle-line-spacing">{{ event.type.name }}</div>
+                            <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.style1.name }}</div>
+                            <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.style2.name }}</div>
                         </div>
                     </div>
                 </a>

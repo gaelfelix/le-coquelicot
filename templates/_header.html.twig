@@ -1,6 +1,8 @@
 <header id="header">
     <div>
-        <a href="index.php?route=accueil"><img src="assets/img/logo_coquelicot.png" alt="Logo du Coquelicot"></a>
+        <a href="index.php?route=accueil">
+            <img src="assets/img/logo_coquelicot.png" alt="Logo du Coquelicot">
+        </a>
     </div>
 
     <div>
@@ -14,7 +16,7 @@
                     <ul id='nav-links-container'>
                         {% include "_li-nav.html.twig" %}
                         <li class="burger"><a href="index.php?route=artiste-pro">Espace Artiste / Pro</a></li>
-                        <li class="burger"><a href-"">Personnaliser la page</a></li>
+                        <li class="burger header-accessibility"><a class="no-toggle-dyslexia no-toggle-line-spacing">Personnaliser la page</a></li>
                     </ul>
                 </div>
             </nav>
@@ -31,10 +33,37 @@
         <div class="header-accessibility-menu-container desktop">
             <div class="header-accessibility-menu-container">
                 <i class="fa-solid fa-universal-access"></i>
-                <p>Personnaliser la page</p>
+                <p class="header-accessibility">Personnaliser la page</p>
             </div>
-            <p class="artist-pro-button"><a href="index.php?route=artiste-pro">Espace Artiste / Pro</a></p>
+            <p class="artist-pro-button no-toggle-dyslexia no-toggle-line-spacing"><a href="index.php?route=artiste-pro">Espace Artiste / Pro</a></p>
         </div>
     </div>
+            <div id="customization-modal" class="modal">
+            <div class="modal-content">
+                <span id="close-modal" class="close">&times;</span>
+                <h3>Accessibilité</h3>
+                
+                <div class="toggle-option">
+                    <label for="toggle-dyslexia">Police (Dyslexie) :</label>
+                    <div class="toggle-container">
+                        <label class="toggle">
+                            <input type="checkbox" id="toggle-dyslexia" />
+                            <span class="slider"></span>
+                        </label>
+                        <span id="toggle-dyslexia-label">Désactivé</span>
+                    </div>
+                </div>
 
+                <div class="toggle-option">
+                    <label for="toggle-line-spacing">Interlignage :</label>
+                    <div class="toggle-container">
+                        <label class="toggle">
+                            <input type="checkbox" id="toggle-line-spacing" />
+                            <span class="slider"></span>
+                        </label>
+                        <span id="toggle-line-spacing-label">Désactivé</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 </header>
