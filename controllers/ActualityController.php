@@ -32,9 +32,12 @@ class ActualityController extends AbstractController
 
         if ($actuality !== null)
         {
-        $this->render("actualite.html.twig", [
-            "actuality" => $actuality
-        ], $scripts);
+            $dateValues = $this->translateDate($actuality->getDate());
+
+            $this->render("actualite.html.twig", [
+                "actuality" => $actuality,
+                "integralDay" => $dateValues['integralDay'],
+            ], $scripts);
         }
         else
         {

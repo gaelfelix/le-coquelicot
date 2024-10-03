@@ -4,15 +4,18 @@
 {% endblock %}
 
 {% block title %}
-{{ actuality.getTitle() }}
+{{ actuality.title }}
 {% endblock %}
 
 {% block main %}
 <main id="actualite">
-    <section>
-        <h2>{{ actuality.title }}</h2>
+    <section class="actu-container">
         <img src="{{ actuality.media.url }}" alt="{{ actuality.media.alt }}"</img>
-        <p>{{ actuality.content }}</p>
+        <div class="actu-info-container">
+            <h3>{{ actuality.title }}</h3>
+            <p class="integral-day">{{ integralDay }}</p>
+            <p>{{ actuality.content }}</p>
+        </div>
     </section>
 </main>
 {% endblock %}

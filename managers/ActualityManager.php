@@ -80,7 +80,7 @@ class ActualityManager extends AbstractManager
 
             $actuality->setMedia($media);
             $actuality->setId($result["id"]);
-
+            
             return $actuality;
         }
 

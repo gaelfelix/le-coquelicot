@@ -1418,7 +1418,7 @@ footer .footer-copyright {
     gap: 5%;
   }
   #event .event-container .event-info-container {
-    width: 50%;
+    width: 30%;
   }
   #event .iframe-container {
     margin: 4rem auto;
@@ -1515,6 +1515,96 @@ footer .footer-copyright {
   #actualites .-actualities-container .actuality-card img {
     height: 22.75rem;
     width: 32.5rem;
+  }
+}
+#actualite .actu-container {
+  max-width: 1800px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#actualite .actu-container img {
+  margin: 2rem 0 0 0;
+  height: 63%;
+  width: 90%;
+  border: 5px solid #FFB571;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+}
+#actualite .actu-container .actu-info-container {
+  max-width: 90%;
+  margin: 2rem;
+  text-align: left;
+}
+#actualite .actu-container .actu-info-container h3 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin: 2rem 0;
+}
+#actualite .actu-container .actu-info-container p {
+  margin: 1rem 0;
+  line-height: 1.3;
+  text-align: justify;
+}
+#actualite .actu-container .actu-info-container .integral-day {
+  color: #FFB571;
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+@media only screen and (min-width: 576px) {
+  #actualite .actu-container img {
+    height: 56%;
+    width: 80%;
+  }
+  #actualite .actu-container .actu-info-container {
+    max-width: 80%;
+  }
+}
+@media only screen and (min-width: 768px) {
+  #actualite .actu-container img {
+    height: 52.5%;
+    width: 75%;
+  }
+  #actualite .actu-container .actu-info-container {
+    max-width: 75%;
+  }
+}
+@media only screen and (min-width: 850px) {
+  #actualite .actu-container img {
+    height: 49%;
+    width: 70%;
+  }
+  #actualite .actu-container .actu-info-container {
+    max-width: 70%;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  #actualite .actu-container {
+    gap: 2%;
+  }
+  #actualite .actu-container img {
+    margin-top: 4rem;
+    height: 35%;
+    width: 45%;
+    border: 5px solid #FFB571;
+    border-radius: 20px;
+  }
+  #actualite .actu-container .actu-info-container {
+    width: 45%;
+  }
+  #actualite .actu-container .actu-info-container h3 {
+    font-size: 2rem;
+  }
+  #actualite .actu-container .actu-info-container p {
+    font-size: 1.6rem;
+    line-height: 1.5;
+  }
+  #actualite .actu-container .actu-info-container .integral-day {
+    color: #FFB571;
+    font-size: 1.6rem;
+    font-weight: 300;
   }
 }
 /********** GLOBAL STYLES **********/
