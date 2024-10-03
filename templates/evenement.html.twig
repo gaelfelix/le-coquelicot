@@ -17,9 +17,9 @@
                     <a>
                         <img alt="{{ event.media.alt }}" class="sr-only">
                         <div class="card-block-date mono">
-                            <p>{{ shortDay }}</p>
-                            <p>{{ number }}</p>
-                            <p>{{ shortMonth }}</p>
+                            <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ shortDay }}</p>
+                            <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ number }}</p>
+                            <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ shortMonth }}</p>
                         </div>
                         <div class="info-event-container">
                             <h3 class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.name }}</h3>
@@ -53,8 +53,10 @@
                 {% endif %}
                 </div>
             </div>
-        </div>        
-        <div id="{{ event.videolink }}" class="iframe-container"></div>
+        </div>  
+        {% if event.videolink is not null %}
+            <div id="{{ event.videolink }}" class="iframe-container"></div>
+        {% endif %}     
     </section>
 </main>
 {% endblock %}

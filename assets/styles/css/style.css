@@ -687,12 +687,9 @@ footer .footer-copyright {
   width: 7rem;
   height: 10rem;
 }
-.event-card-container .event-card > a .card-block-date time {
-  margin: 0 1rem;
-}
-.event-card-container .event-card > a .card-block-date .date {
-  margin-left: 0.9rem;
-  font-size: 3.5rem;
+.event-card-container .event-card > a .card-block-date p:nth-child(2) {
+  margin: 0.5rem auto;
+  font-size: 3.4rem;
 }
 .event-card-container .event-card > a .info-event-container h3.mono {
   height: 5rem;
@@ -742,19 +739,16 @@ footer .footer-copyright {
     min-width: 30rem;
   }
   .event-card-container .event-card > a .card-block-date {
-    font-size: 2.8rem;
+    font-size: 2.6rem;
     line-height: 4rem;
     width: 9rem;
     height: 12.5rem;
     border-radius: 0.5rem;
     transform: translateX(-1.2rem);
   }
-  .event-card-container .event-card > a .card-block-date time {
-    margin: 0 1.2rem;
-  }
-  .event-card-container .event-card > a .card-block-date .date {
-    margin: 0 1.5rem;
-    font-size: 4.8rem;
+  .event-card-container .event-card > a .card-block-date p:nth-child(2) {
+    margin: 0.3rem auto;
+    font-size: 4.6rem;
   }
   .event-card-container .event-card > a .info-event-container h3.mono {
     height: 7rem;
@@ -1003,12 +997,9 @@ footer .footer-copyright {
   width: 7rem;
   height: 10rem;
 }
-#homepage .event-card a .card-block-date time {
-  margin: 0 1rem;
-}
-#homepage .event-card a .card-block-date .date {
-  margin-left: 0.9rem;
-  font-size: 3.5rem;
+#homepage .event-card a .card-block-date p:nth-child(2) {
+  margin: 0.5rem auto;
+  font-size: 3.4rem;
 }
 #homepage .event-card a .info-event-container h3.mono {
   height: 5rem;
@@ -1159,19 +1150,16 @@ footer .footer-copyright {
     border-radius: 2.2em;
   }
   #homepage .event-card > a .card-block-date {
-    font-size: 2.8rem;
+    font-size: 2.6rem;
     line-height: 4rem;
     width: 9rem;
     height: 12.5rem;
     border-radius: 0.5rem;
     transform: translateX(-1.2rem);
   }
-  #homepage .event-card > a .card-block-date time {
-    margin: 0 1.2rem;
-  }
-  #homepage .event-card > a .card-block-date .date {
-    margin: 0 1.5rem;
-    font-size: 4.8rem;
+  #homepage .event-card > a .card-block-date p:nth-child(2) {
+    margin: 0.3rem auto;
+    font-size: 4.6rem;
   }
   #homepage .event-card > a .info-event-container h3.mono {
     height: 7rem;
