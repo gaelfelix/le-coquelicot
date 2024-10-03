@@ -19,17 +19,20 @@ Accueil
 
             <div class="glider">
                 {% for event in events %}
-                    <article class="event-card" style="background-image: url('{{ event.media.url }}');" alt="{{ event.media.alt }}">
-                        <a href="index.php?route=evenement&id={{ event.id }}">
+                    <article class="event-card" style="background-image: url('{{ event.event.media.url }}')">
+                        <a href="index.php?route=evenement&id={{ event.event.id }}">
+                            <img alt="{{ event.event.media.alt }}" class="sr-only">
                             <div class="card-block-date mono">
-                                <time datetime="{{ event.date|date("c") }}">{{ event.date|date("D d M") }}</time>
+                                <p>{{ event.shortDay }}</p>
+                                <p>{{ event.number }}</p>
+                                <p>{{ event.shortMonth }}</p>                           
                             </div>
                             <div class="info-event-container">
-                                <h3 class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.name }}</h3>
+                                <h3 class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.name }}</h3>
                                 <div class="rect-event-container">
-                                    <div class="rect-event type no-toggle-dyslexia no-toggle-line-spacing">{{ event.type.name }}</div>
-                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.style1.name }}</div>
-                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.style2.name }}</div>
+                                    <div class="rect-event type no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.type.name }}</div>
+                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style1.name }}</div>
+                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style2.name }}</div>
                                 </div>
                             </div>
                         </a>

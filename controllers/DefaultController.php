@@ -12,10 +12,24 @@ class DefaultController extends AbstractController
         $em = new EventManager();
         $am = new ActualityManager();
         
-        $events = $em->findLatest();
+        $events = $em->findAllEventsArray();
         $event = $eventId ? $em->findOne(intval($eventId)) : null;
         $actualities = $am->findLatest();
         $actuality = $actualityId ? $am->findOne(intval($actualityId)) : null;
+
+        $translatedEvents = [];
+
+        foreach ($events as $eventItem) {
+
+            $dateValues = $this->translateDate($eventItem['date']);
+            
+            $translatedEvents[] = [
+                "event" => $eventItem,
+                'shortDay' => $dateValues['shortDay'],
+                'number' => $dateValues['number'],
+                'shortMonth' => $dateValues['shortMonth'],
+            ];
+        }
 
         $scripts = $this->addScripts([
             'assets/js/glider.js',
@@ -23,7 +37,7 @@ class DefaultController extends AbstractController
         ]);
 
         $this->render("accueil.html.twig", [
-            "events" => $events,
+            "events" => $translatedEvents,
             "event" => $event,
             "actualities" => $actualities,
             "actuality" => $actuality,

@@ -1,7 +1,14 @@
+/* Style cercle */
 @mixin circle($i) {
     border-radius: 100%;
     height: $i;
     width: $i;
+}
+
+/* Animation de rotation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @mixin form-element-styles {

@@ -4,7 +4,7 @@ class EventController extends AbstractController
 {
     public function __construct()
     {
-        parent::__construct(); 
+        parent::__construct();
     }
 
     public function events() : void
@@ -12,17 +12,31 @@ class EventController extends AbstractController
         $em = new EventManager();
         $tm = new TypeManager();
 
-        $events = $em->findAll();
+        $events = $em->findAllEventsArray();
         $types = $tm->findAll();
 
+        $translatedEvents = [];
+
+        foreach ($events as $event) {
+
+            $dateValues = $this->translateDate($event['date']);
+            
+            $translatedEvents[] = [
+                'event' => $event,
+                'shortDay' => $dateValues['shortDay'],
+                'number' => $dateValues['number'],
+                'shortMonth' => $dateValues['shortMonth'],
+            ];
+        }
+    
         $scripts = $this->addScripts([
             'assets/js/ajaxEventsSearch.js',
         ]);
 
-        $this->render("programmation.html.twig",[
-            "events" => $events,
-            "types" => $types
-        ], $scripts);
+        $this->render("programmation.html.twig", [
+            "events" => $translatedEvents,
+            "types" => $types,
+        ], $scripts);    
     }
 
     public function event(string $eventId) : void
@@ -32,13 +46,20 @@ class EventController extends AbstractController
         $event = $em->findOne(intval($eventId));
 
         $scripts = $this->addScripts([
+            'assets/js/eventYoutubeSource.js',
         ]);
 
         if ($event !== null)
         {
-        $this->render("evenement.html.twig", [
-            "event" => $event
-        ], $scripts);
+            $dateValues = $this->translateDate($event->getDate());
+
+            $this->render("evenement.html.twig", [
+                "event" => $event,
+                "integralDay" => $dateValues['integralDay'],
+                "shortDay" => $dateValues['shortDay'],
+                "number" => $dateValues['number'],
+                "shortMonth" => $dateValues['shortMonth'],
+            ], $scripts);
         }
         else
         {

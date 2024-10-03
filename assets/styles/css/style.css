@@ -73,6 +73,16 @@ table {
     transform: initial;
   }
 }
+/* Style cercle */
+/* Animation de rotation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 #overlay-mobile {
   z-index: 9998;
   position: fixed;
@@ -1304,6 +1314,91 @@ footer .footer-copyright {
     margin: 2rem;
   }
 }
+
+#event .event-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+#event .event-container .event-info-container {
+  margin: 2rem;
+  text-align: left;
+}
+#event .event-container .event-info-container h3 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+#event .event-container .event-info-container .event-integral-date {
+  display: flex;
+  flex-wrap: wrap;
+}
+#event .event-container .event-info-container .event-integral-date .integral-day,
+#event .event-container .event-info-container .event-integral-date time {
+  color: #FFB571;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+#event .event-container .event-info-container .info-event-separation {
+  margin: 2rem 0;
+  width: 60px;
+  height: 8px;
+  background-color: #FFB571;
+}
+#event .event-container .event-info-container > p {
+  margin: 1rem 0;
+  text-align: justify;
+}
+#event .event-container .event-info-container .price-reservation-container {
+  margin: 3rem 0;
+  display: flex;
+  justify-content: space-around;
+}
+#event .event-container .event-info-container .price {
+  margin-top: 1rem;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+#event .event-container .event-info-container .reservation-button {
+  display: block;
+  font-family: "Roboto", sans-serif Arial;
+  font-size: 1.6rem;
+  font-weight: bolder;
+  text-transform: uppercase;
+  margin: auto;
+  margin-top: 2rem;
+  border-radius: 15px;
+  padding: 1rem 2.5rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+  background-color: #FFB571;
+  color: #f3f2e9;
+  border: 3px solid #f3f2e9;
+  margin: 0;
+}
+#event .event-container .event-info-container .reservation-button:hover {
+  background-color: #f3f2e9;
+  color: #FF922C;
+  border: 3px solid #FFB571;
+}
+@media only screen and (min-width: 576px) {
+  #event .event-container .event-info-container .reservation-button {
+    font-size: 1.8rem;
+  }
+}
+@media only screen and (min-width: 768px) {
+  #event .event-container .event-info-container .reservation-button {
+    font-size: 2rem;
+  }
+}
+@media only screen and (min-width: 992px) {
+  #event .event-container .event-info-container .reservation-button {
+    font-size: 2.2rem;
+  }
+}
+
 /********** GLOBAL STYLES **********/
 html,
 body {
@@ -1325,10 +1420,49 @@ html {
 }
 
 body {
+  visibility: hidden;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: opacity 0.1s ease-in;
   font-size: 1.4rem;
   font-family: "Roboto", sans-serif;
-  background-color: #f3f2e9;
+  background-color: #2E2D52;
   text-align: center;
+}
+body #loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #2E2D52;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+body #loader .loader {
+  border: 8px solid #f3f2e9;
+  border-radius: 50%;
+  border-top: 8px solid #FFB571;
+  width: 40px;
+  height: 40px;
+  animation: spin 0.6s linear infinite;
+}
+body #loader p {
+  color: #f3f2e9;
+  font-size: 2rem;
+  margin-left: 2rem;
+  text-transform: uppercase;
+}
+body.loaded {
+  visibility: visible;
+  opacity: 1;
+}
+body.loaded #loader {
+  display: none;
 }
 
 h1 {
@@ -1438,6 +1572,7 @@ textarea {
 
 main {
   margin-top: 90px;
+  flex-grow: 1;
 }
 main section {
   width: 100%;

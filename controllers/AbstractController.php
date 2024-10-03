@@ -48,8 +48,50 @@ abstract class AbstractController
     }
 
     protected function isAjaxRequest(): bool
-{
-    return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
-}
+    {
+        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+    }
 
+    protected function translateDate(DateTime $date): array {
+        $days = [
+            "Monday" => "Lundi",
+            "Tuesday" => "Mardi",
+            "Wednesday" => "Mercredi",
+            "Thursday" => "Jeudi",
+            "Friday" => "Vendredi",
+            "Saturday" => "Samedi",
+            "Sunday" => "Dimanche",
+        ];
+
+        $months = [
+            "January" => "Janvier",
+            "February" => "Février",
+            "March" => "Mars",
+            "April" => "Avril",
+            "May" => "Mai",
+            "June" => "Juin",
+            "July" => "Juillet",
+            "August" => "Août",
+            "September" => "Septembre",
+            "October" => "Octobre",
+            "November" => "Novembre",
+            "December" => "Décembre",
+        ];
+
+        $day = $days[$date->format('l')];
+        $number = $date->format('d');
+        $month = $months[$date->format('F')];
+        $year = $date->format('Y');
+
+        $shortDay = substr($day, 0, 3);
+        $shortMonth = substr($month, 0, 3);
+        $integralDay = "{$day} {$number} {$month} {$year}";
+
+        return [
+            'shortDay' => $shortDay,
+            'shortMonth' => $shortMonth,
+            'number' => $number,
+            'integralDay' => $integralDay,
+        ];
+    }
 }

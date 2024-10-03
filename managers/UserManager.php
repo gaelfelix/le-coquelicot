@@ -42,7 +42,16 @@ class UserManager extends AbstractManager
 
         if($result)
         {
-            $user = new User($result["first_name"], $result["last_name"], $result["email"], $result["password"], $result["role"], $result["media_id"], new DateTime($result["created_at"]));
+            $user = new User(
+                $result["first_name"],
+                $result["last_name"],
+                $result["email"],
+                $result["password"],
+                $result["role"],
+                $result["media_id"],
+                new DateTime($result["created_at"]
+            ));
+            
             $user->setId($result["id"]);
 
             return $user;

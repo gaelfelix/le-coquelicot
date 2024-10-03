@@ -11,37 +11,50 @@
 <main id="event">
     <section>
         <h2>{{ event.name }}</h2>
-        <div class="event-card-container">
-            <article class="event-card" style="background-image: url('{{ event.media.url }}');" alt="{{ event.media.alt }}">
-                <a>
-                    <div class="card-block-date mono">
-                        <time datetime="{{ event.date|date("c") }}">{{ event.date|date("D d M") }}</time>
-                    </div>
-                    <div class="info-event-container">
-                        <h3 class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.name }}</h3>
-                        <div class="rect-event-container">
-                            <div class="rect-event type no-toggle-dyslexia no-toggle-line-spacing">{{ event.type.name }}</div>
-                            <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.style1.name }}</div>
-                            <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.style2.name }}</div>
+        <div class="event-container">
+            <div class="event-card-container">
+                <article class="event-card" style="background-image: url('{{ event.media.url }}')">
+                    <a>
+                        <img alt="{{ event.media.alt }}" class="sr-only">
+                        <div class="card-block-date mono">
+                            <p>{{ shortDay }}</p>
+                            <p>{{ number }}</p>
+                            <p>{{ shortMonth }}</p>
                         </div>
-                    </div>
-                </a>
-            </article>
-        </div>
-        <h3>{{ event.main_description }}</h3>
-        <time datetime|format_datetime(locale: 'fr', timezone: 'Europe/Paris' }}">
-            {{ event.date|date('l d F Y', 'Europe/Paris')|capitalize }} - 
-            {{ event.debut|date('H:i') }} à 
-            {{ event.end|date('H:i') }}
-        </time>
-        <p>{{ event.description }}</p>
-        {% if event.getTicketPrice() == 0 or event.getTicketPrice() is null %}
-            <p>Tarif : Gratuit</p>
-        {% else %}
-            <p>Tarif : {{ event.getTicketPrice() }}€</p>
-            <a href="">Réservez</a>
-        {% endif %}
-        <video src="{{ event.video_link }}" controls></video>
+                        <div class="info-event-container">
+                            <h3 class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.name }}</h3>
+                            <div class="rect-event-container">
+                                <div class="rect-event type no-toggle-dyslexia no-toggle-line-spacing">{{ event.type.name }}</div>
+                                <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.style1.name }}</div>
+                                <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.style2.name }}</div>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+            </div>
+            <div class="event-info-container">
+                <h3>{{ event.maindescription }}</h3>
+                <div class="event-integral-date">
+                    <p class="integral-day">{{ integralDay }}&nbsp;</p>
+                    <time datetime="{{ event.date|date('c', 'Europe/Paris') }}">
+                        - {{ event.debut|date('H:i', 'Europe/Paris') }} à 
+                        {{ event.end|date('H:i', 'Europe/Paris') }}
+                    </time>
+                </div>
+
+                <div class="info-event-separation"></div>
+                <p>{{ event.description }}</p>
+                <div class="price-reservation-container">
+                {% if event.getTicketPrice() == 0 or event.getTicketPrice() is null %}
+                    <p>Tarif : Gratuit</p>
+                {% else %}
+                    <p class="price">Tarif : {{ event.getTicketPrice() }}€</p>
+                    <a href="" class="reservation-button">Réservez</a>
+                {% endif %}
+                </div>
+            </div>
+        </div>        
+{#         <div id="{{ event.videolink }}" class="iframe-container"></div> #}
     </section>
 </main>
 {% endblock %}

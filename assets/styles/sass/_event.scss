@@ -1,0 +1,61 @@
+#event {
+    
+    .event-container {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+
+        .event-info-container {
+            margin: 2rem;
+            text-align: left;
+
+            h3 {
+                font-size: 1.8rem;
+                font-weight: 500;
+                margin-bottom: 1rem;
+            }
+
+            .event-integral-date {
+                display: flex;
+                flex-wrap: wrap;
+
+                .integral-day,
+                time {
+                    color: $orange;
+                    font-size: 1.8rem;
+                    font-weight: 500;
+                }
+            }
+
+            .info-event-separation {
+                margin: 2rem 0;
+                width: 60px;
+                height: 8px;
+                background-color: $orange;
+            }
+
+            > p {
+                margin: 1rem 0;
+                text-align: justify;
+            }
+
+            .price-reservation-container {
+                margin: 3rem 0;
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .price {
+                margin-top: 1rem;
+                font-size: 1.8rem;
+                font-weight: 500;
+            }
+
+            .reservation-button {
+                @include button-styles('orange');
+                margin: 0;
+            }
+
+        }
+    }
+}

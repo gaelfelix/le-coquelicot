@@ -327,4 +327,44 @@ class EventManager extends AbstractManager
 
         return $events;
     }
+
+    public function findAllEventsArray(): array
+    {
+    $query = $this->db->prepare('SELECT * FROM events ORDER BY date ASC');
+    $query->execute();
+    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    $events = [];
+
+    foreach ($result as $item) {
+        $date = new DateTime($item["date"]);
+        $debut = new DateTime($item["debut"]);
+        $end = new DateTime($item["end"]);
+
+        $media = $item["media_id"] ? $this->mm->findOne($item["media_id"]) : null;
+        $type = $item["type_id"] ? $this->tm->findOne($item["type_id"]) : null;
+        $style1 = $item["style1_id"] ? $this->sm->findOne($item["style1_id"]) : null;
+        $style2 = $item["style2_id"] ? $this->sm->findOne($item["style2_id"]) : null;
+
+        $event = [
+            'id' => $item["id"],
+            'name' => $item["name"],
+            'main_description' => $item["main_description"],
+            'description' => $item["description"],
+            'date' => $date,
+            'debut' => $debut,
+            'end' => $end,
+            'ticket_price' => $item["ticket_price"],
+            'media' => $media,
+            'type' => $type,
+            'style1' => $style1,
+            'style2' => $style2,
+            'video_link' => $item["video_link"]
+        ];
+
+        $events[] = $event;
+    }
+
+    return $events;
+    }
+
 }

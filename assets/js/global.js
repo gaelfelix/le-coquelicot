@@ -1,3 +1,7 @@
+// Wait for all the content to load before displaying the body
+window.onload = function() {
+  document.body.classList.add('loaded');
+};
 
 // Utility function to add/remove a class on a list of elements
 function toggleClassOnElements(elements, className, add) {
