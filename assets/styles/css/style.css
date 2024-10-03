@@ -1585,7 +1585,7 @@ footer .footer-copyright {
     gap: 2%;
   }
   #actualite .actu-container img {
-    margin-top: 4rem;
+    margin: 4rem 0;
     height: 35%;
     width: 45%;
     border: 5px solid #FFB571;
