@@ -1631,7 +1631,7 @@ footer .footer-copyright {
 }
 #association p {
   font-size: 1.4rem;
-  text-align: justify;
+  text-align: left;
   margin-bottom: 1rem;
 }
 #association span {
