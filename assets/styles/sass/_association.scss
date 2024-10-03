@@ -1,0 +1,133 @@
+#association {
+
+    h3 {
+        font-size: 1.9rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-decoration: underline;
+        text-align: left;
+        margin: 1.5rem 0;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+        font-weight: bold;
+        text-align: left;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-size: 1.4rem;
+        text-align: justify;
+        margin-bottom: 1rem;
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+    .association-container {
+        
+        article {
+            width: 90%;
+            margin: 0 auto;
+            max-width: 1400px;
+
+            img {
+                margin-bottom: 2rem;
+                height: 200px; 
+                width: 100%;
+                border: 5px solid $orange;
+                border-radius: 20px;
+                object-fit: cover;
+                object-position: center;
+            }
+            
+            ul {
+                margin-left: 1.5rem;
+
+                li {
+                    text-align: left;
+                    color: $orange;
+                    font-size: 1.5rem;
+                    font-weight: 500;
+                    margin-bottom: .8rem;
+                    list-style-type: disc;
+                }
+            }
+        }
+    
+    }
+
+    .equipe-container {
+
+        article {
+            width: 90%;
+            margin: 0 auto;
+            max-width: 1400px;
+        }
+    }
+
+    .adhesion-don-container {
+
+        .button-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 2rem auto;
+            width: 90%;
+            max-width: 500px;
+
+            a {
+                @include button-styles('orange');
+                width: fit-content;
+            }
+        }
+    }
+
+    .mecenat-container {
+
+        article {
+            width: 90%;
+            margin: 0 auto;
+            max-width: 1400px;
+        }
+    }
+
+    .partner-container{
+        margin: 2rem auto;
+        width: 90%;
+        max-width: 800px;
+
+        .partner-logo-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+
+            img {
+                margin: .5rem;
+                padding: .5rem;
+                height: 50px;
+                background-color: $beige;
+                border: 3px solid $orange;
+                border-radius: 10px;
+            }
+        }
+
+        h4 {  
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+        }
+    }
+}

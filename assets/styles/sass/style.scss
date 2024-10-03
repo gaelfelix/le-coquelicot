@@ -119,8 +119,12 @@ li {
 }
 
 a {
-  color: $black;
+  color: $orange;
   text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 input:not([type="submit"]),

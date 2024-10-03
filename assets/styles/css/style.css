@@ -1053,8 +1053,10 @@ footer .footer-copyright {
   width: 32.5rem;
   border: 5px solid #FFB571;
   border-radius: 32.5px;
-  background-size: cover;
-  background-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
 }
 #homepage .home-last-actualities-container > .actuality-card h3 {
   width: 95%;
@@ -1481,8 +1483,10 @@ footer .footer-copyright {
   width: 32.5rem;
   border: 5px solid #FFB571;
   border-radius: 32.5px;
-  background-size: cover;
-  background-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
 }
 #actualites .actualities-container .actuality-card h3 {
   width: 95%;
@@ -1528,8 +1532,10 @@ footer .footer-copyright {
   width: 90%;
   border: 5px solid #FFB571;
   border-radius: 20px;
-  background-size: cover;
-  background-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
 }
 #actualite .actu-container .actu-info-container {
   max-width: 90%;
@@ -1603,6 +1609,145 @@ footer .footer-copyright {
     font-weight: 300;
   }
 }
+#association h3 {
+  font-size: 1.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+#association h4 {
+  font-size: 1.7rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-align: left;
+  margin: 1.5rem 0;
+}
+#association h5 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+#association p {
+  font-size: 1.4rem;
+  text-align: justify;
+  margin-bottom: 1rem;
+}
+#association span {
+  font-weight: bold;
+}
+#association .association-container article {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1400px;
+}
+#association .association-container article img {
+  margin-bottom: 2rem;
+  height: 200px;
+  width: 100%;
+  border: 5px solid #FFB571;
+  border-radius: 20px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+#association .association-container article ul {
+  margin-left: 1.5rem;
+}
+#association .association-container article ul li {
+  text-align: left;
+  color: #FFB571;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  list-style-type: disc;
+}
+#association .equipe-container article {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1400px;
+}
+#association .adhesion-don-container .button-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 2rem auto;
+  width: 90%;
+  max-width: 500px;
+}
+#association .adhesion-don-container .button-container a {
+  display: block;
+  font-family: "Roboto", sans-serif Arial;
+  font-size: 1.6rem;
+  font-weight: bolder;
+  text-transform: uppercase;
+  margin: auto;
+  margin-top: 2rem;
+  border-radius: 15px;
+  padding: 1rem 2.5rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+  background-color: #FFB571;
+  color: #f3f2e9;
+  border: 3px solid #f3f2e9;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+#association .adhesion-don-container .button-container a:hover {
+  background-color: #f3f2e9;
+  color: #FF922C;
+  border: 3px solid #FFB571;
+}
+@media only screen and (min-width: 576px) {
+  #association .adhesion-don-container .button-container a {
+    font-size: 1.8rem;
+  }
+}
+@media only screen and (min-width: 768px) {
+  #association .adhesion-don-container .button-container a {
+    font-size: 2rem;
+  }
+}
+@media only screen and (min-width: 992px) {
+  #association .adhesion-don-container .button-container a {
+    font-size: 2.2rem;
+  }
+}
+#association .mecenat-container article {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1400px;
+}
+#association .partner-container {
+  margin: 2rem auto;
+  width: 90%;
+  max-width: 800px;
+}
+#association .partner-container .partner-logo-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+#association .partner-container .partner-logo-container img {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  height: 50px;
+  background-color: #f3f2e9;
+  border: 3px solid #FFB571;
+  border-radius: 10px;
+}
+#association .partner-container h4 {
+  margin-top: 3rem;
+  text-align: center;
+}
+#association .partner-container p {
+  text-align: center;
+}
+
 /********** GLOBAL STYLES **********/
 html,
 body {
@@ -1692,8 +1837,11 @@ li {
 }
 
 a {
-  color: #000F08;
+  color: #FFB571;
   text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 
 input:not([type=submit]),

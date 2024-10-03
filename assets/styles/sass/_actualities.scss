@@ -19,8 +19,8 @@
               width: 32.5rem;
               border: 5px solid $orange;
               border-radius: 32.5px;
-              background-size: cover;
-              background-position: center;
+              object-fit: cover;
+              object-position: center;
             }
       
             h3 {
