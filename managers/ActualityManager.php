@@ -12,7 +12,7 @@ class ActualityManager extends AbstractManager
 
     public function findAll() : array
     {
-        $query = $this->db->prepare('SELECT * FROM actualities ORDER BY date ASC');
+        $query = $this->db->prepare('SELECT * FROM actualities ORDER BY date DESC');
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $actualities = [];

@@ -1,0 +1,98 @@
+#actualites {
+
+    .actualities-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 2%;
+        max-width: 1400px;
+        margin: 2rem auto;
+        padding: 2rem;
+
+        .actuality-card {
+            height: auto;
+            width: 32.5rem;
+            margin-bottom: 2rem;
+      
+            img {
+              height: 22.75rem; 
+              width: 32.5rem;
+              border: 5px solid $orange;
+              border-radius: 32.5px;
+              background-size: cover;
+              background-position: center;
+            }
+      
+            h3 {
+              width: 95%;
+              text-align: center;
+              text-transform: uppercase;
+              color: $beige;
+              margin: 1rem auto;
+              padding: 0 0 0 1rem;
+              font-size: 1.5rem;
+              font-weight: 500;
+            }
+        }
+
+    }
+
+    @media #{$small} {
+        // Styles pour les petits appareils (min-width: 576px)
+        .actualities-container {
+    
+            .actuality-card {
+              width: 40rem;
+        
+              img {
+                height: 28rem;
+                width: 40rem;
+              }
+        
+              h3 {
+                font-size: 1.6rem;
+              }
+            }
+          }
+    }
+    
+    @media #{$medium} {
+    // Styles pour les appareils moyens (min-width: 768px)
+    }
+    
+    @media #{$medium-large} {
+    // Styles pour les appareils intermédiaires (min-width: 850px)
+    .-actualities-container {
+
+        .actuality-card {
+          width: 32.5rem;
+    
+          img {
+            height: 22.75rem;
+            width: 32.5rem;
+          }
+        }
+      }
+    }
+    
+    @media #{$large} {
+    // Styles pour les grands appareils (min-width: 992px)
+    }
+    
+    @media #{$larger} {
+    // Styles pour les appareils larges (min-width: 1100px)
+    }
+    
+    @media #{$extra} {
+    // Styles pour les très grands appareils (min-width: 1200px)
+    }
+    
+    @media #{$extra-large} {
+    // Styles pour les super grands écrans (min-width: 1400px)
+    }
+    
+    @media #{$ultra} {
+    // Styles pour les ultra grands écrans (min-width: 1600px)
+    }
+
+}

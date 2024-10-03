@@ -11,13 +11,14 @@ Actualités
 <main id="actualites">
     <section>
         <h2>Actualités</h2>
-        {% for actuality in actualities %}
-            <article class="actuality-card" style="background-image: url('{{ actuality.media.url }}');" alt="{{ actuality.media.alt }}">
-                <a href="index.php?route=actualite&id={{ actuality.id }}">
-                    <h3>{{ actuality.title }}</h3>
-                </a>
-            </article>
-        {% endfor %}
+        <div class="actualities-container">
+            {% for actuality in actualities %}
+            <a class="actuality-card" href="index.php?route=actualite&id={{ actuality.id }}">
+                <img src='{{ actuality.media.url }}');" alt="{{ actuality.media.alt }}" "class="actuality-card">
+                <h3>{{ actuality.title }}</h3>
+            </a>
+            {% endfor %}
+        </div>
     </section>
 </main>
 {% endblock %}
