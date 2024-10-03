@@ -74,8 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
   main.addEventListener('click', closeNav); 
   footer.addEventListener('click', closeNav); 
   overlayMobile.addEventListener('click', closeNav); 
-  window.addEventListener('scroll', closeNav); 
-
+  
   new ResizeObserver(entries => {
     if (entries[0].contentRect.width >= 992) {
       navLinksContainer.style.transition = 'none'; 

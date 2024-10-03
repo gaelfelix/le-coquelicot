@@ -12,11 +12,12 @@ document.addEventListener("DOMContentLoaded", function () {
     if (videoId) {
         // Créer une nouvelle iframe
         const newIframe = document.createElement("iframe");
-        newIframe.width = "560";
-        newIframe.height = "315";
-        newIframe.frameBorder = "0";
         newIframe.allowFullscreen = true;
         newIframe.src = "https://www.youtube-nocookie.com/embed/" + videoId; // Utiliser l'ID de la div
+        newIframe.style.border = "none"; // Supprimer la bordure par défaut
+
+        // Ajouter la classe responsive pour gérer la taille via le CSS
+        newIframe.classList.add("responsive-iframe");
 
         // Ajouter la nouvelle iframe au conteneur
         iframeContainer.appendChild(newIframe);
