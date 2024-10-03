@@ -4,7 +4,7 @@
         font-size: 1.9rem;
         font-weight: bold;
         text-transform: uppercase;
-        margin-bottom: 2rem;
+        margin: 1rem auto 3rem auto;
     }
 
     h4 {
@@ -13,14 +13,16 @@
         text-transform: uppercase;
         text-decoration: underline;
         text-align: left;
-        margin: 1.5rem 0;
+        margin: 1.5rem 0 1rem 0;
     }
 
     h5 {
-        font-size: 1.6rem;
-        font-weight: bold;
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: $orange;
         text-align: left;
-        margin-bottom: 1rem;
+        text-transform: uppercase;
+        margin: 1.5rem 0 .5rem 0;
     }
 
     p {
@@ -77,12 +79,16 @@
 
     .adhesion-don-container {
 
+        h3 {
+            width: 90%;
+        }
+
         .button-container {
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
             margin: 2rem auto;
-            width: 90%;
+            width: 80%;
             max-width: 500px;
 
             a {
