@@ -799,6 +799,7 @@ footer .footer-copyright {
   margin: 0;
   padding: 0;
   display: flex;
+  gap: 2rem;
   z-index: 1;
 }
 
