@@ -18,7 +18,7 @@
         width: 95%;
         max-width: 1200px;
         margin: 0 auto 3rem auto;
-        padding: 2rem;
+        padding: 1rem;
         background-color: $beige;
         border: 5px solid $orange;
         border-radius: 20px;
@@ -28,6 +28,15 @@
             width: 100%;
             border: 3px solid $orange;
             border-radius: 12px;
+        }
+    }
+
+    @media #{$small} {
+        // Styles pour les petits appareils (min-width: 576px)
+        .adhesion-container,
+        .don-container {
+            width: 90%;
+            padding: 2rem;
         }
     }
 
