@@ -382,7 +382,7 @@ header > div:nth-of-type(3) > div {
     margin: 0 auto;
     height: 100%;
     max-width: none;
-    width: 80%;
+    width: 85%;
     border-left: none;
     transform: none;
   }
@@ -1852,6 +1852,37 @@ footer .footer-copyright {
     margin-bottom: 1rem;
   }
 }
+#adherer-don h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 2rem;
+  color: #2E2D52;
+}
+#adherer-don p {
+  color: #2E2D52;
+  text-align: left;
+  margin: 2rem;
+}
+#adherer-don .adhesion-container,
+#adherer-don .don-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto 3rem auto;
+  padding: 2rem;
+  background-color: #f3f2e9;
+  border: 5px solid #FFB571;
+  border-radius: 20px;
+}
+#adherer-don .adhesion-container iframe,
+#adherer-don .don-container iframe {
+  height: -moz-fit-content;
+  height: fit-content;
+  width: 100%;
+  border: 3px solid #FFB571;
+  border-radius: 12px;
+}
+
 /********** GLOBAL STYLES **********/
 html,
 body {
