@@ -4,7 +4,7 @@
         font-size: 1.9rem;
         font-weight: bold;
         text-transform: uppercase;
-        margin: 1rem auto 3rem auto;
+        margin: 1rem auto 2rem auto;
     }
 
     h4 {
@@ -13,12 +13,13 @@
         text-transform: uppercase;
         text-decoration: underline;
         text-align: left;
-        margin: 1.5rem 0 1rem 0;
+        margin: 2rem 0 1rem 0;
     }
 
     h5 {
         font-size: 1.4rem;
         font-weight: 500;
+        letter-spacing: .08rem;
         color: $orange;
         text-align: left;
         text-transform: uppercase;
@@ -26,7 +27,6 @@
     }
 
     p {
-        font-size: 1.4rem;
         text-align: left;
         margin-bottom: 1rem;
     }
@@ -40,11 +40,12 @@
         article {
             width: 90%;
             margin: 0 auto;
-            max-width: 1400px;
+            max-width: 750px;
 
             img {
-                margin-bottom: 2rem;
-                height: 200px; 
+                margin-bottom: 2.5rem;
+                height: calc(150px + 20vw);
+                max-height: 500px;
                 width: 100%;
                 border: 5px solid $orange;
                 border-radius: 20px;
@@ -53,7 +54,7 @@
             }
             
             ul {
-                margin-left: 1.5rem;
+                margin: 2rem 0 3rem 1.5rem;
 
                 li {
                     text-align: left;
@@ -73,7 +74,7 @@
         article {
             width: 90%;
             margin: 0 auto;
-            max-width: 1400px;
+            max-width: 750px;
         }
     }
 
@@ -87,7 +88,7 @@
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
-            margin: 2rem auto;
+            margin: 3rem auto 5rem auto;
             width: 80%;
             max-width: 500px;
 
@@ -103,14 +104,14 @@
         article {
             width: 90%;
             margin: 0 auto;
-            max-width: 1400px;
+            max-width: 750px;
         }
     }
 
     .partner-container{
         margin: 2rem auto;
         width: 90%;
-        max-width: 800px;
+        max-width: 600px;
 
         .partner-logo-container {
             display: flex;
@@ -139,4 +140,194 @@
             font-weight: bold;
         }
     }
+
+    @media #{$small} {
+    // Styles pour les petits appareils (min-width: 576px)
+
+        p {
+            margin-bottom: 1.4rem;
+        }
+
+        .association-container {
+            
+            article {
+                width: 80%;
+
+                img {
+                    margin-bottom: 3rem;
+                    height: calc(180px + 20vw); 
+                }
+                
+                ul {
+
+                    li {
+                        font-size: 1.6rem;
+                        margin-bottom: 1rem;
+                    }
+                }
+            }
+        
+        }
+
+        .equipe-container {
+
+            article {
+                width: 80%;
+            }
+        }
+
+        .adhesion-don-container {
+
+            h3 {
+                width: 80%;
+            }
+        }
+
+        .mecenat-container {
+
+            article {
+                width: 80%;
+            }
+        }
+    }
+
+    
+    @media #{$medium} {
+    // Styles pour les appareils moyens (min-width: 768px)
+
+        p {
+            margin-bottom: 1.4rem;
+        }
+
+        .association-container {
+            
+            article {
+                width: 80%;
+
+                img {
+                    height: calc(180px + 20vw); 
+                }
+                
+                ul {
+
+                    li {
+                        font-size: 1.6rem;
+                        margin-bottom: 1rem;
+                    }
+                }
+            }
+        
+        }
+
+        .equipe-container {
+
+            article {
+                width: 80%;
+            }
+        }
+
+        .adhesion-don-container {
+
+            h3 {
+                width: 80%;
+            }
+        }
+
+        .mecenat-container {
+
+            article {
+                width: 80%;
+            }
+        }
+
+        .equipe-container {
+
+            article {
+                width: 80%;
+            }
+        }
+
+        .adhesion-don-container {
+
+            h3 {
+                width: 80%;
+            }
+        }
+
+        .mecenat-container {
+
+            article {
+                width: 80%;
+            }
+        }
+
+        .partner-container{
+            width: 80%;
+        }
+    }
+
+    
+    @media #{$medium-large} {
+    // Styles pour les appareils intermédiaires (min-width: 850px)
+        h3 {
+            font-size: 2.2rem;
+            margin: 2rem auto 4rem auto;
+        }
+
+        h4 {
+            font-size: 1.9rem;
+            margin: 3rem 0 1.5rem 0;
+        }
+
+        h5 {
+            font-size: 1.5rem;
+            letter-spacing: .08rem;
+            margin: 1.8rem 0 .8rem 0;
+        }
+
+        p {
+            margin-bottom: 1.6rem;
+        }
+
+        .association-container {
+            
+            article {
+
+                img {
+                    height: calc(230px + 20vw);
+                }
+                
+                ul {
+
+                    li {
+                        font-size: 1.6rem;
+                        margin-bottom: 1rem;
+                    }
+                }
+            }
+        
+        }
+
+    }
+    
+    @media #{$large} {
+    // Styles pour les grands appareils (min-width: 992px)
+    }
+    
+    @media #{$larger} {
+    // Styles pour les appareils larges (min-width: 1100px)
+    }
+    
+    @media #{$extra} {
+    // Styles pour les très grands appareils (min-width: 1200px)
+    }
+    
+    @media #{$extra-large} {
+    // Styles pour les super grands écrans (min-width: 1400px)
+    }
+    
+    @media #{$ultra} {
+    // Styles pour les ultra grands écrans (min-width: 1600px)
+    }
+
 }

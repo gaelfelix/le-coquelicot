@@ -511,7 +511,7 @@ footer .footer-bottom i {
   margin-right: 10px;
 }
 footer .footer-top {
-  padding: calc(2rem + 2.5vw) 1rem;
+  padding: calc(2rem + 2vw) 1rem;
 }
 footer .footer-top > a > img {
   margin-right: calc(0.6rem + 2vw);
@@ -549,18 +549,23 @@ footer .footer-bottom .footer-rs-legal i {
   font-size: calc(2rem + 3vw);
   margin: 0 calc(0.5rem + 5vw) calc(0.5rem + 3vw) 0;
 }
+footer .footer-bottom .footer-nav i:hover,
+footer .footer-bottom .footer-rs-legal i:hover {
+  color: #FFB571;
+  transform: scale(1.1);
+}
 footer .footer-bottom i,
 footer .footer-bottom li {
-  padding: calc(0.2rem + 0.8vw) 0;
+  padding: calc(0.2rem + 0.6vw) 0;
 }
 footer .footer-bottom li > a:hover {
   color: #FFB571;
   text-decoration: underline;
 }
 footer .footer-copyright {
-  font-size: calc(0.8rem + 1.3vw);
-  margin-top: calc(3rem + 2.5vw);
-  padding-bottom: 3rem;
+  font-size: 1.4rem;
+  margin-top: 3rem;
+  padding-bottom: 2rem;
 }
 @media only screen and (min-width: 576px) {
   footer .footer-top i,
@@ -597,11 +602,11 @@ footer .footer-copyright {
   }
   footer .footer-bottom i,
   footer .footer-bottom li {
-    padding: calc(0.2rem + 1.5vw) 0;
+    padding: 1rem 0;
   }
   footer .footer-copyright {
-    font-size: 1.8rem;
-    margin-top: 5rem;
+    font-size: 1.4rem;
+    margin-top: 4rem;
   }
 }
 @media only screen and (min-width: 992px) {
@@ -1613,7 +1618,7 @@ footer .footer-copyright {
   font-size: 1.9rem;
   font-weight: bold;
   text-transform: uppercase;
-  margin: 1rem auto 3rem auto;
+  margin: 1rem auto 2rem auto;
 }
 #association h4 {
   font-size: 1.7rem;
@@ -1621,18 +1626,18 @@ footer .footer-copyright {
   text-transform: uppercase;
   text-decoration: underline;
   text-align: left;
-  margin: 1.5rem 0 1rem 0;
+  margin: 2rem 0 1rem 0;
 }
 #association h5 {
   font-size: 1.4rem;
   font-weight: 500;
+  letter-spacing: 0.08rem;
   color: #FFB571;
   text-align: left;
   text-transform: uppercase;
   margin: 1.5rem 0 0.5rem 0;
 }
 #association p {
-  font-size: 1.4rem;
   text-align: left;
   margin-bottom: 1rem;
 }
@@ -1642,11 +1647,12 @@ footer .footer-copyright {
 #association .association-container article {
   width: 90%;
   margin: 0 auto;
-  max-width: 1400px;
+  max-width: 750px;
 }
 #association .association-container article img {
-  margin-bottom: 2rem;
-  height: 200px;
+  margin-bottom: 2.5rem;
+  height: calc(150px + 20vw);
+  max-height: 500px;
   width: 100%;
   border: 5px solid #FFB571;
   border-radius: 20px;
@@ -1656,7 +1662,7 @@ footer .footer-copyright {
      object-position: center;
 }
 #association .association-container article ul {
-  margin-left: 1.5rem;
+  margin: 2rem 0 3rem 1.5rem;
 }
 #association .association-container article ul li {
   text-align: left;
@@ -1669,7 +1675,7 @@ footer .footer-copyright {
 #association .equipe-container article {
   width: 90%;
   margin: 0 auto;
-  max-width: 1400px;
+  max-width: 750px;
 }
 #association .adhesion-don-container h3 {
   width: 90%;
@@ -1678,7 +1684,7 @@ footer .footer-copyright {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  margin: 2rem auto;
+  margin: 3rem auto 5rem auto;
   width: 80%;
   max-width: 500px;
 }
@@ -1725,12 +1731,12 @@ footer .footer-copyright {
 #association .mecenat-container article {
   width: 90%;
   margin: 0 auto;
-  max-width: 1400px;
+  max-width: 750px;
 }
 #association .partner-container {
   margin: 2rem auto;
   width: 90%;
-  max-width: 800px;
+  max-width: 600px;
 }
 #association .partner-container .partner-logo-container {
   display: flex;
@@ -1755,7 +1761,92 @@ footer .footer-copyright {
   color: #FFB571;
   font-weight: bold;
 }
-
+@media only screen and (min-width: 576px) {
+  #association p {
+    margin-bottom: 1.4rem;
+  }
+  #association .association-container article {
+    width: 80%;
+  }
+  #association .association-container article img {
+    margin-bottom: 3rem;
+    height: calc(180px + 20vw);
+  }
+  #association .association-container article ul li {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+  #association .equipe-container article {
+    width: 80%;
+  }
+  #association .adhesion-don-container h3 {
+    width: 80%;
+  }
+  #association .mecenat-container article {
+    width: 80%;
+  }
+}
+@media only screen and (min-width: 768px) {
+  #association p {
+    margin-bottom: 1.4rem;
+  }
+  #association .association-container article {
+    width: 80%;
+  }
+  #association .association-container article img {
+    height: calc(180px + 20vw);
+  }
+  #association .association-container article ul li {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+  #association .equipe-container article {
+    width: 80%;
+  }
+  #association .adhesion-don-container h3 {
+    width: 80%;
+  }
+  #association .mecenat-container article {
+    width: 80%;
+  }
+  #association .equipe-container article {
+    width: 80%;
+  }
+  #association .adhesion-don-container h3 {
+    width: 80%;
+  }
+  #association .mecenat-container article {
+    width: 80%;
+  }
+  #association .partner-container {
+    width: 80%;
+  }
+}
+@media only screen and (min-width: 850px) {
+  #association h3 {
+    font-size: 2.2rem;
+    margin: 2rem auto 4rem auto;
+  }
+  #association h4 {
+    font-size: 1.9rem;
+    margin: 3rem 0 1.5rem 0;
+  }
+  #association h5 {
+    font-size: 1.5rem;
+    letter-spacing: 0.08rem;
+    margin: 1.8rem 0 0.8rem 0;
+  }
+  #association p {
+    margin-bottom: 1.6rem;
+  }
+  #association .association-container article img {
+    height: calc(230px + 20vw);
+  }
+  #association .association-container article ul li {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+}
 /********** GLOBAL STYLES **********/
 html,
 body {
@@ -1847,9 +1938,6 @@ li {
 a {
   color: #FFB571;
   text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
 }
 
 input:not([type=submit]),

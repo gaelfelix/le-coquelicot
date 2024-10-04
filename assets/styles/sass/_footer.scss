@@ -1,7 +1,7 @@
 footer {
   background-color: $beige;
   border-top: 5px solid $orange;
-    
+  
   p,
   li,
   a {
@@ -19,7 +19,7 @@ footer {
     }
 
     .footer-top {
-      padding: calc(2rem + 2.5vw) 1rem;
+      padding: calc(2rem + 2vw) 1rem;
       > a > img {
         margin-right: calc(0.6rem + 2vw);
         width: calc(8.5rem + 6.5vw);
@@ -59,12 +59,17 @@ footer {
           color: $blue;
           font-size: calc(2rem + 3vw);
           margin: 0 calc(0.5rem + 5vw) calc(0.5rem + 3vw) 0;
+
+          &:hover {
+            color: $orange;
+            transform: scale(1.1);
+          }
         }
       }
 
       i,
       li {
-        padding: calc(0.2rem + .8vw) 0;
+        padding: calc(0.2rem + .6vw) 0;
       }
 
       li > a:hover {
@@ -74,14 +79,11 @@ footer {
     }
 
     .footer-copyright {
-      font-size: calc(0.8rem + 1.3vw);
-      margin-top: calc(3rem + 2.5vw);
-      padding-bottom: 3rem;
+      font-size: 1.4rem;
+      margin-top: 3rem;
+      padding-bottom: 2rem;
     }
 
-  @media #{$mobile} {
-      // Styles pour les appareils mobiles (max-width: 575px)
-  }
   
   @media #{$small} {
       // Styles pour les petits appareils (min-width: 576px)
@@ -124,13 +126,13 @@ footer {
 
       i,
       li {
-        padding: calc(0.2rem + 1.5vw) 0;
+        padding: 1rem 0;
       }
     }
 
     .footer-copyright {
-      font-size: 1.8rem;
-      margin-top: 5rem;
+      font-size: 1.4rem;
+      margin-top: 4rem;
     }
 
   }
