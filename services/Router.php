@@ -6,7 +6,6 @@ class Router
     private DefaultController $dc;
     private ActualityController $actuc;
     private EventController $ec;
-    private TicketingController $tc;
     private NewsletterController $nc;
 
     public function __construct()
@@ -15,7 +14,6 @@ class Router
         $this->dc = new DefaultController();
         $this->ec = new EventController();
         $this->actuc = new ActualityController();
-        $this->tc = new TicketingController();
         $this->nc = new NewsletterController(); // Ajout du NewsletterController
     }
 
@@ -96,10 +94,6 @@ class Router
 
             case "l-association":
                 $this->dc->association();
-                break;
-
-            case "billetterie":
-                $this->tc->ticketing();
                 break;
 
             case "adherer-faire-un-don":

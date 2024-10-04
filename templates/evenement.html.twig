@@ -10,7 +10,7 @@
 {% block main %}
 <main id="event">
     <section>
-        <h2>{{ event.name|e }}</h2>
+        <h2>{{ event.name|striptags }}</h2>
         <div class="event-container">
             <div class="event-card-container">
                 <article class="event-card" style="background-image: url('{{ event.media.url }}')">
