@@ -1320,7 +1320,7 @@ footer .footer-copyright {
 }
 #event .event-container .event-info-container {
   max-width: 80%;
-  margin: 2rem;
+  margin: 4rem 0 2rem 0;
   text-align: left;
 }
 #event .event-container .event-info-container h3 {
@@ -1402,7 +1402,7 @@ footer .footer-copyright {
   margin: 2rem auto;
   position: relative;
   width: 80%;
-  padding-bottom: 56.25%;
+  padding-bottom: clamp(0px, 56.25%, 644px);
   height: 0;
   overflow: hidden;
 }
@@ -1421,10 +1421,14 @@ footer .footer-copyright {
 }
 @media only screen and (min-width: 768px) {
   #event .event-container {
-    gap: 5%;
+    gap: 2%;
+  }
+  #event .event-container .event-card-container {
+    margin: 3rem;
   }
   #event .event-container .event-info-container {
-    width: 30%;
+    margin: 2rem 0;
+    width: 40%;
   }
   #event .iframe-container {
     margin: 4rem auto;

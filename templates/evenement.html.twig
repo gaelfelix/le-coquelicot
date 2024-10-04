@@ -10,7 +10,7 @@
 {% block main %}
 <main id="event">
     <section>
-        <h2>{{ event.name }}</h2>
+        <h2>{{ event.name|e }}</h2>
         <div class="event-container">
             <div class="event-card-container">
                 <article class="event-card" style="background-image: url('{{ event.media.url }}')">
@@ -36,9 +36,9 @@
                 <h3>{{ event.maindescription }}</h3>
                 <div class="event-integral-date">
                     <p class="integral-day">{{ integralDay }}&nbsp;</p>
-                    <time datetime="{{ event.date|date('c', 'Europe/Paris') }}">
-                        - {{ event.debut|date('H:i', 'Europe/Paris') }} à 
-                        {{ event.end|date('H:i', 'Europe/Paris') }}
+                    <time datetime="{{ event.date|date('c') }}">
+                        - {{ event.debut|date('H:i') }} à 
+                        {{ event.end|date('H:i') }}
                     </time>
                 </div>
 
@@ -48,8 +48,10 @@
                 {% if event.getTicketPrice() == 0 or event.getTicketPrice() is null %}
                     <p>Tarif : Gratuit</p>
                 {% else %}
-                    <p class="price">Tarif : {{ event.getTicketPrice() }}€</p>
-                    <a href="" class="reservation-button">Réservez</a>
+                    {% if event.date|date('c', 'Europe/Paris') > "now"|date("Y-m-d H:i:s") %}
+                        <p class="price">Tarif : {{ event.getTicketPrice() }}€</p>
+                        <a href="{{ event.ticketinglink }}" class="reservation-button">Réservez</a>
+                    {% endif %}
                 {% endif %}
                 </div>
             </div>

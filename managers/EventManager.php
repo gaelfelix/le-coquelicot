@@ -43,7 +43,8 @@ class EventManager extends AbstractManager
             $item["type_id"],
             $item["style1_id"],
             $item["style2_id"],
-            $item["video_link"]
+            $item["video_link"],
+            $item["ticketing_link"]
         );
 
         $event->setMedia($media);
@@ -86,7 +87,8 @@ class EventManager extends AbstractManager
                 $result["type_id"],
                 $result["style1_id"],
                 $result["style2_id"],
-                $result["video_link"]
+                $result["video_link"],
+                $result["ticketing_link"]
             );
 
             $event->setMedia($media);
@@ -130,7 +132,8 @@ class EventManager extends AbstractManager
                 $item["type_id"],
                 $item["style1_id"],
                 $item["style2_id"],
-                $item["video_link"]
+                $item["video_link"],
+                $item["ticketing_link"]
             );
 
             $event->setMedia($media);
@@ -175,7 +178,8 @@ class EventManager extends AbstractManager
                 $item["type_id"],
                 $item["style1_id"],
                 $item["style2_id"],
-                $item["video_link"]
+                $item["video_link"],
+                $item["ticketing_link"]
             );
 
             $event->setMedia($media);
@@ -222,7 +226,8 @@ class EventManager extends AbstractManager
                     $item["type_id"],
                     $item["style1_id"],
                     $item["style2_id"],
-                    $item["video_link"]
+                    $item["video_link"],
+                    $item["ticketing_link"]
                 );
 
                 $event->setMedia($media);
@@ -268,7 +273,8 @@ class EventManager extends AbstractManager
                 $item["type_id"],
                 $item["style1_id"],
                 $item["style2_id"],
-                $item["video_link"]
+                $item["video_link"],
+                $item["ticketing_link"]
             );
             
             $event->setMedia($media);
@@ -314,7 +320,8 @@ class EventManager extends AbstractManager
                 $item["type_id"],
                 $item["style1_id"],
                 $item["style2_id"],
-                $item["video_link"]
+                $item["video_link"],
+                $item["ticketing_link"]
             );
 
             $event->setMedia($media);
@@ -358,7 +365,8 @@ class EventManager extends AbstractManager
             'type' => $type,
             'style1' => $style1,
             'style2' => $style2,
-            'video_link' => $item["video_link"]
+            'video_link' => $item["video_link"],
+            'ticketing_link' => $item["ticketing_link"]
         ];
 
         $events[] = $event;

@@ -9,6 +9,7 @@ abstract class AbstractController
         $loader = new \Twig\Loader\FilesystemLoader('templates');
         $this->twig = new \Twig\Environment($loader, [
             'debug' => true,
+            'autoescape' => 'html',
         ]);
         
         // Ajouter la session comme variable globale

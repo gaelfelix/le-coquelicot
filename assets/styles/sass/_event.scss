@@ -9,7 +9,7 @@
 
         .event-info-container {
             max-width: 80%;
-            margin: 2rem;
+            margin: 4rem 0 2rem 0;
             text-align: left;
 
             h3 {
@@ -65,7 +65,7 @@
         margin: 2rem auto;
         position: relative;
         width: 80%;
-        padding-bottom: 56.25%; // Ratio 16:9
+        padding-bottom: clamp(0px, 56.25%, 644px);
         height: 0;
         overflow: hidden;
 
@@ -89,10 +89,15 @@
     @media #{$medium} {
     // Styles pour les appareils moyens (min-width: 768px)
         .event-container {
-            gap: 5%;
+            gap: 2%;
+
+            .event-card-container {
+                margin: 3rem;
+            }
 
             .event-info-container {
-                width: 30%;
+                margin: 2rem 0;
+                width: 40%;
             }
         }
         .iframe-container {
