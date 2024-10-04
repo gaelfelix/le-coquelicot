@@ -293,6 +293,7 @@ header > div:nth-of-type(3) > button {
   width: 25px;
   height: 25px;
   padding: 0;
+  background-color: #f3f2e9;
   cursor: pointer;
   border: none;
   display: flex;
