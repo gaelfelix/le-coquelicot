@@ -9,7 +9,7 @@ Info / Contact
 
 {% block main %}
 <main id="info-contact">
-    <section>
+    <section class="info-section">
         <h2>Info / Contact</h2>
         <h3>Le Coquelicot, Café concert associatif</h3>
         <p>Association Le Jazz et La Java - association loi 1901</p>
@@ -56,32 +56,35 @@ Info / Contact
     <section>
         <h3>Nous contacter</h3>
         <form action="index.php?route=envoi-message" method="post" novalidate>
-            <div class="home-newsletter-input-container">
-                <div class="firstname-newsletter-input">
-                    <label for="firstName">Prénom</label>
+            <div class="contact-input-container">
+                <div class="firstname-contact-input">
+                    <label for="firstName">Prénom<span>*</span></label>
                     <input type="text" id="firstName" name="firstName" required>
                 </div>
-                <div class="lastname-newsletter-input">
-                    <label for="lastName">Nom</label>
+                <div class="lastname-contact-input">
+                    <label for="lastName">Nom<span>*</span></label>
                     <input type="text" id="lastName" name="lastName" required>
                 </div>
             </div>
 
-            <div class="home-newsletter-input-container">
-                <div class="firstname-newsletter-input">
-                    <label for="firstName">Prénom</label>
-                    <input type="text" id="firstName" name="firstName" required>
-                </div>
-                <div class="lastname-newsletter-input">
-                    <label for="lastName">Nom</label>
-                    <input type="text" id="lastName" name="lastName" required>
-                </div>
-            </div>
-
-            <label for="email">Adresse mail</label>
+            <div class="contact-input-container">
+                <div class="email-contact-input">
+            <label for="email">Adresse mail<span>*</span></label>
             <input type="email" id="email" name="email" required>
+                </div>
+                <div class="phone-contact-input">
+                    <label for="phone">Téléphone</label>
+                    <input type="tel" id="phone" name="phone" pattern="^0[1-9]{1}[0-9]{8}$">
+                </div>
+            </div>
 
-            <input type="submit" name="orange" value="S'inscrire">
+            <label for="subject">Sujet<span>*</span></label>
+            <input type="text" id="subject" name="subject" required>
+
+            <label for="message">Message<span>*</span></label>
+            <textarea id="message" name="message" required></textarea>
+
+            <input type="submit" name="orange" value="Envoyer">
 
             <p id="message"></p>
         </form>
