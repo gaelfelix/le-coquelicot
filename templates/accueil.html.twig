@@ -19,20 +19,20 @@ Accueil
 
             <div class="glider">
                 {% for event in events %}
-                    <article class="event-card" style="background-image: url('{{ event.event.media.url }}')">
-                        <a href="index.php?route=evenement&id={{ event.event.id }}">
-                            <img alt="{{ event.event.media.alt }}" class="sr-only">
+                    <article class="event-card" style="background-image: url('{{ event.event.media.url|striptags }}')">
+                        <a href="index.php?route=evenement&id={{ event.event.id|striptags }}">
+                            <img alt="{{ event.event.media.alt|striptags }}" class="sr-only">
                             <div class="card-block-date mono">
-                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortDay }}</p>
-                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.number }}</p>
-                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortMonth }}</p>                           
+                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortDay|striptags }}</p>
+                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.number|striptags }}</p>
+                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortMonth|striptags }}</p>                           
                             </div>
                             <div class="info-event-container">
-                                <h3 class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.name }}</h3>
+                                <h3 class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.name|striptags }}</h3>
                                 <div class="rect-event-container">
-                                    <div class="rect-event type no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.type.name }}</div>
-                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style1.name }}</div>
-                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style2.name }}</div>
+                                    <div class="rect-event type no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.type.name|striptags }}</div>
+                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style1.name|striptags }}</div>
+                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style2.name|striptags }}</div>
                                 </div>
                             </div>
                         </a>
@@ -51,9 +51,9 @@ Accueil
         <h2>Dernières actualités</h2>
         <div class="home-last-actualities-container">
             {% for actuality in actualities %}
-            <a class="actuality-card" href="index.php?route=actualite&id={{ actuality.id }}">
-                <img src='{{ actuality.media.url }}');" alt="{{ actuality.media.alt }}" "class="actuality-card">
-                <h3>{{ actuality.title }}</h3>
+            <a class="actuality-card" href="index.php?route=actualite&id={{ actuality.id|striptags }}">
+                <img src='{{ actuality.media.url|striptags }}');" alt="{{ actuality.media.alt|striptags }}" "class="actuality-card">
+                <h3>{{ actuality.title|striptags }}</h3>
             </a>
             {% endfor %}
         </div>

@@ -1,11 +1,8 @@
 #actualite {
 
     .actu-container {
-        max-width: 1800px;
         margin: 0 auto;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
+        max-width: 1000px;
 
         img {
             margin: 2rem 0 0 0;
@@ -19,13 +16,14 @@
         
         .actu-info-container {
             max-width: 90%;
-            margin: 2rem;
+            margin: 2rem auto;
             text-align: left;
 
             h3 {
                 font-size: 1.8rem;
                 font-weight: 500;
                 margin: 2rem 0;
+                text-transform: uppercase;
             }
 
             p {
@@ -35,6 +33,7 @@
 
             .integral-day {
                 color: $orange;
+                font-style: italic;
                 font-size: 1.5rem;
                 font-weight: 300;
             }
@@ -60,27 +59,26 @@
         .actu-container {
 
             img {
-                height: 52.5%; 
+                height: 450px; 
                 width: 75%;
             }
             .actu-info-container {
                 max-width: 75%;
+
+                h3 {
+                    font-size: 2rem;
+                }
+
+                .integral-day {
+                    font-size: 1.6rem;
+                    margin-bottom: 2rem;
+                }
             }
         }
     }
     
     @media #{$medium-large} {
     // Styles pour les appareils intermédiaires (min-width: 850px)
-        .actu-container {
-
-            img {
-                height: 49%; 
-                width: 70%;
-            }
-            .actu-info-container {
-                max-width: 70%;
-            }
-        }
     }
     
     @media #{$large} {
@@ -93,35 +91,6 @@
     
     @media #{$extra} {
     // Styles pour les très grands appareils (min-width: 1200px)
-        .actu-container {
-            gap: 2%;
-
-            img {
-                margin: 4rem 0;
-                height: 35%; 
-                width: 45%;
-                border: 5px solid $orange;
-                border-radius: 20px;
-            }
-
-            .actu-info-container {
-                width: 45%;
-
-                h3 {
-                    font-size: 2rem;
-                }
-
-                p {
-                    font-size: 1.6rem;
-                }
-
-                .integral-day {
-                    color: $orange;
-                    font-size: 1.6rem;
-                    font-weight: 300;
-                }
-            }
-        }
     }
     
     @media #{$extra-large} {

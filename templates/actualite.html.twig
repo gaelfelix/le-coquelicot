@@ -4,17 +4,17 @@
 {% endblock %}
 
 {% block title %}
-{{ actuality.title }}
+{{ actuality.title|striptags }}
 {% endblock %}
 
 {% block main %}
 <main id="actualite">
     <section class="actu-container">
-        <img src="{{ actuality.media.url }}" alt="{{ actuality.media.alt }}"</img>
+        <img src="{{ actuality.media.url|striptags }}" alt="{{ actuality.media.alt|striptags }}"></img>
         <div class="actu-info-container">
-            <h3>{{ actuality.title }}</h3>
-            <p class="integral-day">{{ integralDay }}</p>
-            <p>{{ actuality.content }}</p>
+            <h3>{{ actuality.title|striptags }}</h3>
+            <p class="integral-day">{{ integralDay|striptags }}</p>
+            <p>{{ actuality.content|striptags }}</p>
         </div>
     </section>
 </main>

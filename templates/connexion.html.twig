@@ -14,7 +14,7 @@ Se connecter
 
         {% if  session.error_message is not null %}
             <div class="alert">
-                <p>{{ session.error_message }}</p>
+                <p>{{ session.error_message|striptags|striptags }}</p>
                 <i class="fa-solid fa-xmark"></i>
             </div>
         {% endif %}

@@ -11,28 +11,28 @@ class EventController extends AbstractController
     {
         $em = new EventManager();
         $tm = new TypeManager();
-
+    
         $events = $em->findAllEventsArray();
         $types = $tm->findAll();
-
+    
         $translatedEvents = [];
-
+    
         foreach ($events as $event) {
-
             $dateValues = $this->translateDate($event['date']);
             
             $translatedEvents[] = [
-                'event' => $event,
+                "event" => $event,
                 'shortDay' => $dateValues['shortDay'],
                 'number' => $dateValues['number'],
                 'shortMonth' => $dateValues['shortMonth'],
             ];
+
         }
-    
+
         $scripts = $this->addScripts([
             'assets/js/ajaxEventsSearch.js',
         ]);
-
+    
         $this->render("programmation.html.twig", [
             "events" => $translatedEvents,
             "types" => $types,
@@ -76,11 +76,17 @@ class EventController extends AbstractController
 
             // Si des événements sont trouvés, formate les données en JSON
             if ($events) {
+
                 $eventsData = array_map(function($event) {
+
+                    $dateValues = $this->translateDate($event->getDate());
+
                     return [
                         'id' => $event->getId(),
                         'name' => $event->getName(),
-                        'date' => $event->getDate()->format('D d M'),
+                        'shortDay' => $dateValues['shortDay'],
+                        'number' => $dateValues['number'],
+                        'shortMonth' => $dateValues['shortMonth'],
                         'media' => [
                             'url' => $event->getMedia()->getUrl(),
                             'alt' => $event->getMedia()->getAlt()
@@ -90,6 +96,7 @@ class EventController extends AbstractController
                         'style2' => ['name' => $event->getStyle2()->getName()],
                     ];
                 }, $events);
+
 
                 // Envoyer la réponse JSON
                 header('Content-Type: application/json');
@@ -119,10 +126,15 @@ class EventController extends AbstractController
 
     // Formate les données en JSON pour les envoyer à l'interface
     $eventsData = array_map(function($event) {
+
+        $dateValues = $this->translateDate($event->getDate());
+
         return [
             'id' => $event->getId(),
             'name' => $event->getName(),
-            'date' => $event->getDate()->format('D d M'),
+            'shortDay' => $dateValues['shortDay'],
+            'number' => $dateValues['number'],
+            'shortMonth' => $dateValues['shortMonth'],
             'media' => [
                 'url' => $event->getMedia()->getUrl(),
                 'alt' => $event->getMedia()->getAlt()

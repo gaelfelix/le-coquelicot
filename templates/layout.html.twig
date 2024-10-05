@@ -37,7 +37,7 @@
     {# Scripts JS #}
     {% if scripts is defined %}
         {% for script in scripts %}
-            <script src="{{ script }}"></script>
+            <script src="{{ script|striptags }}"></script>
         {% endfor %}
     {% endif %}
     {# Scripts JS #}

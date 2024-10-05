@@ -20,7 +20,7 @@ Programmation
                 <option value="all">Tous</option>
                 <option value="upcoming">A venir</option>
                 {% for type in types %}
-                <option value="{{ type.id }}">{{ type.name }}</option>            
+                <option value="{{ type.id|striptags }}">{{ type.name|striptags }}</option>            
                 {% endfor %}
             </select>
         </fieldset>
@@ -28,20 +28,20 @@ Programmation
         <div class="programmation-events-container">
             {% for event in events %}
                 <div class="event-card-container">
-                    <article class="event-card" style="background-image: url('{{ event.event.media.url }}')">
-                        <a href="index.php?route=evenement&id={{ event.event.id }}">
-                            <img alt="{{ event.event.media.alt }}" class="sr-only">
+                    <article class="event-card" style="background-image: url('{{ event.event.media.url|striptags }}')">
+                        <a href="index.php?route=evenement&id={{ event.event.id|striptags }}">
+                            <img alt="{{ event.event.media.alt|striptags }}" class="sr-only">
                             <div class="card-block-date mono">
-                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortDay }}</p>
-                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.number }}</p>
-                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortMonth }}</p>                              
+                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortDay|striptags }}</p>
+                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.number|striptags }}</p>
+                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortMonth|striptags }}</p>                              
                             </div>                        
                             <div class="info-event-container">
-                                <h3 class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.name }}</h3>
+                                <h3 class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.name|striptags }}</h3>
                                 <div class="rect-event-container">
-                                    <div class="rect-event type no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.type.name }}</div>
-                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style1.name }}</div>
-                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style2.name }}</div>
+                                    <div class="rect-event type no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.type.name|striptags }}</div>
+                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style1.name|striptags }}</div>
+                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style2.name|striptags }}</div>
                                 </div>
                             </div>
                         </a>
