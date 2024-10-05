@@ -30,7 +30,6 @@ Programmation
                 <div class="event-card-container">
                     <article class="event-card" style="background-image: url('{{ event.event.media.url|striptags }}')">
                         <a href="index.php?route=evenement&id={{ event.event.id|striptags }}">
-                            <img alt="{{ event.event.media.alt|striptags }}" class="sr-only">
                             <div class="card-block-date mono">
                                 <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortDay|striptags }}</p>
                                 <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.number|striptags }}</p>

@@ -21,7 +21,6 @@ Accueil
                 {% for event in events %}
                     <article class="event-card" style="background-image: url('{{ event.event.media.url|striptags }}')">
                         <a href="index.php?route=evenement&id={{ event.event.id|striptags }}">
-                            <img alt="{{ event.event.media.alt|striptags }}" class="sr-only">
                             <div class="card-block-date mono">
                                 <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortDay|striptags }}</p>
                                 <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.number|striptags }}</p>
@@ -70,8 +69,8 @@ Accueil
                     <input type="text" id="firstName" name="firstName" required>
                 </div>
                 <div class="lastname-newsletter-input">
-                <label for="lastName">Nom</label>
-                <input type="text" id="lastName" name="lastName" required>
+                    <label for="lastName">Nom</label>
+                    <input type="text" id="lastName" name="lastName" required>
                 </div>
             </div>
 
