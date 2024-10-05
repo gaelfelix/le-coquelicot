@@ -1620,12 +1620,12 @@ footer .footer-copyright {
 #association span {
   font-weight: bold;
 }
-#association .association-container article {
+#association .association-container div {
   width: 90%;
   margin: 0 auto;
   max-width: 750px;
 }
-#association .association-container article img {
+#association .association-container div img {
   margin-bottom: 2.5rem;
   height: calc(150px + 20vw);
   max-height: 500px;
@@ -1637,10 +1637,10 @@ footer .footer-copyright {
   -o-object-position: center;
      object-position: center;
 }
-#association .association-container article ul {
+#association .association-container div ul {
   margin: 2rem 0 3rem 1.5rem;
 }
-#association .association-container article ul li {
+#association .association-container div ul li {
   text-align: left;
   color: #FFB571;
   font-size: 1.5rem;
@@ -1648,7 +1648,7 @@ footer .footer-copyright {
   margin-bottom: 0.8rem;
   list-style-type: disc;
 }
-#association .equipe-container article {
+#association .equipe-container div {
   width: 90%;
   margin: 0 auto;
   max-width: 750px;
@@ -1704,7 +1704,7 @@ footer .footer-copyright {
     font-size: 2.2rem;
   }
 }
-#association .mecenat-container article {
+#association .mecenat-container div {
   width: 90%;
   margin: 0 auto;
   max-width: 750px;
@@ -1741,24 +1741,24 @@ footer .footer-copyright {
   #association p {
     margin-bottom: 1.4rem;
   }
-  #association .association-container article {
+  #association .association-container div {
     width: 80%;
   }
-  #association .association-container article img {
+  #association .association-container div img {
     margin-bottom: 3rem;
     height: calc(180px + 20vw);
   }
-  #association .association-container article ul li {
+  #association .association-container div ul li {
     font-size: 1.6rem;
     margin-bottom: 1rem;
   }
-  #association .equipe-container article {
+  #association .equipe-container div {
     width: 80%;
   }
   #association .adhesion-don-container h3 {
     width: 80%;
   }
-  #association .mecenat-container article {
+  #association .mecenat-container div {
     width: 80%;
   }
 }
@@ -1766,32 +1766,32 @@ footer .footer-copyright {
   #association p {
     margin-bottom: 1.4rem;
   }
-  #association .association-container article {
+  #association .association-container div {
     width: 80%;
   }
-  #association .association-container article img {
+  #association .association-container div img {
     height: calc(180px + 20vw);
   }
-  #association .association-container article ul li {
+  #association .association-container div ul li {
     font-size: 1.6rem;
     margin-bottom: 1rem;
   }
-  #association .equipe-container article {
+  #association .equipe-container div {
     width: 80%;
   }
   #association .adhesion-don-container h3 {
     width: 80%;
   }
-  #association .mecenat-container article {
+  #association .mecenat-container div {
     width: 80%;
   }
-  #association .equipe-container article {
+  #association .equipe-container div {
     width: 80%;
   }
   #association .adhesion-don-container h3 {
     width: 80%;
   }
-  #association .mecenat-container article {
+  #association .mecenat-container div {
     width: 80%;
   }
   #association .partner-container {
@@ -1815,10 +1815,10 @@ footer .footer-copyright {
   #association p {
     margin-bottom: 1.6rem;
   }
-  #association .association-container article img {
+  #association .association-container div img {
     height: calc(230px + 20vw);
   }
-  #association .association-container article ul li {
+  #association .association-container div ul li {
     font-size: 1.6rem;
     margin-bottom: 1rem;
   }
