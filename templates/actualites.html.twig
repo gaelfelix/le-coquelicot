@@ -14,7 +14,7 @@ Actualités
         <div class="actualities-container">
             {% for actuality in actualities %}
             <a class="actuality-card" href="index.php?route=actualite&id={{ actuality.id|striptags }}">
-                <img src='{{ actuality.media.url|striptags }}');" alt="{{ actuality.media.alt|striptags }}" "class="actuality-card">
+                <img src="{{ actuality.media.url|striptags }}" alt="{{ actuality.media.alt|striptags }}" class="actuality-card">
                 <h3>{{ actuality.title|striptags }}</h3>
             </a>
             {% endfor %}
