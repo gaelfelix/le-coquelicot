@@ -1986,7 +1986,7 @@ footer .footer-copyright {
   width: 90%;
 }
 #info-contact .contact-section form {
-  max-width: 700px;
+  max-width: 425px;
   margin: 3rem auto;
 }
 #info-contact .contact-section form .contact-input-container {
@@ -2005,6 +2005,9 @@ footer .footer-copyright {
   }
 }
 @media only screen and (min-width: 768px) {
+  #info-contact .contact-section form {
+    max-width: 700px;
+  }
   #info-contact .contact-section form .contact-input-container {
     flex-direction: row;
     justify-content: space-between;

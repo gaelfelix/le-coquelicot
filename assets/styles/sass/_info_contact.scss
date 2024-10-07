@@ -146,7 +146,7 @@
         }
 
         form {
-            max-width: 700px;
+            max-width: 425px;
             margin: 3rem auto;
 
             .contact-input-container {
@@ -176,6 +176,7 @@
         .contact-section {
 
             form {
+                max-width: 700px;
                 
                 .contact-input-container {
                     flex-direction: row;
