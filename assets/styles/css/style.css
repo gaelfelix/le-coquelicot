@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* CSS Reset par Eric Meyer, v2.0 - 20110126
    http://meyerweb.com/eric/tools/css/reset/
    Licence: Public Domain
@@ -59,9 +58,9 @@ input[type=email],
 input[type=password],
 textarea,
 select {
-  -webkit-appearance: none; /* Désactive l'apparence native pour WebKit */
-  -moz-appearance: none; /* Pour Firefox */
-  appearance: none; /* Pour les autres navigateurs */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
