@@ -68,15 +68,15 @@ class NewsletterController extends AbstractController
         $errors = [];
 
         if (empty($firstName)) {
-            $errors[] = 'Le prénom est requis.';
+            $errors[] = 'Le prénom est requis';
         }
 
         if (empty($lastName)) {
-            $errors[] = 'Le nom est requis.';
+            $errors[] = 'Le nom est requis';
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors[] = 'Email invalide.';
+            $errors[] = 'Email invalide';
         }
 
         return $errors;
