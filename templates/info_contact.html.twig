@@ -9,29 +9,55 @@ Info / Contact
 
 {% block main %}
 <main id="info-contact">
+
     <section class="info-section">
-        <h2>Info / Contact</h2>
-        <h3>Le Coquelicot, Café concert associatif</h3>
-        <p>Association Le Jazz et La Java - association loi 1901</p>
-        <p>18 Rue de Vitré, 35300 Fougères</p>
-        <ul>
-            <li>Siret : 41771474800015 – APE : 9002Z</li>
-            <li>Licence 1 : PLATESV-R-2022-007247</li>
-            <li>Licence 2 : PLATES-R-2022-007248</li>
-            <li>Licence 3 : PLATESV-R-2022-007250</li>
-        </ul>
         <div class="info-container">
-            <h4>Accessibilité</h4>
-            <p>Le Coquelicot est accessible aux personnes à mobilité réduite, n’hésitez pas à nous contacter pour que nous puissions organiser au mieux votre venue.</p>
-            <h4>Prévention</h4>
-            <p>Le Coquelicot est un café concert où le racisme, l’homophobie, le sexisme, la transphobie et toute autre violence ne sont pas tolérées. Nos salariés et bénévoles sont formés sur les violences sexistes et sexuelles et toutes forme de discrimination.</p>
+            <h2>Info / Contact</h2>
+            <h3>Le Coquelicot, Café concert associatif</h3>
+            <p><span>Association Le Jazz et La Java</span> - Association loi 1901</p>
+            
+            <div class="separation"></div>
+
+            <div class="adress-container">
+                <p>Le Coquelicot</p>
+                <p>18 Rue de Vitré</p>
+                <p>35300 Fougères</p>
+            </div>
+
+            <div class="contact-tel-container">
+                <i class="fa-sharp fa-solid fa-phone"></i>
+                <p class="no-toggle-dyslexia no-toggle-line-spacing">02 99 99 84 52</p>
+            </div>
+            <div class="contact-mail-container">
+                <i class="fa-solid fa-envelope"></i>
+                <p class="no-toggle-dyslexia no-toggle-line-spacing">communicationjazzetjava@gmail.com</p>
+            </div>
+
+            <div class="separation"></div>
+
+            <div class="info-rules-container">
+                <h4>Accessibilité</h4>
+                <p>Le Coquelicot est accessible aux personnes à mobilité réduite, n’hésitez pas à nous contacter pour que nous puissions organiser au mieux votre venue.</p>
+                <h4>Prévention</h4>
+                <p>Le Coquelicot est un endroit où le racisme, l’homophobie, le sexisme, la transphobie et toute autre violence ne sont pas tolérées. Nos salariés et bénévoles sont formés sur les violences sexistes et sexuelles et toutes forme de discrimination.</p>
+            </div>
+
+            <div class="separation"></div>
+
+            <ul>
+                <li>Siret : 41771474800015 – APE : 9002Z</li>
+                <li>Licence 1 : PLATESV-R-2022-007247</li>
+                <li>Licence 2 : PLATES-R-2022-007248</li>
+                <li>Licence 3 : PLATESV-R-2022-007250</li>
+            </ul>
         </div>
+
     </section>
 
-    <section>
+    <section class="schedule-section">
         <h3>Horaires du Coquelicot</h3>
         <div class="schedule-container">
-            <img src="" alt="Image de la devanture du Coquelicot">
+            <img src="assets/img/devanture-coquelicot.jpeg" alt="Image de la devanture du Coquelicot">
             <div class="schedule-info">
                 <div>
                     <p>Mercredi</p>
@@ -53,24 +79,24 @@ Info / Contact
         </div>
     </section>
 
-    <section>
+    <section class="contact-section">
         <h3>Nous contacter</h3>
         <form action="index.php?route=envoi-message" method="post" novalidate>
             <div class="contact-input-container">
                 <div class="firstname-contact-input">
-                    <label for="firstName">Prénom<span>*</span></label>
+                    <label for="firstName">Prénom<sup> *</sup></label>
                     <input type="text" id="firstName" name="firstName" required>
                 </div>
                 <div class="lastname-contact-input">
-                    <label for="lastName">Nom<span>*</span></label>
+                    <label for="lastName">Nom<sup> *</sup></label>
                     <input type="text" id="lastName" name="lastName" required>
                 </div>
             </div>
 
             <div class="contact-input-container">
                 <div class="email-contact-input">
-            <label for="email">Adresse mail<span>*</span></label>
-            <input type="email" id="email" name="email" required>
+                    <label for="email">Adresse mail<sup> *</sup></label>
+                    <input type="email" id="email" name="email" required>
                 </div>
                 <div class="phone-contact-input">
                     <label for="phone">Téléphone</label>
@@ -78,11 +104,11 @@ Info / Contact
                 </div>
             </div>
 
-            <label for="subject">Sujet<span>*</span></label>
+            <label for="subject">Sujet<sup> *</sup></label>
             <input type="text" id="subject" name="subject" required>
 
-            <label for="message">Message<span>*</span></label>
-            <textarea id="message" name="message" required></textarea>
+            <label for="textarea-message">Message<sup> *</sup></label>
+            <textarea id="textarea-message" name="textarea-message" required></textarea>
 
             <input type="submit" name="orange" value="Envoyer">
 

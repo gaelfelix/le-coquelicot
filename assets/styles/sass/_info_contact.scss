@@ -1,9 +1,238 @@
 #info-contact {
     
+    h3 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin: 1rem auto 2rem auto;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-decoration: underline;
+        text-align: left;
+        margin: 2rem 0 1rem 0;
+    }
+
+    h5 {
+        font-size: 1.4rem;
+        font-weight: 500;
+        letter-spacing: .08rem;
+        color: $orange;
+        text-align: left;
+        text-transform: uppercase;
+        margin: 1.5rem 0 .5rem 0;
+    }
+
+    p {
+        margin-bottom: 1rem;
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+    .contact-tel-container,
+    .contact-mail-container{
+        display: flex;
+        justify-content: center;
+
+        i {
+            margin: .2rem .8rem 0 0;
+            color: $blue;
+        }
+    }
+
     .info-section {
 
-        h3 {
-            
+        .info-container {
+            width: 90%;
+            max-width: 950px;
+            margin: 0 auto;
+            color: $blue;
+            background-color: $beige;
+            padding: 2rem;
+            border: 5px solid $orange;
+            border-radius: 20px;
+
+            .adress-container {
+                margin: 3rem auto;
+                font-size: 1.6rem;
+                font-weight: 500;
+                width: fit-content;
+                padding: 2rem;
+                background-color: $orange;
+                border: 3px solid $blue;
+                border-radius: 15px;
+            }
+
+            .separation {
+                width: 60%;
+                max-width: 180px;
+                height: 2px;
+                background-color: $blue;
+                margin: 3rem auto;
+            }
+
+            .info-rules-container {
+                width: 95%;
+                max-width: 650px;
+                margin: 2rem auto;
+                text-align: left;
+                color: $blue;
+                background-color: $orange;
+                padding: 2rem;
+                border: 3px solid $blue;
+                border-radius: 15px;
+            }
         }
+    }
+
+    .schedule-section {
+
+        .schedule-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            width: 90%;
+            max-width: 950px;
+            margin: 0 auto;
+
+            img {
+                margin-bottom: 2.5rem;
+                height: calc(150px + 20vw);
+                max-height: 415px;
+                width: 100%;
+                border: 5px solid $orange;
+                border-radius: 20px;
+                object-fit: cover;
+                object-position: center;
+            }
+
+            .schedule-info {
+                height: calc(150px + 20vw);
+                max-height: 415px;
+                width: 100%;
+                max-width: 400px;
+                padding: 2rem;
+                margin-bottom: 3rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                
+                div {
+                    display: flex;
+                    justify-content: space-between;
+
+                    p {
+                        font-size: 1.6rem;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+
+    .contact-section {
+
+        form,
+        .contact-input-container {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            width: 90%;
+        }
+
+        form {
+            max-width: 700px;
+            margin: 3rem auto;
+
+            .contact-input-container {
+                width: 100%;   
+            }
+
+            #message {
+                margin-top: 2rem;
+                min-height: 3rem;
+                text-align: center;
+            }
+        }
+    }
+
+    @media #{$small} {
+        // Styles pour les petits appareils (min-width: 576px)
+
+        .info-section .info-container,
+        .schedule-section .schedule-container,
+        .contact-section form {
+            width: 80%;
+        }
+    }
+    
+    @media #{$medium} {
+    // Styles pour les appareils moyens (min-width: 768px)
+        .contact-section {
+
+            form {
+                
+                .contact-input-container {
+                    flex-direction: row;
+                    justify-content: space-between;
+                    max-width: 700px;
+                    gap: 3%;
+    
+                    .firstname-contact-input,
+                    .lastname-contact-input,
+                    .email-contact-input,
+                    .phone-contact-input {
+                        width: 45%;
+
+                        input {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    @media #{$medium-large} {
+    // Styles pour les appareils intermédiaires (min-width: 850px)
+    }
+    
+    @media #{$large} {
+    // Styles pour les grands appareils (min-width: 992px)
+        .schedule-section {
+                
+            .schedule-container {
+                margin: 3rem auto;
+
+                img {
+                    max-width: 55%;
+                }
+
+                .schedule-info {
+                    max-width: 35%;
+                }
+            }
+        }
+    }
+    
+    @media #{$larger} {
+    // Styles pour les appareils larges (min-width: 1100px)
+    }
+    
+    @media #{$extra} {
+    // Styles pour les très grands appareils (min-width: 1200px)
+    }
+    
+    @media #{$extra-large} {
+    // Styles pour les super grands écrans (min-width: 1400px)
+    }
+    
+    @media #{$ultra} {
+    // Styles pour les ultra grands écrans (min-width: 1600px)
     }
 }

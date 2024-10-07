@@ -508,6 +508,7 @@ footer .footer-bottom {
 }
 footer .footer-top i,
 footer .footer-bottom i {
+  color: #2E2D52;
   font-size: calc(0.7rem + 1.3vw);
   margin-right: 10px;
 }
@@ -546,7 +547,6 @@ footer .footer-bottom .footer-rs-legal {
 }
 footer .footer-bottom .footer-nav i,
 footer .footer-bottom .footer-rs-legal i {
-  color: #2E2D52;
   font-size: calc(2rem + 3vw);
   margin: 0 calc(0.5rem + 5vw) calc(0.5rem + 3vw) 0;
 }
@@ -1861,6 +1861,180 @@ footer .footer-copyright {
   }
 }
 
+#info-contact h3 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 1rem auto 2rem auto;
+}
+#info-contact h4 {
+  font-size: 1.7rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-align: left;
+  margin: 2rem 0 1rem 0;
+}
+#info-contact h5 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.08rem;
+  color: #FFB571;
+  text-align: left;
+  text-transform: uppercase;
+  margin: 1.5rem 0 0.5rem 0;
+}
+#info-contact p {
+  margin-bottom: 1rem;
+}
+#info-contact span {
+  font-weight: bold;
+}
+#info-contact .contact-tel-container,
+#info-contact .contact-mail-container {
+  display: flex;
+  justify-content: center;
+}
+#info-contact .contact-tel-container i,
+#info-contact .contact-mail-container i {
+  margin: 0.2rem 0.8rem 0 0;
+  color: #2E2D52;
+}
+#info-contact .info-section .info-container {
+  width: 90%;
+  max-width: 950px;
+  margin: 0 auto;
+  color: #2E2D52;
+  background-color: #f3f2e9;
+  padding: 2rem;
+  border: 5px solid #FFB571;
+  border-radius: 20px;
+}
+#info-contact .info-section .info-container .adress-container {
+  margin: 3rem auto;
+  font-size: 1.6rem;
+  font-weight: 500;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 2rem;
+  background-color: #FFB571;
+  border: 3px solid #2E2D52;
+  border-radius: 15px;
+}
+#info-contact .info-section .info-container .separation {
+  width: 60%;
+  max-width: 180px;
+  height: 2px;
+  background-color: #2E2D52;
+  margin: 3rem auto;
+}
+#info-contact .info-section .info-container .info-rules-container {
+  width: 95%;
+  max-width: 650px;
+  margin: 2rem auto;
+  text-align: left;
+  color: #2E2D52;
+  background-color: #FFB571;
+  padding: 2rem;
+  border: 3px solid #2E2D52;
+  border-radius: 15px;
+}
+#info-contact .schedule-section .schedule-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 90%;
+  max-width: 950px;
+  margin: 0 auto;
+}
+#info-contact .schedule-section .schedule-container img {
+  margin-bottom: 2.5rem;
+  height: calc(150px + 20vw);
+  max-height: 415px;
+  width: 100%;
+  border: 5px solid #FFB571;
+  border-radius: 20px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+#info-contact .schedule-section .schedule-container .schedule-info {
+  height: calc(150px + 20vw);
+  max-height: 415px;
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+#info-contact .schedule-section .schedule-container .schedule-info div {
+  display: flex;
+  justify-content: space-between;
+}
+#info-contact .schedule-section .schedule-container .schedule-info div p {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+#info-contact .contact-section form,
+#info-contact .contact-section .contact-input-container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 90%;
+}
+#info-contact .contact-section form {
+  max-width: 700px;
+  margin: 3rem auto;
+}
+#info-contact .contact-section form .contact-input-container {
+  width: 100%;
+}
+#info-contact .contact-section form #message {
+  margin-top: 2rem;
+  min-height: 3rem;
+  text-align: center;
+}
+@media only screen and (min-width: 576px) {
+  #info-contact .info-section .info-container,
+  #info-contact .schedule-section .schedule-container,
+  #info-contact .contact-section form {
+    width: 80%;
+  }
+}
+@media only screen and (min-width: 768px) {
+  #info-contact .contact-section form .contact-input-container {
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 700px;
+    gap: 3%;
+  }
+  #info-contact .contact-section form .contact-input-container .firstname-contact-input,
+  #info-contact .contact-section form .contact-input-container .lastname-contact-input,
+  #info-contact .contact-section form .contact-input-container .email-contact-input,
+  #info-contact .contact-section form .contact-input-container .phone-contact-input {
+    width: 45%;
+  }
+  #info-contact .contact-section form .contact-input-container .firstname-contact-input input,
+  #info-contact .contact-section form .contact-input-container .lastname-contact-input input,
+  #info-contact .contact-section form .contact-input-container .email-contact-input input,
+  #info-contact .contact-section form .contact-input-container .phone-contact-input input {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 992px) {
+  #info-contact .schedule-section .schedule-container {
+    margin: 3rem auto;
+  }
+  #info-contact .schedule-section .schedule-container img {
+    max-width: 55%;
+  }
+  #info-contact .schedule-section .schedule-container .schedule-info {
+    max-width: 35%;
+  }
+}
 /********** GLOBAL STYLES **********/
 html,
 body {
