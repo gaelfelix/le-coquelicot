@@ -1,19 +1,21 @@
 <?php
 
-class User
+class Contact
 {
     private ?int $id = null;
+
 
     public function __construct(
         private string $firstName,
         private string $lastName,
         private string $email,
-        private string $password,
-        private string $role = "USER",
-        private ?Media $media = null,
+        private ?string $phone,
+        private string $subject,
+        private string $message,
+        private bool $read = false,
         private ?DateTime $createdAt = null
     ) {
-        // Initialiser createdAt si non fourni
+        // Initialiser createdAt si non fourni avec le fuseau horaire de Paris
         $this->createdAt = $this->createdAt ?? new DateTime('now', new DateTimeZone('Europe/Paris'));
     }
 
@@ -57,34 +59,44 @@ class User
         $this->email = $email;
     }
 
-    public function getPassword(): string
+    public function getPhone(): ?string
     {
-        return $this->password;
+        return $this->phone;
     }
 
-    public function setPassword(string $password): void
+    public function setPhone(?string $phone): void
     {
-        $this->password = $password;
+        $this->phone = $phone;
     }
 
-    public function getRole(): string
+    public function getSubject(): string
     {
-        return $this->role;
+        return $this->subject;
     }
 
-    public function setRole(string $role): void
+    public function setSubject(string $subject): void
     {
-        $this->role = $role;
+        $this->subject = $subject;
     }
 
-    public function getMedia(): ?Media
+    public function getMessage(): string
     {
-        return $this->media;
+        return $this->message;
     }
 
-    public function setMedia(?Media $media): void
+    public function setMessage(string $message): void
     {
-        $this->media = $media;
+        $this->message = $message;
+    }
+
+    public function isRead(): bool
+    {
+        return $this->read;
+    }
+
+    public function setRead(bool $read): void
+    {
+        $this->read = $read;
     }
 
     public function getCreatedAt(): DateTime
@@ -96,4 +108,5 @@ class User
     {
         $this->createdAt = $createdAt;
     }
+    
 }

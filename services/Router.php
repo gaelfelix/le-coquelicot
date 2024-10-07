@@ -7,6 +7,7 @@ class Router
     private ActualityController $actuc;
     private EventController $ec;
     private NewsletterController $nc;
+    private ContactController $cc;
 
     public function __construct()
     {
@@ -14,7 +15,8 @@ class Router
         $this->dc = new DefaultController();
         $this->ec = new EventController();
         $this->actuc = new ActualityController();
-        $this->nc = new NewsletterController(); // Ajout du NewsletterController
+        $this->nc = new NewsletterController();
+        $this->cc = new ContactController();
     }
 
     public function handleRequest(array $get, array $post): void
@@ -129,6 +131,15 @@ class Router
             case 'inscription-newsletter': // Mise à jour de la route pour la requête AJAX
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $this->nc->subscribe(); // Appeler la méthode subscribe sans paramètres
+                } else {
+                    http_response_code(405);
+                    echo json_encode(["success" => false, "message" => "Méthode non autorisée."]);
+                }
+                break;
+            
+            case 'envoi-message': // Mise à jour de la route pour la requête AJAX
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $this->cc->sendContact(); // Appeler la méthode sendContact sans paramètres
                 } else {
                     http_response_code(405);
                     echo json_encode(["success" => false, "message" => "Méthode non autorisée."]);

@@ -94,4 +94,5 @@ abstract class AbstractController
             'integralDay' => $integralDay,
         ];
     }
+
 }

@@ -1,5 +1,4 @@
 <?php
-
 class Newsletter
 {
     private ?int $id = null;
@@ -9,10 +8,10 @@ class Newsletter
         private string $lastName,
         private string $email,
         private ?DateTime $createdAt = null
-        ) {
-            // Initialiser createdAt si non fourni
-            $this->createdAt = $this->createdAt ?? new DateTime();
-        }
+    ) {
+        // Initialiser createdAt si non fourni avec le fuseau horaire de Paris
+        $this->createdAt = $this->createdAt ?? new DateTime('now', new DateTimeZone('Europe/Paris'));
+    }
 
     public function getId(): ?int
     {

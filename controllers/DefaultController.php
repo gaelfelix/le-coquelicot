@@ -55,6 +55,7 @@ class DefaultController extends AbstractController
     public function infoContact() : void
     {
         $scripts = $this->addScripts([
+            'assets/js/ajaxContact.js'
         ]);
 
         $this->render("info_contact.html.twig", [], $scripts);

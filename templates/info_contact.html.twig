@@ -82,6 +82,7 @@ Info / Contact
     <section class="contact-section">
         <h3>Nous contacter</h3>
         <form action="index.php?route=envoi-message" method="post" novalidate>
+            <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session.csrf_token }}" />
             <div class="contact-input-container">
                 <div class="firstname-contact-input">
                     <label for="firstName">Prénom<sup> *</sup></label>
@@ -100,7 +101,7 @@ Info / Contact
                 </div>
                 <div class="phone-contact-input">
                     <label for="phone">Téléphone</label>
-                    <input type="tel" id="phone" name="phone" pattern="^0[1-9]{1}[0-9]{8}$">
+                    <input type="tel" id="phone" name="phone" pattern="\d{10}" maxlength="10">
                 </div>
             </div>
 
@@ -108,7 +109,7 @@ Info / Contact
             <input type="text" id="subject" name="subject" required>
 
             <label for="textarea-message">Message<sup> *</sup></label>
-            <textarea id="textarea-message" name="textarea-message" required></textarea>
+            <textarea id="textarea-message" name="message" required></textarea>
 
             <input type="submit" name="orange" value="Envoyer">
 

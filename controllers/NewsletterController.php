@@ -30,6 +30,7 @@ class NewsletterController extends AbstractController
 
             // Vérification du token CSRF
             $tokenManager = new CSRFTokenManager();
+
             if (isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"])) {
                 
                 // Vérifier si l'email existe déjà
@@ -71,8 +72,16 @@ class NewsletterController extends AbstractController
             $errors[] = 'Le prénom est requis';
         }
 
+        if (strlen($firstName) < 2) {
+            $errors[] = 'Le prénom doit faire au moins 2 charactères';
+        }
+
         if (empty($lastName)) {
             $errors[] = 'Le nom est requis';
+        }
+
+        if (strlen($lastName) < 2) {
+            $errors[] = 'Le nom doit faire au moins 2 charactères';
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
