@@ -63,6 +63,7 @@ Accueil
         <p>Parce que rater des choses c’est pas cool, inscris-toi à la newsletter du Coquelicot !</p>
         <p>Tu recevras la programmation toute chaude, les dernières actus et aussi quelques secrets directement dans ta boîte mail... Alors, elle est pas belle la vie ?</p>
         <form action="index.php?route=inscription-newsletter" method="post" novalidate>
+            <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session.csrf_token }}" />
             <div class="home-newsletter-input-container">
                 <div class="firstname-newsletter-input">
                     <label for="firstName">Prénom</label>

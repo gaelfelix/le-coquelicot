@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (response.success) {
                     messageElement.style.color = '#90E39A';
+                    form.reset();
                 } else {
                     messageElement.style.color = '#FF715B';
                 }

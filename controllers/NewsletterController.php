@@ -19,8 +19,19 @@ class NewsletterController extends AbstractController
             $lastName = $_POST['lastName'] ?? '';
             $email = $_POST['email'] ?? '';
 
-            // Validation basique
-            if (!empty($firstName) && !empty($lastName) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            // Validation des données
+            $errors = $this->validateInput($firstName, $lastName, $email);
+            if (!empty($errors)) {
+                $response["message"] = implode(", ", $errors);
+                header('Content-Type: application/json');
+                echo json_encode($response);
+                exit();
+            }
+
+            // Vérification du token CSRF
+            $tokenManager = new CSRFTokenManager();
+            if (isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"])) {
+                
                 // Vérifier si l'email existe déjà
                 if ($nm->findByEmail($email) === null) {
                     $newsletter = new Newsletter($firstName, $lastName, $email);
@@ -36,15 +47,38 @@ class NewsletterController extends AbstractController
                     $response["message"] = "Cet email est déjà inscrit à la newsletter.";
                 }
             } else {
-                $response["message"] = "Veuillez remplir tous les champs correctement.";
+                // Jeton CSRF invalide
+                $response["message"] = "Jeton CSRF invalide.";
+                $this->redirect("index.php");
             }
         } else {
+            // Requête non POST
             $response["message"] = "Méthode de requête invalide. Veuillez utiliser POST.";
         }
 
-        // Envoyer la réponse en JSON
+        // Envoyer la réponse finale en JSON
         header('Content-Type: application/json');
         echo json_encode($response);
         exit();
+    }
+
+    // Méthode pour valider les données du formulaire
+    private function validateInput(string $firstName, string $lastName, string $email): array
+    {
+        $errors = [];
+
+        if (empty($firstName)) {
+            $errors[] = 'Le prénom est requis.';
+        }
+
+        if (empty($lastName)) {
+            $errors[] = 'Le nom est requis.';
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors[] = 'Email invalide.';
+        }
+
+        return $errors;
     }
 }
