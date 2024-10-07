@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* CSS Reset par Eric Meyer, v2.0 - 20110126
    http://meyerweb.com/eric/tools/css/reset/
    Licence: Public Domain
@@ -51,6 +52,18 @@ q:before, q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+input[type=text],
+input[type=email],
+input[type=password],
+textarea,
+select {
+  -webkit-appearance: none; /* Désactive l'apparence native pour WebKit */
+  -moz-appearance: none; /* Pour Firefox */
+  appearance: none; /* Pour les autres navigateurs */
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 @font-face {
@@ -2160,7 +2173,6 @@ input[name=orange] {
   color: #f3f2e9;
   border: 3px solid #f3f2e9;
   margin-top: 3rem;
-  -webkit-appearance: none;
 }
 input[name=orange]:hover {
   background-color: #f3f2e9;
@@ -2195,7 +2207,6 @@ textarea:focus {
 
 select {
   cursor: pointer;
-  -webkit-appearance: none;
 }
 select option {
   width: 100%;

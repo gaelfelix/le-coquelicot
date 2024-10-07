@@ -135,7 +135,6 @@ select {
 input[name="orange"] {
   @include button-styles('orange');
   margin-top: 3rem;
-  -webkit-appearance: none;
 }
 
 input:not([type="submit"]):focus, 
@@ -146,7 +145,6 @@ textarea:focus {
 
 select {
   cursor: pointer;
-  -webkit-appearance: none;
 
   option {
     width: 100%
