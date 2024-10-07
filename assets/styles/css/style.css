@@ -2160,6 +2160,7 @@ input[name=orange] {
   color: #f3f2e9;
   border: 3px solid #f3f2e9;
   margin-top: 3rem;
+  -webkit-appearance: none;
 }
 input[name=orange]:hover {
   background-color: #f3f2e9;
@@ -2194,6 +2195,7 @@ textarea:focus {
 
 select {
   cursor: pointer;
+  -webkit-appearance: none;
 }
 select option {
   width: 100%;
