@@ -17,6 +17,9 @@
                         {% include "_li-nav.html.twig" %}
                         <li class="burger"><a href="index.php?route=artiste-pro">Espace Artiste / Pro</a></li>
                         <li class="burger header-accessibility"><a class="no-toggle-dyslexia no-toggle-line-spacing">Personnaliser la page</a></li>
+                    {% if isUserLoggedIn %}
+                        <li><a href="index.php?route=deconnexion">Déconnexion</a></li>
+                    {% endif %}
                     </ul>
                 </div>
             </nav>

@@ -73,8 +73,24 @@ class DefaultController extends AbstractController
     {
         $scripts = $this->addScripts([
         ]);
+    
         
-        $this->render("artiste-pro.html.twig", [], $scripts);
+        if (isset($_SESSION["user"])) {
+            
+            $um = new UserManager();
+            $user = $um->findById($_SESSION["user"]);
+    
+            if ($user !== null && $user->getRole() === 'USER') {
+            
+                $this->render("artiste-pro.html.twig", [], $scripts);
+            } else {
+                $this->error404();
+            }
+        } else {
+            // Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
+            $this->redirect("index.php?route=connexion");
+            exit();
+        }
     }
 
     public function error404() : void

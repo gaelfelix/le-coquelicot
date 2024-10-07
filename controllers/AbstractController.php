@@ -27,6 +27,7 @@ abstract class AbstractController
     protected function render(string $template, array $data = [], array $scripts = []): void
     {
         $data['scripts'] = $scripts;
+        $data['isUserLoggedIn'] = $this->isUserLoggedIn();
         echo $this->twig->render($template, $data);
     }
     
@@ -47,6 +48,11 @@ abstract class AbstractController
         ];
     }
 
+    protected function isUserLoggedIn(): bool
+    {
+        return isset($_SESSION['user']);
+    }
+    
     protected function isAjaxRequest(): bool
     {
         return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';

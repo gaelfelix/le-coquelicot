@@ -29,7 +29,7 @@ class UserManager extends AbstractManager
         return null;
     }
 
-    public function findOne(int $id) : ? User
+    public function findById(int $id) : ? User
     {
         $query = $this->db->prepare('SELECT * FROM users WHERE id=:id');
 

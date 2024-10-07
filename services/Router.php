@@ -106,26 +106,32 @@ class Router
                 $this->dc->infoContact();
                 break;
 
-            case "espace-perso":
-                if (isset($get['user_id']) && isset($_SESSION['user']) && $_SESSION['user']->getId() === intval($get['user_id'])) {
-                    $this->ac->espacePerso();
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }
-                break;
-
-            case 'espace-admin':
-                if (isset($_SESSION['user']) && $_SESSION['user']->getRole() === "ADMIN") {
-                    $this->ac->espaceAdmin();
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }
-                break;
-
             case "artiste-pro":
-                $this->dc->artistePro();
+                if ($this->ac->isUserLoggedIn()) {
+                    if ($this->ac->isUserRole("USER")) {
+                        $this->dc->artistePro();
+                    } else {
+                        header("Location: index.php?route=connexion");
+                        exit();
+                    }
+                } else {
+                    header("Location: index.php?route=connexion");
+                    exit();
+                }
+                break;
+            
+            case 'espace-admin':
+                if ($this->ac->isUserLoggedIn()) {
+                    if ($this->ac->isUserRole("ADMIN")) {
+                        $this->ac->espaceAdmin();
+                    } else {
+                        header("Location: index.php?route=connexion");
+                        exit();
+                    }
+                } else {
+                    header("Location: index.php?route=connexion");
+                    exit();
+                }
                 break;
 
             case 'inscription-newsletter': // Mise à jour de la route pour la requête AJAX

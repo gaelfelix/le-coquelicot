@@ -2,10 +2,12 @@
 
 class AuthController extends AbstractController
 {
+    private UserManager $um;
 
     public function __construct()
     {
         parent::__construct();
+        $this->um = new UserManager();
     }
     
     public function login() : void
@@ -27,8 +29,7 @@ class AuthController extends AbstractController
 
             if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))
             {
-                $um = new UserManager();
-                $user = $um->findByEmail($_POST["email"]);
+                $user = $this->um->findByEmail($_POST["email"]);
 
                 if($user !== null)
                 {
@@ -98,8 +99,8 @@ class AuthController extends AbstractController
 
                     if (preg_match($password_pattern, $_POST["password"]))
                     {
-                        $um = new UserManager();
-                        $user = $um->findByEmail($_POST["email"]);
+
+                        $user = $this->um->findByEmail($_POST["email"]);
 
                         if($user === null)
                         {
@@ -109,7 +110,7 @@ class AuthController extends AbstractController
                             $password = password_hash($_POST["password"], PASSWORD_BCRYPT);
 
                             $user = new User($firstName, $lastName, $email, $password);
-                            $um->create($user);
+                            $this->um->create($user);
 
                             $_SESSION["user"] = $user->getId();
 
@@ -160,5 +161,27 @@ class AuthController extends AbstractController
         session_destroy();
 
         $this->redirect("index.php");
+    }
+
+    public function isUserLoggedIn(): bool
+    {
+        return isset($_SESSION['user']) && $this->getLoggedInUser() !== null;
+    }
+
+    // Vérifie le rôle de l'utilisateur connecté
+    public function isUserRole(string $role): bool
+    {
+        $user = $this->getLoggedInUser();
+        return $user !== null && $user->getRole() === $role;
+    }
+
+    // Récupère l'utilisateur connecté à partir de l'ID en session
+    private function getLoggedInUser(): ?User
+    {
+        if (isset($_SESSION['user'])) {
+            $userId = $_SESSION['user'];
+            return $this->um->findById($userId); // Utilise le UserManager pour récupérer l'utilisateur
+        }
+        return null;
     }
 }

@@ -342,11 +342,6 @@ header > div:nth-of-type(3) > div {
     top: 32%;
   }
 }
-@media only screen and (min-width: 768px) {
-  header > div:nth-of-type(2) > div nav div ul li a {
-    padding: 32px 20%;
-  }
-}
 @media only screen and (min-width: 992px) {
   header {
     display: flex;
@@ -382,7 +377,7 @@ header > div:nth-of-type(3) > div {
     margin: 0 auto;
     height: 100%;
     max-width: none;
-    width: 85%;
+    width: 90%;
     border-left: none;
     transform: none;
   }

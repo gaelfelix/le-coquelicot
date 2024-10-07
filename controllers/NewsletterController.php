@@ -73,7 +73,7 @@ class NewsletterController extends AbstractController
         }
 
         if (strlen($firstName) < 2) {
-            $errors[] = 'Le prénom doit faire au moins 2 charactères';
+            $errors[] = 'Le prénom doit faire au moins 2 caractères';
         }
 
         if (empty($lastName)) {
@@ -81,7 +81,7 @@ class NewsletterController extends AbstractController
         }
 
         if (strlen($lastName) < 2) {
-            $errors[] = 'Le nom doit faire au moins 2 charactères';
+            $errors[] = 'Le nom doit faire au moins 2 caractères';
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
