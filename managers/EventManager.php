@@ -254,7 +254,7 @@ class EventManager extends AbstractManager
         $events = [];
         
         foreach ($result as $item) {
-            // Réutilise ton code pour instancier des objets Event à partir des résultats
+            
             $date = new DateTime($item["date"]);
             $media = $this->mm->findOne($item["media_id"]);
             $type = $this->tm->findOne($item["type_id"]);

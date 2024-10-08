@@ -25,75 +25,90 @@ line-height: inherit;
 }
 
 @mixin focus-state {  
-    outline: none;
-    width: 100%;
-    display: inline-block;
-    border: 4px solid $focus;
-    box-sizing: border-box;
+  outline: none;
+  width: 100%;
+  display: inline-block;
+  border: 4px solid $focus;
+  box-sizing: border-box;
 }
 
 @mixin button-styles($type) {
-    display: block;
-    font-family: $roboto Arial;
-    font-size: 1.6rem;
-    font-weight: bolder;
-    text-transform: uppercase;
-    margin: auto;
-    margin-top: 2rem;
-    border-radius: 15px;
-    padding: 1rem 2.5rem;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+  display: block;
+  font-family: $roboto Arial;
+  font-size: 1.6rem;
+  font-weight: bolder;
+  text-transform: uppercase;
+  margin: auto;
+  margin-top: 2rem;
+  border-radius: 15px;
+  padding: 1rem 2.5rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
 
-  
-    @if $type == 'orange' {
-      background-color: $orange;
-      color: $beige;
-      border: 3px solid $beige;
-  
-      &:hover {
-        background-color: $beige;
-        color: $focus;
-        border: 3px solid $orange;
-      }
-    } @else if $type == 'blue' {
-      background-color: $blue;
-      color: $orange;
+
+  @if $type == 'orange' {
+    background-color: $orange;
+    color: $beige;
+    border: 3px solid $beige;
+
+    &:hover {
+      background-color: $beige;
+      color: $focus;
       border: 3px solid $orange;
-  
-      &:hover {
-        background-color: $orange;
-        color: $blue;
-        border: 3px solid $blue;
-      }
-    } @else {
-      background-color: $red;
-      color: $beige;
-      border: 3px solid $beige;
-  
-      &:hover {
-        background-color: $beige;
-        color: $red;
-        border: 3px solid $red;
-      }
     }
+  } @else if $type == 'blue' {
+    background-color: $blue;
+    color: $orange;
+    border: 3px solid $orange;
 
-    // RESPONSIVE
+    &:hover {
+      background-color: $orange;
+      color: $blue;
+      border: 3px solid $blue;
+    }
+  } @else {
+    background-color: $red;
+    color: $beige;
+    border: 3px solid $beige;
 
-    @media #{$small} {
-    // Petits appareils (téléphones en mode paysage, 576px et plus)
-    font-size: 1.8rem; 
+    &:hover {
+      background-color: $beige;
+      color: $red;
+      border: 3px solid $red;
     }
-    
-    @media #{$medium} {
-    // Appareils moyens (tablettes, 768px et plus)
-    font-size: 2rem;
-    }
+  }
+}
 
-    @media #{$large} {
-    // Grands appareils (ordinateurs de bureau, 992px et plus)
-    font-size: 2.2rem;
-    }
+@mixin table-styles($border-color: $puce, $header-bg-color: $davy-gray, $header-text-color: $beige, $row-hover-bg-color: $earth-yellow, $normal-row-bg-color: $columbia-blue, $striped-row-bg-color: $beige, $text-color: $davy-gray, $padding: 8px, $border-width: 1px, $border-style: solid) {
+  width: 100%;
+  background-color: $beige;
+  font-family: $robotoMono, Arial;
+  border-collapse: collapse;
+  color: $text-color;
+
+  th, td {
+    border: $border-width $border-style $border-color;
+    padding: $padding;
+    text-align: left;
+  }
+
+  th {
+    background-color: $header-bg-color;
+    color: $header-text-color;
+    font-weight: bold;
+  }
+
+  tr:nth-child(odd) {
+    background-color: $normal-row-bg-color;
+  }
+
+  tr:nth-child(even) {
+    background-color: $striped-row-bg-color;
+  }
+
+  tr:hover {
+    background-color: $row-hover-bg-color;
+  }
 }

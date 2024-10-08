@@ -8,6 +8,7 @@ class Router
     private EventController $ec;
     private NewsletterController $nc;
     private ContactController $cc;
+    private DashboardController $dashc;
 
     public function __construct()
     {
@@ -17,6 +18,7 @@ class Router
         $this->actuc = new ActualityController();
         $this->nc = new NewsletterController();
         $this->cc = new ContactController();
+        $this->dashc = new DashboardController();
     }
 
     public function handleRequest(array $get, array $post): void
@@ -123,7 +125,80 @@ class Router
             case 'espace-admin':
                 if ($this->ac->isUserLoggedIn()) {
                     if ($this->ac->isUserRole("ADMIN")) {
-                        $this->ac->espaceAdmin();
+                        $this->dashc->adminDashboard();
+                    } else {
+                        header("Location: index.php?route=connexion");
+                        exit();
+                    }
+                } else {
+                    header("Location: index.php?route=connexion");
+                    exit();
+                }
+                break;
+
+                        
+            case 'admin-utilisateurs':
+                if ($this->ac->isUserLoggedIn()) {
+                    if ($this->ac->isUserRole("ADMIN")) {
+                        $this->dashc->adminUsers();
+                    } else {
+                        header("Location: index.php?route=connexion");
+                        exit();
+                    }
+                } else {
+                    header("Location: index.php?route=connexion");
+                    exit();
+                }
+                break;
+            
+            case 'admin-search-user':
+                if ($this->ac->isUserLoggedIn()) {
+                    if ($this->ac->isUserRole("ADMIN")) {
+                        $this->dashc->searchUsers();
+                    } else {
+                        header("Location: index.php?route=connexion");
+                        exit();
+                    }
+                } else {
+                    header("Location: index.php?route=connexion");
+                    exit();
+                }  
+                break;
+            
+            case 'admin-delete-user':
+                if ($this->ac->isUserLoggedIn()) {
+                    if ($this->ac->isUserRole("ADMIN")) {
+                        $this->dashc->deleteUser();
+                    } else {
+                        header("Location: index.php?route=connexion");
+                        exit();
+                    }
+                } else {
+                    header("Location: index.php?route=connexion");
+                    exit();
+                }
+                break;
+
+                            
+            case 'admin-evenements':
+                if ($this->ac->isUserLoggedIn()) {
+                    if ($this->ac->isUserRole("ADMIN")) {
+                        $this->dashc->adminEvents();
+                    } else {
+                        header("Location: index.php?route=connexion");
+                        exit();
+                    }
+                } else {
+                    header("Location: index.php?route=connexion");
+                    exit();
+                }
+                break;
+
+                        
+            case 'admin-actualites':
+                if ($this->ac->isUserLoggedIn()) {
+                    if ($this->ac->isUserRole("ADMIN")) {
+                        $this->dashc->adminActualities();
                     } else {
                         header("Location: index.php?route=connexion");
                         exit();

@@ -20,57 +20,48 @@ class AuthController extends AbstractController
 
     public function checkLogin() : void
     {
-        $scripts = $this->addScripts([
-        ]);
-
-        if(isset($_POST["email"]) && isset($_POST["password"]))
-        {
+        $scripts = $this->addScripts([]);
+    
+        if (isset($_POST["email"]) && isset($_POST["password"])) {
             $tokenManager = new CSRFTokenManager();
-
-            if(isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"]))
-            {
+    
+            if (isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"])) {
                 $user = $this->um->findByEmail($_POST["email"]);
-
-                if($user !== null)
-                {
-                    
-                    if(password_verify($_POST["password"], $user->getPassword()))
-                    {
-                        
+    
+                if ($user !== null) {
+                    if (password_verify($_POST["password"], $user->getPassword())) {
                         if (session_status() == PHP_SESSION_NONE) {
                             session_start();
                         }
-
+    
                         $_SESSION["user"] = $user->getId();
-
                         unset($_SESSION["error_message"]);
-
-                        $this->redirect("index.php");
-                    }
-                    else
-                    {
+    
+                        if ($user->getRole() === "ADMIN") {
+                            $this->redirect("index.php?route=espace-admin");
+                        } else if ($user->getRole() === "ARTISTE" || $user->getRole() === "PRO") {
+                            $this->redirect("index.php?route=artiste-pro");
+                        } else {
+                            $this->redirect("index.php");
+                        }
+                    } else {
                         $_SESSION["error_message"] = "Informations de connexion invalides";
                         $this->render("connexion.html.twig", [], $scripts);
                     }
-                }
-                else
-                {
+                } else {
                     $_SESSION["error_message"] = "Informations de connexion invalides";
                     $this->render("connexion.html.twig", [], $scripts);
                 }
-            }
-            else
-            {
+            } else {
                 $_SESSION["error_message"] = "Invalidité du jeton CSRF";
                 $this->render("connexion.html.twig", [], $scripts);
             }
-        }
-        else
-        {
+        } else {
             $_SESSION["error_message"] = "Veuillez remplir tous les champs";
             $this->render("connexion.html.twig", [], $scripts);
         }
     }
+    
 
     public function register() : void
     {

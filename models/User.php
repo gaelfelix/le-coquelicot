@@ -10,10 +10,11 @@ class User
         private string $email,
         private string $password,
         private string $role = "USER",
+        private ?Specialization $specialization = null,
         private ?Media $media = null,
-        private ?DateTime $createdAt = null
+        private ?DateTime $createdAt = null,
+        private ?string $structure = null
     ) {
-        // Initialiser createdAt si non fourni
         $this->createdAt = $this->createdAt ?? new DateTime('now', new DateTimeZone('Europe/Paris'));
     }
 
@@ -75,6 +76,32 @@ class User
     public function setRole(string $role): void
     {
         $this->role = $role;
+    }
+
+    public function getSpecialization(): ?Specialization
+    {
+        return $this->specialization;
+    }
+
+
+    public function getSpecializationId(): ?int
+    {
+        return $this->specialization?->getId();
+    }
+
+    public function setSpecialization(?Specialization $specialization): void
+    {
+        $this->specialization = $specialization;
+    }
+
+    public function getStructure(): ?string
+    {
+        return $this->structure;
+    }
+
+    public function setStructure(?string $structure): void
+    {
+        $this->structure = $structure;
     }
 
     public function getMedia(): ?Media

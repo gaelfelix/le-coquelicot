@@ -1,0 +1,61 @@
+{% extends "layout.html.twig" %}
+
+{% block description %}
+{% endblock %}
+
+{% block title %}
+Utilisateurs
+{% endblock %}
+
+{% block main %}
+<main id="admin-user">
+    <section>
+        <h2>Administration des utilisateurs</h2>
+        <fieldset>
+            <form id="searchForm" action="/search" method="get" class="search-bar">
+                <input type="search" name="q" placeholder="Rechercher..." aria-label="Recherche">
+                <button class="search-button"><i class="fas fa-search"></i></button>
+            </form>
+            <select name="role" id="role">
+                <option value="all">Tous</option>
+                {% for user in users %}
+                <option value="{{ user.role|striptags }}">{{ user.role|striptags }}</option>            
+                {% endfor %}
+            </select>
+        </fieldset>
+        <div class="table-container">
+            <table id="userTable">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Rôle</th>
+                        <th>Structure / Groupe</th>
+                        <th>Compétence</th>
+                        <th>Mail</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id|striptags }}</td>
+                        <td>{{ user.firstname|striptags }}</td>
+                        <td>{{ user.lastname|striptags }}</td>
+                        <td>{{ user.role|striptags }}</td>
+                        <td>{{ user.structure|striptags }}</td>
+                        <td>{{ user.specialization.name|striptags }}</td>
+                        <td>{{ user.email|striptags }}</td>
+                        <td>
+                            <a href="index.php?route=admin-delete-user&id={{ user.id }}">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+{% endblock %}

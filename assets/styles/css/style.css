@@ -127,7 +127,7 @@ select {
   background-color: rgba(0, 0, 0, 0.5);
 }
 #customization-modal .modal-content {
-  background-color: #f3f2e9;
+  background-color: #F3F2E9;
   margin: 10% auto;
   padding: 20px;
   border: 5px solid #FFB571;
@@ -195,7 +195,7 @@ select {
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: #f3f2e9;
+  background-color: #F3F2E9;
   transition: 0.4s;
   border-radius: 50%;
 }
@@ -221,7 +221,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f3f2e9;
+  background-color: #F3F2E9;
   height: 9rem;
   box-shadow: inset 0px -4px 0px #FFB571;
   position: fixed;
@@ -241,7 +241,7 @@ header > div:nth-of-type(2) > div h1 span {
 header > div:nth-of-type(2) > div nav {
   z-index: 1000;
   padding: 0px;
-  background-color: #f3f2e9;
+  background-color: #F3F2E9;
   position: fixed;
   top: 90px;
   right: 0;
@@ -258,7 +258,7 @@ header > div:nth-of-type(2) > div nav > div > ul {
   text-align: start;
   text-transform: uppercase;
   position: absolute;
-  background: #f3f2e9;
+  background: #F3F2E9;
   top: 100%;
   right: 0;
   width: 100vw;
@@ -305,7 +305,7 @@ header > div:nth-of-type(3) > button {
   width: 25px;
   height: 25px;
   padding: 0;
-  background-color: #f3f2e9;
+  background-color: #F3F2E9;
   cursor: pointer;
   border: none;
   display: flex;
@@ -475,7 +475,7 @@ header > div:nth-of-type(3) > div {
     color: #2E2D52;
   }
   header > div:nth-of-type(3) > div .artist-pro-button > a {
-    color: #f3f2e9;
+    color: #F3F2E9;
   }
 }
 @media only screen and (min-width: 1100px) {
@@ -500,7 +500,7 @@ header > div:nth-of-type(3) > div {
 }
 
 footer {
-  background-color: #f3f2e9;
+  background-color: #F3F2E9;
   border-top: 5px solid #FFB571;
 }
 footer p,
@@ -730,7 +730,7 @@ footer .footer-copyright {
   margin: 1rem 0 2rem 0;
 }
 .event-card-container .event-card > a .info-event-container .rect-event-container .type {
-  background-color: #f3f2e9;
+  background-color: #F3F2E9;
 }
 .event-card-container .event-card > a .info-event-container .rect-event-container .style {
   background-color: #FFB571;
@@ -921,9 +921,9 @@ footer .footer-copyright {
   outline: none;
   display: block;
   cursor: pointer;
-  color: #f3f2e9;
+  color: #F3F2E9;
   border-radius: 999px;
-  background: #f3f2e9;
+  background: #F3F2E9;
   width: calc(0.6rem + 0.5vw);
   height: calc(0.6rem + 0.5vw);
   margin: calc(0.5rem + 1vw) calc(0.5rem + 1vw) calc(0.5rem + 1vw) calc(0.9rem + 1vw);
@@ -1041,7 +1041,7 @@ footer .footer-copyright {
   margin: 1rem 0 2rem 0;
 }
 #homepage .event-card a .info-event-container .rect-event-container .type {
-  background-color: #f3f2e9;
+  background-color: #F3F2E9;
 }
 #homepage .event-card a .info-event-container .rect-event-container .style {
   background-color: #FFB571;
@@ -1258,7 +1258,7 @@ footer .footer-copyright {
   padding: 12px;
   background-color: #FFB571;
   border: none;
-  color: #f3f2e9;
+  color: #F3F2E9;
   border-radius: 0 14px 14px 0;
   cursor: pointer;
 }
@@ -1284,7 +1284,7 @@ footer .footer-copyright {
   transform: scale(1.05);
 }
 #programmation .programmation-events-container .event-card {
-  border: 2px solid #f3f2e9;
+  border: 2px solid #F3F2E9;
 }
 #programmation .programmation-events-container .search-error {
   font-size: 2rem;
@@ -1382,29 +1382,14 @@ footer .footer-copyright {
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
   background-color: #FFB571;
-  color: #f3f2e9;
-  border: 3px solid #f3f2e9;
+  color: #F3F2E9;
+  border: 3px solid #F3F2E9;
   margin: 0;
 }
 #event .event-container .event-info-container .price-reservation-container .reservation-button:hover {
-  background-color: #f3f2e9;
+  background-color: #F3F2E9;
   color: #FF922C;
   border: 3px solid #FFB571;
-}
-@media only screen and (min-width: 576px) {
-  #event .event-container .event-info-container .price-reservation-container .reservation-button {
-    font-size: 1.8rem;
-  }
-}
-@media only screen and (min-width: 768px) {
-  #event .event-container .event-info-container .price-reservation-container .reservation-button {
-    font-size: 2rem;
-  }
-}
-@media only screen and (min-width: 992px) {
-  #event .event-container .event-info-container .price-reservation-container .reservation-button {
-    font-size: 2.2rem;
-  }
 }
 #event .iframe-container {
   margin: 2rem auto;
@@ -1509,7 +1494,7 @@ footer .footer-copyright {
   width: 95%;
   text-align: center;
   text-transform: uppercase;
-  color: #f3f2e9;
+  color: #F3F2E9;
   margin: 1rem auto;
   padding: 0 0 0 1rem;
   font-size: 1.5rem;
@@ -1686,30 +1671,15 @@ footer .footer-copyright {
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
   background-color: #FFB571;
-  color: #f3f2e9;
-  border: 3px solid #f3f2e9;
+  color: #F3F2E9;
+  border: 3px solid #F3F2E9;
   width: -moz-fit-content;
   width: fit-content;
 }
 #association .adhesion-don-container .button-container a:hover {
-  background-color: #f3f2e9;
+  background-color: #F3F2E9;
   color: #FF922C;
   border: 3px solid #FFB571;
-}
-@media only screen and (min-width: 576px) {
-  #association .adhesion-don-container .button-container a {
-    font-size: 1.8rem;
-  }
-}
-@media only screen and (min-width: 768px) {
-  #association .adhesion-don-container .button-container a {
-    font-size: 2rem;
-  }
-}
-@media only screen and (min-width: 992px) {
-  #association .adhesion-don-container .button-container a {
-    font-size: 2.2rem;
-  }
 }
 #association .mecenat-container div {
   width: 90%;
@@ -1730,7 +1700,7 @@ footer .footer-copyright {
   margin: 0.5rem;
   padding: 0.5rem;
   height: 60px;
-  background-color: #f3f2e9;
+  background-color: #F3F2E9;
   border: 3px solid #FFB571;
   border-radius: 10px;
 }
@@ -1848,7 +1818,7 @@ footer .footer-copyright {
   max-width: 1200px;
   margin: 0 auto 3rem auto;
   padding: 1rem;
-  background-color: #f3f2e9;
+  background-color: #F3F2E9;
   border: 5px solid #FFB571;
   border-radius: 20px;
 }
@@ -1912,7 +1882,7 @@ footer .footer-copyright {
   max-width: 950px;
   margin: 0 auto;
   color: #2E2D52;
-  background-color: #f3f2e9;
+  background-color: #F3F2E9;
   padding: 2rem;
   border: 5px solid #FFB571;
   border-radius: 20px;
@@ -2090,7 +2060,7 @@ body #loader {
   z-index: 9999;
 }
 body #loader .loader {
-  border: 8px solid #f3f2e9;
+  border: 8px solid #F3F2E9;
   border-radius: 50%;
   border-top: 8px solid #FFB571;
   width: 40px;
@@ -2098,7 +2068,7 @@ body #loader .loader {
   animation: spin 0.6s linear infinite;
 }
 body #loader p {
-  color: #f3f2e9;
+  color: #F3F2E9;
   font-size: 2rem;
   margin-left: 2rem;
   text-transform: uppercase;
@@ -2146,7 +2116,7 @@ select {
   margin-bottom: 1rem;
   border: 4px solid #FFB571;
   border-radius: 14px;
-  background-color: #f3f2e9;
+  background-color: #F3F2E9;
   font-weight: 500;
   font-family: inherit;
   font-size: inherit;
@@ -2169,29 +2139,14 @@ input[name=orange] {
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
   background-color: #FFB571;
-  color: #f3f2e9;
-  border: 3px solid #f3f2e9;
+  color: #F3F2E9;
+  border: 3px solid #F3F2E9;
   margin-top: 3rem;
 }
 input[name=orange]:hover {
-  background-color: #f3f2e9;
+  background-color: #F3F2E9;
   color: #FF922C;
   border: 3px solid #FFB571;
-}
-@media only screen and (min-width: 576px) {
-  input[name=orange] {
-    font-size: 1.8rem;
-  }
-}
-@media only screen and (min-width: 768px) {
-  input[name=orange] {
-    font-size: 2rem;
-  }
-}
-@media only screen and (min-width: 992px) {
-  input[name=orange] {
-    font-size: 2.2rem;
-  }
 }
 
 input:not([type=submit]):focus,
@@ -2216,6 +2171,36 @@ textarea {
   resize: vertical;
 }
 
+.table-container {
+  overflow-x: scroll;
+}
+.table-container table {
+  width: 100%;
+  background-color: #F3F2E9;
+  font-family: "Roboto Mono", monospace, Arial;
+  border-collapse: collapse;
+  color: #50514F;
+}
+.table-container table th, .table-container table td {
+  border: 1px solid #C37D92;
+  padding: 8px;
+  text-align: left;
+}
+.table-container table th {
+  background-color: #50514F;
+  color: #F3F2E9;
+  font-weight: bold;
+}
+.table-container table tr:nth-child(odd) {
+  background-color: #C0D6DF;
+}
+.table-container table tr:nth-child(even) {
+  background-color: #F3F2E9;
+}
+.table-container table tr:hover {
+  background-color: #EAB464;
+}
+
 main {
   margin-top: 90px;
   flex-grow: 1;
@@ -2228,12 +2213,12 @@ main section:not(:last-of-type) {
   border-bottom: 5px solid #FFB571;
 }
 main section:nth-child(even) {
-  background-color: #f3f2e9;
+  background-color: #F3F2E9;
   color: #2E2D52;
 }
 main section:nth-child(odd) {
   background-color: #2E2D52;
-  color: #f3f2e9;
+  color: #F3F2E9;
 }
 
 .mono {
