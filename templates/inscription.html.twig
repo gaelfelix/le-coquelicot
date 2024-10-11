@@ -21,39 +21,39 @@ S'inscrire
 
         <form action="index.php?route=check-register" method="post">
             <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session.csrf_token }}" />
-            <fieldset class="form">
-                <label for="first-name" class="form-label">
-                    Prénom
-                </label>
-                <input type="text" name="first-name" id="first-name" class="form-control"/>
-            </fieldset>
-            <fieldset class="form">
-                <label for="last-name" class="form-label">
-                    Nom
-                </label>
-                <input type="text" name="last-name" id="last-name" class="form-control"/>
-            </fieldset>
-            <fieldset class="form">
-                <label for="email" class="form-label">
-                    Adresse mail
-                </label>
-                <input type="email" name="email" id="email" class="form-control"/>
-            </fieldset>
-            <fieldset class="form">
-                <label for="password" class="form-label">
-                    Mot de passe
-                </label>
-                <input type="password" name="password" id="password" class="form-control" />
-            </fieldset>
-            <fieldset class="form">
-                <label for="confirm-password" class="form-label">
-                    Confirmer le mot de passe
-                </label>
-                <input type="password" name="confirm-password" id="confirm-password"  class="form-control"/>
-            </fieldset>
-            <fieldset>
-                <button type="submit" class="submit-button">S'inscrire</button>
-            </fieldset>
+
+            <label for="first-name">Prénom</label>
+            <input type="text" name="first-name" id="first-name" required />
+
+            <label for="last-name">Nom</label>
+            <input type="text" name="last-name" id="last-name" required />
+
+            <label for="role">Artiste / Professionnel du spectacle</label>
+            <select name="role" id="role" required>
+                <option value="">Sélectionnez votre métier</option>
+                <option value="ARTISTE">Artiste</option>
+                <option value="PRO">Professionnel du spectacle</option>
+            </select>
+
+            <label for="specialization">Compétence</label>
+            <select name="specialization" id="specialization" required>
+                <option value="">Sélectionnez une spécialisation</option>
+                <!-- Les options seront ajoutées ici par JavaScript -->
+            </select>
+
+            <label for="structure">Structure</label>
+            <input type="text" name="structure" id="structure" required />
+
+            <label for="email">Adresse mail</label>
+            <input type="email" name="email" id="email" required />
+
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" id="password" required />
+
+            <label for="confirm-password">Confirmer le mot de passe</label>
+            <input type="password" name="confirm-password" id="confirm-password" required />
+
+            <button type="submit" class="submit-button">S'inscrire</button>
         </form>
         <a href="index.php?route=connexion">Connectez-vous</a>
 

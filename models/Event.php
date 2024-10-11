@@ -116,6 +116,16 @@ class Event
         $this->media = $media;
     }
 
+    public function getMediaId(): ?int
+    {
+        return $this->mediaId;
+    }
+
+    public function setMediaId(?int $mediaId): void
+    {
+        $this->mediaId = $mediaId;
+    }
+
     public function getType(): ?Type
     {
         return $this->type;

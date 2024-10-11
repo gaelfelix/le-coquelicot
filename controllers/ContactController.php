@@ -65,7 +65,7 @@ class ContactController extends AbstractController
         }
     }
 
-    public function validateInput($firstName, $lastName, $email, $phone = null, $subject, $message): array
+    public function validateInput($firstName, $lastName, $email, $subject, $message, $phone = null): array
     {
         $errors = [];
     

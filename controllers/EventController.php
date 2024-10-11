@@ -53,12 +53,16 @@ class EventController extends AbstractController
         {
             $dateValues = $this->translateDate($event->getDate());
 
+            $videoLink = $event->getVideoLink();
+            $youtubeId = $this->extractYoutubeId($videoLink);
+
             $this->render("evenement.html.twig", [
                 "event" => $event,
                 "integralDay" => $dateValues['integralDay'],
                 "shortDay" => $dateValues['shortDay'],
                 "number" => $dateValues['number'],
                 "shortMonth" => $dateValues['shortMonth'],
+                "youtubeId" => $youtubeId,
             ], $scripts);
         }
         else
@@ -113,40 +117,48 @@ class EventController extends AbstractController
     }
 
     public function filterEvents(string $type): void
-{
-    $em = new EventManager();
-    
-    if ($type === 'all') {
-        $events = $em->findAll();
-    } elseif ($type === 'upcoming') {
-        $events = $em->upcomingEvents(); // Assurez-vous d'implémenter cette méthode dans EventManager
-    } else {
-        $events = $em->findByType($type); // Assurez-vous d'implémenter cette méthode dans EventManager
+    {
+        $em = new EventManager();
+        
+        if ($type === 'all') {
+            $events = $em->findAll();
+        } elseif ($type === 'upcoming') {
+            $events = $em->upcomingEvents(); // Assurez-vous d'implémenter cette méthode dans EventManager
+        } else {
+            $events = $em->findByType($type); // Assurez-vous d'implémenter cette méthode dans EventManager
+        }
+
+        // Formate les données en JSON pour les envoyer à l'interface
+        $eventsData = array_map(function($event) {
+
+            $dateValues = $this->translateDate($event->getDate());
+
+            return [
+                'id' => $event->getId(),
+                'name' => $event->getName(),
+                'shortDay' => $dateValues['shortDay'],
+                'number' => $dateValues['number'],
+                'shortMonth' => $dateValues['shortMonth'],
+                'media' => [
+                    'url' => $event->getMedia()->getUrl(),
+                    'alt' => $event->getMedia()->getAlt()
+                ],
+                'type' => ['name' => $event->getType()->getName()],
+                'style1' => ['name' => $event->getStyle1()->getName()],
+                'style2' => ['name' => $event->getStyle2()->getName()],
+            ];
+        }, $events);
+
+        echo json_encode($eventsData);
+        exit;
     }
 
-    // Formate les données en JSON pour les envoyer à l'interface
-    $eventsData = array_map(function($event) {
-
-        $dateValues = $this->translateDate($event->getDate());
-
-        return [
-            'id' => $event->getId(),
-            'name' => $event->getName(),
-            'shortDay' => $dateValues['shortDay'],
-            'number' => $dateValues['number'],
-            'shortMonth' => $dateValues['shortMonth'],
-            'media' => [
-                'url' => $event->getMedia()->getUrl(),
-                'alt' => $event->getMedia()->getAlt()
-            ],
-            'type' => ['name' => $event->getType()->getName()],
-            'style1' => ['name' => $event->getStyle1()->getName()],
-            'style2' => ['name' => $event->getStyle2()->getName()],
-        ];
-    }, $events);
-
-    echo json_encode($eventsData);
-    exit;
-}
+    private function extractYoutubeId(string $url): ?string
+    {
+        if (strpos($url, 'watch?v=') !== false) {
+            return substr($url, strpos($url, 'watch?v=') + 8);
+        }
+        return null;
+    }
 
 }

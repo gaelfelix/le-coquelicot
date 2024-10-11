@@ -11,7 +11,8 @@ Se connecter
 <main id="connexion">
     <section>
         <h2>Se connecter</h2>
-
+        <p>Cette page est réservée aux artistes et professionnels du spectacle. Pour accéder y accéder, veuillez vous connecter avec votre compte.</p>
+        <p>Si vous n'avez pas encore de compte, n'hésitez pas à cliquer sur Créer un compte pour vous inscrire.</p>
         {% if  session.error_message is not null %}
             <div class="alert">
                 <p>{{ session.error_message|striptags|striptags }}</p>
@@ -21,21 +22,15 @@ Se connecter
 
         <form action="index.php?route=check-login" method="post">
             <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session.csrf_token }}" />
-            <fieldset class="form">
-                <label for="email" class="form-label">
-                    Adresse mail
-                </label>
-                <input type="email" name="email" id="email" class="form-control"/>
-            </fieldset>
-            <fieldset class="form">
-                <label for="password" class="form-label">
-                    Mot de passe
-                </label>
-                <input type="password" name="password" id="password" class="form-control" />
-            </fieldset>
-            <fieldset>
+
+                <label for="email">Adresse mail</label>
+                <input type="email" name="email" id="email"/>
+
+                <label for="password">Mot de passe</label>
+                <input type="password" name="password" id="password" />
+
                 <button type="submit" class="submit-button">Se connecter</button>
-            </fieldset>
+
         </form>
         <a href="">Mot de passe oublié ?</a>
         <a href="index.php?route=inscription">Créer un compte</a>

@@ -8,11 +8,13 @@ class StyleManager extends AbstractManager
         $parameters = ["id" => $id];
         $query->execute($parameters);
         $result = $query->fetch(PDO::FETCH_ASSOC);
-
+    
         if ($result) {
-            return new Style($result["name"]);
+            $style = new Style($result["name"]);
+            $style->setId($result["id"]);
+            return $style;
         }
-
+    
         return null;
     }
 
@@ -30,5 +32,27 @@ class StyleManager extends AbstractManager
         }
 
         return $styles;
+    }
+
+    public function create(Style $style): void
+    {
+        $query = $this->db->prepare("INSERT INTO styles (name) VALUES (:name)");
+        $query->execute(['name' => $style->getName()]);
+        $style->setId($this->db->lastInsertId());
+    }
+
+    public function update(Style $style): void
+    {
+        $query = $this->db->prepare("UPDATE styles SET name = :name WHERE id = :id");
+        $query->execute([
+            'id' => $style->getId(),
+            'name' => $style->getName()
+        ]);
+    }
+
+    public function delete(int $id): void
+    {
+        $query = $this->db->prepare("DELETE FROM styles WHERE id = :id");
+        $query->execute(['id' => $id]);
     }
 }

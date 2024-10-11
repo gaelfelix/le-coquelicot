@@ -61,6 +61,7 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  color: black;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
@@ -1355,6 +1356,7 @@ footer .footer-copyright {
 #event .event-container .event-info-container > p {
   margin: 1rem 0;
   text-align: justify;
+  white-space: pre-line;
 }
 #event .event-container .event-info-container .price-reservation-container {
   margin: 3rem auto;
@@ -1550,6 +1552,7 @@ footer .footer-copyright {
 #actualite .actu-container .actu-info-container p {
   margin: 1rem 0;
   text-align: justify;
+  white-space: pre-line;
 }
 #actualite .actu-container .actu-info-container .integral-day {
   color: #FFB571;
@@ -2015,6 +2018,21 @@ footer .footer-copyright {
     max-width: 35%;
   }
 }
+#admin-event .alert {
+  background-color: #f44336;
+  color: white;
+  padding: 15px;
+  margin-bottom: 15px;
+  position: relative;
+}
+#admin-event .alert i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
 /********** GLOBAL STYLES **********/
 html,
 body {

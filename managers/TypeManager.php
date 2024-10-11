@@ -8,11 +8,13 @@ class TypeManager extends AbstractManager
         $parameters = ["id" => $id];
         $query->execute($parameters);
         $result = $query->fetch(PDO::FETCH_ASSOC);
-
+    
         if ($result) {
-            return new Type($result["name"]);
+            $type = new Type($result["name"]);
+            $type->setId($result["id"]);
+            return $type;
         }
-
+    
         return null;
     }
 

@@ -133,11 +133,8 @@ class UserManager extends AbstractManager
     public function searchUsers(string $query, string $role = 'all') : array
     {
         $query = '%' . $query . '%';
-        
-        // Préparation de la requête SQL
         $sql = 'SELECT * FROM users WHERE (first_name LIKE :query OR last_name LIKE :query OR email LIKE :query OR structure LIKE :query)';
         
-        // Ajout du filtre de rôle si ce n'est pas "all"
         if ($role !== 'all') {
             $sql .= ' AND role = :role';
         }
@@ -147,7 +144,6 @@ class UserManager extends AbstractManager
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':query', $query, PDO::PARAM_STR);
         
-        // Lier le rôle si nécessaire
         if ($role !== 'all') {
             $stmt->bindParam(':role', $role, PDO::PARAM_STR);
         }
@@ -203,13 +199,14 @@ class UserManager extends AbstractManager
             "password" => $user->getPassword(),
             "email" => $user->getEmail(),
             "role" => $user->getRole(),
-            "specialization_id" => $user->getSpecializationId(),  // Assurez-vous que l'objet Specialization est géré
+            "specialization_id" => $user->getSpecializationId(),
             "structure" => $user->getStructure(),
             "created_at" => $currentDateTime,
         ];
 
         $query->execute($parameters);
         $user->setId($this->db->lastInsertId());
+
     }
 
         public function deleteUser(int $userId): bool

@@ -193,7 +193,72 @@ class Router
                     exit();
                 }
                 break;
+            
+            case 'admin-search-event':
+                if ($this->ac->isUserLoggedIn()) {
+                    if ($this->ac->isUserRole("ADMIN")) {
+                        $this->dashc->searchEvents();
+                    } else {
+                        header("Location: index.php?route=connexion");
+                        exit();
+                    }
+                } else {
+                    header("Location: index.php?route=connexion");
+                    exit();
+                }  
+                break;
 
+            case 'admin-create-event':
+                if ($this->ac->isUserLoggedIn()) {
+                    if ($this->ac->isUserRole("ADMIN")) {
+                        $this->dashc->createEvent();
+                    } else {
+                        header("Location: index.php?route=connexion");
+                        exit();
+                    }
+                } else {
+                    header("Location: index.php?route=connexion");
+                    exit();
+                }  
+                break;
+            
+            case 'admin-update-event':
+                if ($this->ac->isUserLoggedIn()) {
+                    if ($this->ac->isUserRole("ADMIN")) {
+                        $this->dashc->updateEvent();
+                    } else {
+                        header("Location: index.php?route=connexion");
+                        exit();
+                    }
+                } else {
+                    header("Location: index.php?route=connexion");
+                    exit();
+                }
+            break;
+
+            case 'get-event-data':
+                if ($this->ac->isUserLoggedIn() && $this->ac->isUserRole("ADMIN")) {
+                    $this->dashc->getEventData();
+                } else {
+                    header("Location: index.php?route=connexion");
+                    exit();
+                }
+            break;
+                    
+
+            case 'admin-delete-event':
+                if ($this->ac->isUserLoggedIn()) {
+                    if ($this->ac->isUserRole("ADMIN")) {
+                        $this->dashc->deleteEvent();
+                    } else {
+                        header("Location: index.php?route=connexion");
+                        exit();
+                    }
+                } else {
+                    header("Location: index.php?route=connexion");
+                    exit();
+                }
+                break;
                         
             case 'admin-actualites':
                 if ($this->ac->isUserLoggedIn()) {
@@ -209,12 +274,87 @@ class Router
                 }
                 break;
 
+            case 'admin-search-actuality':
+                if ($this->ac->isUserLoggedIn()) {
+                    if ($this->ac->isUserRole("ADMIN")) {
+                        $this->dashc->searchActualities();
+                    } else {
+                        header("Location: index.php?route=connexion");
+                        exit();
+                    }
+                } else {
+                    header("Location: index.php?route=connexion");
+                    exit();
+                }  
+                break;
+
+            case 'admin-create-actuality':
+                if ($this->ac->isUserLoggedIn()) {
+                    if ($this->ac->isUserRole("ADMIN")) {
+                        $this->dashc->createActuality();
+                    } else {
+                        header("Location: index.php?route=connexion");
+                        exit();
+                    }
+                } else {
+                    header("Location: index.php?route=connexion");
+                    exit();
+                }  
+                break;
+            
+            case 'admin-update-actuality':
+                if ($this->ac->isUserLoggedIn()) {
+                    if ($this->ac->isUserRole("ADMIN")) {
+                        $this->dashc->updateActuality();
+                    } else {
+                        header("Location: index.php?route=connexion");
+                        exit();
+                    }
+                } else {
+                    header("Location: index.php?route=connexion");
+                    exit();
+                }
+                break;
+
+            case 'get-actuality-data':
+                if ($this->ac->isUserLoggedIn() && $this->ac->isUserRole("ADMIN")) {
+                    $this->dashc->getActualityData();
+                } else {
+                    header("Location: index.php?route=connexion");
+                    exit();
+                }
+                break;
+
+            case 'admin-delete-actuality':
+                if ($this->ac->isUserLoggedIn()) {
+                    if ($this->ac->isUserRole("ADMIN")) {
+                        $this->dashc->deleteActuality();
+                    } else {
+                        header("Location: index.php?route=connexion");
+                        exit();
+                    }
+                } else {
+                    header("Location: index.php?route=connexion");
+                    exit();
+                }
+                break;
+    
+
             case 'inscription-newsletter': // Mise à jour de la route pour la requête AJAX
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $this->nc->subscribe(); // Appeler la méthode subscribe sans paramètres
                 } else {
                     http_response_code(405);
                     echo json_encode(["success" => false, "message" => "Méthode non autorisée."]);
+                }
+                break;
+
+            case 'clear-error-message':
+                if ($this->ac->isUserLoggedIn() && $this->ac->isUserRole("ADMIN")) {
+                    $this->dashc->clearErrorMessage();
+                } else {
+                    header("Location: index.php?route=connexion");
+                    exit();
                 }
                 break;
             

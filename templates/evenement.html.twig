@@ -4,59 +4,59 @@
 {% endblock %}
 
 {% block title %}
-{{ event.name|striptags }}
+{{ event.name|e }}
 {% endblock %}
 
 {% block main %}
 <main id="event">
     <section>
-        <h2>{{ event.name|striptags }}</h2>
+        <h2>{{ event.name|e }}</h2>
         <div class="event-container">
             <div class="event-card-container">
-                <article class="event-card" style="background-image: url('{{ event.media.url|striptags }}')">
+                <article class="event-card" style="background-image: url('{{ event.media.url|e }}')">
                     <a>
                         <div class="card-block-date mono">
-                            <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ shortDay|striptags }}</p>
-                            <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ number|striptags }}</p>
-                            <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ shortMonth|striptags }}</p>
+                            <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ shortDay|e }}</p>
+                            <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ number|e }}</p>
+                            <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ shortMonth|e }}</p>
                         </div>
                         <div class="info-event-container">
-                            <h3 class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.name|striptags }}</h3>
+                            <h3 class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.name|e }}</h3>
                             <div class="rect-event-container">
-                                <div class="rect-event type no-toggle-dyslexia no-toggle-line-spacing">{{ event.type.name|striptags }}</div>
-                                <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.style1.name|striptags }}</div>
-                                <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.style2.name|striptags }}</div>
+                                <div class="rect-event type no-toggle-dyslexia no-toggle-line-spacing">{{ event.type.name|e }}</div>
+                                <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.style1.name|e }}</div>
+                                <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.style2.name|e }}</div>
                             </div>
                         </div>
                     </a>
                 </article>
             </div>
             <div class="event-info-container">
-                <h3>{{ event.maindescription|striptags }}</h3>
+                <h3>{{ event.maindescription|e }}</h3>
                 <div class="event-integral-date">
-                    <p class="integral-day">{{ integralDay|striptags }}&nbsp;</p>
-                    <time datetime="{{ event.date|date('c')|striptags }}">
-                        - {{ event.debut|date('H:i')|striptags }} à 
-                        {{ event.end|date('H:i')|striptags }}
+                    <p class="integral-day">{{ integralDay|e }}&nbsp;</p>
+                    <time datetime="{{ event.date|date('c')|e }}">
+                        - {{ event.debut|date('H:i')|e }} à 
+                        {{ event.end|date('H:i')|e }}
                     </time>
                 </div>
 
                 <div class="info-event-separation"></div>
-                <p>{{ event.description|striptags }}</p>
+                <p>{{ event.description|e }}</p>
                 <div class="price-reservation-container">
-                {% if (event.getTicketPrice() == 0 or event.getTicketPrice() is null) and event.date|date('c', 'Europe/Paris') > "now"|date("Y-m-d H:i:s") %}
+                {% if (event.ticketprice == 0 or event.ticketprice is null) and event.date|date('c', 'Europe/Paris') > "now"|date("Y-m-d H:i:s") %}
                     <p>Tarif : Gratuit</p>
                 {% else %}
                     {% if event.date|date('c', 'Europe/Paris') > "now"|date("Y-m-d H:i:s") %}
-                        <p class="price">Tarif : {{ event.getTicketPrice()|striptags }}€</p>
-                        <a href="{{ event.ticketinglink|striptags }}" class="reservation-button">Réservez</a>
+                        <p class="price">Tarif : {{ event.ticketprice|e }}€</p>
+                        <a href="{{ event.ticketinglink|e }}" class="reservation-button">Réservez</a>
                     {% endif %}
                 {% endif %}
                 </div>
             </div>
         </div>  
-        {% if event.videolink is not null %}
-            <div id="{{ event.videolink|striptags }}" class="iframe-container"></div>
+        {% if youtubeId is not null %}
+            <div id="{{ youtubeId|e }}" class="iframe-container"></div>
         {% endif %}     
     </section>
 </main>

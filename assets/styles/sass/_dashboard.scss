@@ -1,0 +1,19 @@
+#admin-event{
+    .alert {
+        background-color: #f44336;
+        color: white;
+        padding: 15px;
+        margin-bottom: 15px;
+        position: relative;
+    }
+    
+    .alert i {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+    
+}
+

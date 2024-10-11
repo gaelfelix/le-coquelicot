@@ -15,7 +15,11 @@
                 <div>
                     <ul id='nav-links-container'>
                         {% include "_li-nav.html.twig" %}
+                    {% if isUserLoggedIn and isAdmin %}
+                        <li class="burger"><a href="index.php?route=espace-admin">Espace Administration</a></li>
+                    {% else %}
                         <li class="burger"><a href="index.php?route=artiste-pro">Espace Artiste / Pro</a></li>
+                    {% endif %}
                         <li class="burger header-accessibility"><a class="no-toggle-dyslexia no-toggle-line-spacing">Personnaliser la page</a></li>
                     {% if isUserLoggedIn %}
                         <li><a href="index.php?route=deconnexion">Déconnexion</a></li>
@@ -38,7 +42,11 @@
                 <i class="fa-solid fa-universal-access"></i>
                 <p class="header-accessibility">Personnaliser la page</p>
             </div>
+            {% if isUserLoggedIn and isAdmin %}
+            <p class="artist-pro-button no-toggle-dyslexia no-toggle-line-spacing"><a href="index.php?route=espace-admin">Espace Administration</a></p>
+            {% else %}
             <p class="artist-pro-button no-toggle-dyslexia no-toggle-line-spacing"><a href="index.php?route=artiste-pro">Espace Artiste / Pro</a></p>
+            {% endif %}
         </div>
     </div>
             <div id="customization-modal" class="modal">

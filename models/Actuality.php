@@ -9,7 +9,7 @@ class Actuality
         private string $title,
         private DateTime $date,
         private string $content,
-        private ?Media $mediaId,
+        private ?int $mediaId,
     ) {
 
     }
@@ -62,5 +62,15 @@ class Actuality
     public function setMedia(?Media $media): void
     {
         $this->media = $media;
+    }
+
+    public function getMediaId(): ?int
+    {
+        return $this->mediaId;
+    }
+
+    public function setMediaId(?int $mediaId): void
+    {
+        $this->mediaId = $mediaId;
     }
 }

@@ -28,6 +28,7 @@ abstract class AbstractController
     {
         $data['scripts'] = $scripts;
         $data['isUserLoggedIn'] = $this->isUserLoggedIn();
+        $data['isAdmin'] = $this->isUserRole('ADMIN');
         echo $this->twig->render($template, $data);
     }
     
@@ -52,6 +53,23 @@ abstract class AbstractController
     {
         return isset($_SESSION['user']);
     }
+
+    protected function isUserRole(string $role): bool
+{
+    if ($this->isUserLoggedIn()) {
+        $userId = $_SESSION['user'];
+
+        $um = new UserManager();
+        $user = $um->findById($userId);
+
+        if ($user && $user->getRole() === $role) {
+            return true;
+        }
+    }
+
+    // Si aucune condition n'est remplie, retourner false
+    return false;
+}
     
     protected function isAjaxRequest(): bool
     {
@@ -71,7 +89,7 @@ abstract class AbstractController
 
         $months = [
             "January" => "Janvier",
-            "February" => "Février",
+            "February" => "Fevrier",
             "March" => "Mars",
             "April" => "Avril",
             "May" => "Mai",
@@ -81,7 +99,7 @@ abstract class AbstractController
             "September" => "Septembre",
             "October" => "Octobre",
             "November" => "Novembre",
-            "December" => "Décembre",
+            "December" => "Decembre",
         ];
 
         $day = $days[$date->format('l')];

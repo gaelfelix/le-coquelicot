@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
     const searchInput = document.querySelector('input[name="q"]');
     const roleSelect = document.querySelector('#role');
+    const searchButton = document.querySelector('.search-button');
     const userTableBody = document.querySelector('#userTable tbody');
+    searchButton.disabled = true;
 
     // Fonction pour échapper les caractères spéciaux
     function htmlspecialchars(str) {

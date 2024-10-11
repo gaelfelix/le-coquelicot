@@ -8,9 +8,79 @@ Actualités
 {% endblock %}
 
 {% block main %}
-<main id="admin-user">
+<main id="admin-actu">
     <section>
         <h2>Administration des actualités</h2>
+        <fieldset>
+            <form id="searchForm" action="/search" method="get" class="search-bar">
+                <input type="search" name="q" placeholder="Rechercher..." aria-label="Recherche">
+                <button class="search-button"><i class="fas fa-search"></i></button>
+            </form>
+        </fieldset>
+
+        <div class="table-container">
+            <table id="actualityTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Titre</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for actuality in actualities %}
+                    <tr data-actuality-id="{{ actuality.id|striptags }}">
+                        <td>{{ actuality.date|date('d/m/Y')|striptags }}</td>
+                        <td>{{ actuality.title|striptags }}</td>
+                        <td>
+                            <a href="index.php?route=actualite&id={{ actuality.id|striptags }}">Voir</a>
+                            <a href="#" data-id="{{ actuality.id|striptags }}" class="edit-actuality">Modifier</a>
+                            <a href="index.php?route=admin-delete-actuality&id={{ actuality.id|striptags }}">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if session.error_message is not null %}
+            <div class="alert" id="error-message">
+                <p>{{ session.error_message|striptags }}</p>
+                <i class="fa-solid fa-xmark" id="close-error"></i>
+            </div>
+        {% endif %}
+
+        <div class="create-actuality-form">
+            <form id="actuality-form" method="POST" action="index.php?route=admin-create-actuality" enctype="multipart/form-data">
+                
+                <input type="hidden" name="id" id="actuality-id">
+                <input type="hidden" name="media_id" id="media-id">
+
+                <label for="title">Titre de l'actualité</label>
+                <input type="text" name="title" placeholder="Titre de l'actualité" required>
+
+                <label for="date">Date</label>
+                <input type="date" name="date" required>
+
+                <label for="content">Contenu</label>
+                <textarea name="content" placeholder="Contenu de l'actualité" required></textarea>
+
+                <div id="current-image"></div>
+
+                <label for="media">Image de l'actualité</label>
+                <input type="file" name="media" accept="image/*">
+
+                <label for="image_name">Nom de l'image</label>
+                <input type="text" name="image_name" placeholder="Nom de l'image">
+
+                <label for="alt-img">Description de l'image</label>
+                <input type="text" name="alt-img" placeholder="Description de l'image">
+
+                <button type="submit">Créer l'actualité</button>
+            </form>
+        </div>
+
     </section>
 </main>
 {% endblock %}
