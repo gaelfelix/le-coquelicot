@@ -2,374 +2,99 @@
 
 class Router
 {
-    private AuthController $ac;
-    private DefaultController $dc;
-    private ActualityController $actuc;
-    private EventController $ec;
-    private NewsletterController $nc;
-    private ContactController $cc;
-    private DashboardController $dashc;
+    private $routes = [
+        'admin-types-styles' => ['DashboardController', 'adminTypesStyles'],
+        'add-type' => ['DashboardController', 'addType'],
+        'delete-type' => ['DashboardController', 'deleteType'],
+        'add-style' => ['DashboardController', 'addStyle'],
+        'delete-style' => ['DashboardController', 'deleteStyle'],
+        'accueil' => ['DefaultController', 'accueil'],
+        'inscription' => ['AuthController', 'register'],
+        'connexion' => ['AuthController', 'login'],
+        'deconnexion' => ['AuthController', 'logout'],
+        'programmation' => ['EventController', 'events'],
+        'evenement' => ['EventController', 'event'],
+        'actualites' => ['ActualityController', 'actualities'],
+        'actualite' => ['ActualityController', 'actuality'],
+        'l-association' => ['DefaultController', 'association'],
+        'adherer-faire-un-don' => ['DefaultController', 'adhesionDonate'],
+        'info-contact' => ['DefaultController', 'infoContact'],
+        'artiste-pro' => ['DefaultController', 'artistePro'],
+        'espace-admin' => ['DashboardController', 'adminDashboard'],
+        'admin-utilisateurs' => ['DashboardController', 'adminUsers'],
+        'admin-evenements' => ['DashboardController', 'adminEvents'],
+        'admin-actualites' => ['DashboardController', 'adminActualities'],
+    ];
+
+    private $controllers = [];
 
     public function __construct()
     {
-        $this->ac = new AuthController();
-        $this->dc = new DefaultController();
-        $this->ec = new EventController();
-        $this->actuc = new ActualityController();
-        $this->nc = new NewsletterController();
-        $this->cc = new ContactController();
-        $this->dashc = new DashboardController();
+        $this->controllers = [
+            'AuthController' => new AuthController(),
+            'DefaultController' => new DefaultController(),
+            'EventController' => new EventController(),
+            'ActualityController' => new ActualityController(),
+            'DashboardController' => new DashboardController(),
+        ];
     }
 
     public function handleRequest(array $get, array $post): void
     {
-        // Si aucune route n'est définie, charger la page d'accueil
-        if (!isset($get["route"])) {
-            $eventId = isset($get['eventId']) ? $get['eventId'] : null;
-            $actualityId = isset($get['actualityId']) ? $get['actualityId'] : null;
-            $this->dc->accueil($eventId, $actualityId);
-            return;
-        }
+        $route = $get['route'] ?? 'accueil';
 
-        switch ($get["route"]) {
-            case "accueil":
-                $eventId = isset($get['eventId']) ? $get['eventId'] : null;
-                $actualityId = isset($get['actualityId']) ? $get['actualityId'] : null;
-                $this->dc->accueil($eventId, $actualityId);
-                break;
-
-            case "inscription":
-                $this->ac->register();
-                break;
-
-            case "check-register":
-                $this->ac->checkRegister();
-                break;
-
-            case "connexion":
-                $this->ac->login();
-                break;
-
-            case "check-login":
-                $this->ac->checkLogin();
-                break;
-
-            case "deconnexion":
-                $this->ac->logout();
-                break;
-
-            case "programmation":
-                $this->ec->events();
-                break;
+        if (isset($this->routes[$route])) {
+            [$controllerName, $methodName] = $this->routes[$route];
+            
+            if (isset($this->controllers[$controllerName])) {
+                $controller = $this->controllers[$controllerName];
                 
-            case "search":
-                $this->ec->search();
-                break;
-            
-            case "filterEvents":
-                if (isset($get['type'])) {
-                    $this->ec->filterEvents($get['type']);
-                } else {
-                    // Gérer le cas où aucun type n'est spécifié
-                    http_response_code(400);
-                    echo json_encode(["success" => false, "message" => "Type non spécifié."]);
-                }
-                break;
-
-            case "evenement":
-                if (isset($get["id"])) {
-                    $this->ec->event($get["id"]);
-                } else {
-                    $this->dc->accueil();
-                }
-                break;
-
-            case "actualites":
-                $this->actuc->actualities();
-                break;
-
-            case "actualite":
-                if (isset($get["id"])) {
-                    $this->actuc->actuality($get["id"]);
-                } else {
-                    $this->dc->accueil();
-                }
-                break;
-
-            case "l-association":
-                $this->dc->association();
-                break;
-
-            case "adherer-faire-un-don":
-                $this->dc->adhesionDonate();
-                break;
-
-            case "info-contact":
-                $this->dc->infoContact();
-                break;
-
-            case "artiste-pro":
-                if ($this->ac->isUserLoggedIn()) {
-                    if ($this->ac->isUserRole("USER")) {
-                        $this->dc->artistePro();
+                if (method_exists($controller, $methodName)) {
+                    // Vérifier les autorisations si nécessaire
+                    if ($this->checkAuthorization($route)) {
+                        $controller->$methodName($get, $post);
                     } else {
                         header("Location: index.php?route=connexion");
                         exit();
                     }
                 } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
+                    $this->notFound();
                 }
-                break;
-            
-            case 'espace-admin':
-                if ($this->ac->isUserLoggedIn()) {
-                    if ($this->ac->isUserRole("ADMIN")) {
-                        $this->dashc->adminDashboard();
-                    } else {
-                        header("Location: index.php?route=connexion");
-                        exit();
-                    }
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }
-                break;
-
-                        
-            case 'admin-utilisateurs':
-                if ($this->ac->isUserLoggedIn()) {
-                    if ($this->ac->isUserRole("ADMIN")) {
-                        $this->dashc->adminUsers();
-                    } else {
-                        header("Location: index.php?route=connexion");
-                        exit();
-                    }
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }
-                break;
-            
-            case 'admin-search-user':
-                if ($this->ac->isUserLoggedIn()) {
-                    if ($this->ac->isUserRole("ADMIN")) {
-                        $this->dashc->searchUsers();
-                    } else {
-                        header("Location: index.php?route=connexion");
-                        exit();
-                    }
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }  
-                break;
-            
-            case 'admin-delete-user':
-                if ($this->ac->isUserLoggedIn()) {
-                    if ($this->ac->isUserRole("ADMIN")) {
-                        $this->dashc->deleteUser();
-                    } else {
-                        header("Location: index.php?route=connexion");
-                        exit();
-                    }
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }
-                break;
-
-                            
-            case 'admin-evenements':
-                if ($this->ac->isUserLoggedIn()) {
-                    if ($this->ac->isUserRole("ADMIN")) {
-                        $this->dashc->adminEvents();
-                    } else {
-                        header("Location: index.php?route=connexion");
-                        exit();
-                    }
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }
-                break;
-            
-            case 'admin-search-event':
-                if ($this->ac->isUserLoggedIn()) {
-                    if ($this->ac->isUserRole("ADMIN")) {
-                        $this->dashc->searchEvents();
-                    } else {
-                        header("Location: index.php?route=connexion");
-                        exit();
-                    }
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }  
-                break;
-
-            case 'admin-create-event':
-                if ($this->ac->isUserLoggedIn()) {
-                    if ($this->ac->isUserRole("ADMIN")) {
-                        $this->dashc->createEvent();
-                    } else {
-                        header("Location: index.php?route=connexion");
-                        exit();
-                    }
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }  
-                break;
-            
-            case 'admin-update-event':
-                if ($this->ac->isUserLoggedIn()) {
-                    if ($this->ac->isUserRole("ADMIN")) {
-                        $this->dashc->updateEvent();
-                    } else {
-                        header("Location: index.php?route=connexion");
-                        exit();
-                    }
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }
-            break;
-
-            case 'get-event-data':
-                if ($this->ac->isUserLoggedIn() && $this->ac->isUserRole("ADMIN")) {
-                    $this->dashc->getEventData();
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }
-            break;
-                    
-
-            case 'admin-delete-event':
-                if ($this->ac->isUserLoggedIn()) {
-                    if ($this->ac->isUserRole("ADMIN")) {
-                        $this->dashc->deleteEvent();
-                    } else {
-                        header("Location: index.php?route=connexion");
-                        exit();
-                    }
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }
-                break;
-                        
-            case 'admin-actualites':
-                if ($this->ac->isUserLoggedIn()) {
-                    if ($this->ac->isUserRole("ADMIN")) {
-                        $this->dashc->adminActualities();
-                    } else {
-                        header("Location: index.php?route=connexion");
-                        exit();
-                    }
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }
-                break;
-
-            case 'admin-search-actuality':
-                if ($this->ac->isUserLoggedIn()) {
-                    if ($this->ac->isUserRole("ADMIN")) {
-                        $this->dashc->searchActualities();
-                    } else {
-                        header("Location: index.php?route=connexion");
-                        exit();
-                    }
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }  
-                break;
-
-            case 'admin-create-actuality':
-                if ($this->ac->isUserLoggedIn()) {
-                    if ($this->ac->isUserRole("ADMIN")) {
-                        $this->dashc->createActuality();
-                    } else {
-                        header("Location: index.php?route=connexion");
-                        exit();
-                    }
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }  
-                break;
-            
-            case 'admin-update-actuality':
-                if ($this->ac->isUserLoggedIn()) {
-                    if ($this->ac->isUserRole("ADMIN")) {
-                        $this->dashc->updateActuality();
-                    } else {
-                        header("Location: index.php?route=connexion");
-                        exit();
-                    }
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }
-                break;
-
-            case 'get-actuality-data':
-                if ($this->ac->isUserLoggedIn() && $this->ac->isUserRole("ADMIN")) {
-                    $this->dashc->getActualityData();
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }
-                break;
-
-            case 'admin-delete-actuality':
-                if ($this->ac->isUserLoggedIn()) {
-                    if ($this->ac->isUserRole("ADMIN")) {
-                        $this->dashc->deleteActuality();
-                    } else {
-                        header("Location: index.php?route=connexion");
-                        exit();
-                    }
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }
-                break;
-    
-
-            case 'inscription-newsletter': // Mise à jour de la route pour la requête AJAX
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $this->nc->subscribe(); // Appeler la méthode subscribe sans paramètres
-                } else {
-                    http_response_code(405);
-                    echo json_encode(["success" => false, "message" => "Méthode non autorisée."]);
-                }
-                break;
-
-            case 'clear-error-message':
-                if ($this->ac->isUserLoggedIn() && $this->ac->isUserRole("ADMIN")) {
-                    $this->dashc->clearErrorMessage();
-                } else {
-                    header("Location: index.php?route=connexion");
-                    exit();
-                }
-                break;
-            
-            case 'envoi-message': // Mise à jour de la route pour la requête AJAX
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $this->cc->sendContact(); // Appeler la méthode sendContact sans paramètres
-                } else {
-                    http_response_code(405);
-                    echo json_encode(["success" => false, "message" => "Méthode non autorisée."]);
-                }
-                break;
-
-            default:
-                $this->dc->error404();
-                break;
+            } else {
+                $this->notFound();
+            }
+        } else {
+            $this->notFound();
         }
+    }
+
+    private function checkAuthorization($route): bool
+    {
+        $authController = $this->controllers['AuthController'];
+        
+        $restrictedRoutes = [
+            'artiste-pro' => ['ARTISTE', 'PRO'],
+            'espace-admin' => 'ADMIN',
+            'admin-utilisateurs' => 'ADMIN',
+            'admin-evenements' => 'ADMIN',
+            'admin-actualites' => 'ADMIN',
+            'admin-types-styles' => 'ADMIN',
+            'add-type' => 'ADMIN',
+            'delete-type' => 'ADMIN',
+            'add-style' => 'ADMIN',
+            'delete-style' => 'ADMIN',
+        ];
+
+        if (isset($restrictedRoutes[$route])) {
+            $requiredRole = $restrictedRoutes[$route];
+            return $authController->isUserLoggedIn() && $authController->isUserRole($requiredRole);
+        }
+
+        return true;
+    }
+
+    private function notFound(): void
+    {
+        $this->controllers['DefaultController']->error404();
     }
 }

@@ -5,9 +5,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const searchInput = document.querySelector('input[name="q"]');
     const typeSelect = document.querySelector('#type');
     const searchButton = document.querySelector('.search-button');
-    const eventTableBody = document.querySelector('#eventTable tbody');
+    const actualityTableBody = document.querySelector('#actualityTable tbody');
     const fileInput = document.querySelector('input[name="media"]');
-    const eventForm = document.querySelector('#event-form');
+    const actualityForm = document.querySelector('#actuality-form');
 
     // Configuration initiale
     searchButton.disabled = true;
@@ -37,55 +37,49 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function setupEventListeners() {
-        eventTableBody.addEventListener('click', handleEventTableClick);
+        actualityTableBody.addEventListener('click', handleActualityTableClick);
         searchInput.addEventListener('input', handleSearch);
-        typeSelect.addEventListener('change', handleTypeChange);
+        if (typeSelect) {
+            typeSelect.addEventListener('change', handleTypeChange);
+        }
     }
 
-    function editEvent(eventId) {
-        console.log("Édition de l'événement avec l'ID:", eventId);
-        fetch(`index.php?route=get-event-data&id=${encodeURIComponent(eventId)}`, {
+    function editActuality(actualityId) {
+        console.log("Édition de l'actualité avec l'ID:", actualityId);
+        fetch(`index.php?route=get-actuality-data&id=${encodeURIComponent(actualityId)}`, {
             method: 'GET',
             headers: { 'X-Requested-With': 'XMLHttpRequest' }
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                fillEventForm(data.data);
-                eventForm.scrollIntoView({ behavior: 'smooth' });
+                fillActualityForm(data.data);
+                actualityForm.scrollIntoView({ behavior: 'smooth' });
             } else {
                 showErrorMessage(data.message);
             }
         })
         .catch(error => {
             console.error('Erreur:', error);
-            showErrorMessage('Une erreur est survenue lors de la récupération des données de l\'événement.');
+            showErrorMessage('Une erreur est survenue lors de la récupération des données de l\'actualité.');
         });
     }
 
-    function fillEventForm(data) {
+    function fillActualityForm(data) {
         // Remplir les champs texte et input
-        ['name', 'date', 'debut', 'end', 'ticket_price', 'video_link', 'ticketing_link'].forEach(field => {
+        ['title', 'date'].forEach(field => {
             document.querySelector(`input[name="${field}"]`).value = data[field];
         });
 
-        ['main_description', 'description'].forEach(field => {
-            document.querySelector(`textarea[name="${field}"]`).value = data[field];
-        });
-
-        document.querySelector('#event-id').value = data.id;
-
-        // Remplir les champs select
-        ['type_id', 'style1_id', 'style2_id'].forEach(field => {
-            document.querySelector(`select[name="${field}"]`).value = data[field];
-        });
+        document.querySelector('textarea[name="content"]').value = data.content;
+        document.getElementById('actuality-id').value = data.id;
 
         // Afficher l'image actuelle
         updateCurrentImage(data);
 
         // Modifier le formulaire pour la mise à jour
-        eventForm.action = `index.php?route=admin-update-event`;
-        document.querySelector('#event-form button[type="submit"]').textContent = 'Modifier l\'événement';
+        actualityForm.action = `index.php?route=admin-update-actuality`;
+        document.querySelector('#actuality-form button[type="submit"]').textContent = 'Modifier l\'actualité';
         fileInput.removeAttribute('required');
 
         // Mettre à jour le champ caché media_id
@@ -111,14 +105,14 @@ document.addEventListener("DOMContentLoaded", function() {
             mediaIdInput = document.createElement('input');
             mediaIdInput.type = 'hidden';
             mediaIdInput.name = 'media_id';
-            eventForm.appendChild(mediaIdInput);
+            actualityForm.appendChild(mediaIdInput);
         }
         mediaIdInput.value = mediaId;
     }
 
-    function deleteEvent(eventId) {
-        console.log("Tentative de suppression de l'événement ID:", eventId);
-        fetch(`index.php?route=admin-delete-event&id=${encodeURIComponent(eventId)}`, {
+    function deleteActuality(actualityId) {
+        console.log("Tentative de suppression de l'actualité ID:", actualityId);
+        fetch(`index.php?route=admin-delete-actuality&id=${encodeURIComponent(actualityId)}`, {
             method: 'GET',
             headers: { 'X-Requested-With': 'XMLHttpRequest' }
         })
@@ -127,14 +121,14 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log("Données reçues:", data);
             if (data.success) {
                 showSuccessMessage(data.message);
-                removeEventRow(eventId);
+                removeActualityRow(actualityId);
             } else {
                 showErrorMessage(data.message);
             }
         })
         .catch(error => {
             console.error('Erreur lors de la requête Ajax:', error);
-            showErrorMessage('Une erreur est survenue lors de la suppression de l\'événement.');
+            showErrorMessage('Une erreur est survenue lors de la suppression de l\'actualité.');
         });
     }
 
@@ -163,51 +157,89 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    function handleEventTableClick(event) {
-        if (event.target.matches('a.edit-event')) {
+    function handleActualityTableClick(event) {
+        if (event.target.matches('a.edit-actuality')) {
             event.preventDefault();
-            const eventId = event.target.getAttribute('data-id');
-            if (eventId) {
-                editEvent(eventId);
+            const actualityId = event.target.getAttribute('data-id');
+            if (actualityId) {
+                editActuality(actualityId);
             } else {
-                console.error("ID de l'événement non trouvé");
+                console.error("ID de l'actualité non trouvé");
             }
         } else if (event.target.matches('a[href*="delete"]')) {
             event.preventDefault();
-            const eventId = event.target.href.split('id=')[1];
-            if (confirm("Êtes-vous sûr de vouloir supprimer cet évènement ?")) {
-                deleteEvent(eventId);
+            const actualityId = event.target.href.split('id=')[1];
+            if (confirm("Êtes-vous sûr de vouloir supprimer cette actualité ?")) {
+                deleteActuality(actualityId);
             }
         }
     }
 
     function handleSearch() {
         const query = searchInput.value;
-        updateEvents(`index.php?route=admin-search-event&q=${encodeURIComponent(query)}`);
+        updateActualities(`index.php?route=admin-search-actuality&q=${encodeURIComponent(query)}`);
     }
 
     function handleTypeChange() {
         searchInput.value = '';
         const selectedType = typeSelect.value;
-        updateEvents(`index.php?route=admin-search-event&type=${encodeURIComponent(selectedType)}`);
+        updateActualities(`index.php?route=admin-search-actuality&type=${encodeURIComponent(selectedType)}`);
     }
 
-    function removeEventRow(eventId) {
-        const row = document.querySelector(`tr[data-event-id="${eventId}"]`);
+    function removeActualityRow(actualityId) {
+        const row = document.querySelector(`tr[data-actuality-id="${actualityId}"]`);
         if (row) {
             row.remove();
         } else {
-            console.error("Ligne de l'événement non trouvée dans le tableau");
+            console.error("Ligne de l'actualité non trouvée dans le tableau");
         }
     }
 
-    function updateEvents(url) {
-        // Implémentez cette fonction pour mettre à jour la liste des événements
-        console.log("Mise à jour des événements avec l'URL:", url);
+    function updateActualities(url) {
+        actualityTableBody.innerHTML = '<tr><td colspan="3" class="loading">Chargement des actualités...</td></tr>';
+        fetch(url, {
+            method: 'GET',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(response => response.json())
+        .then(data => {
+            updateActualitiesTable(data);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la recherche:', error);
+            showErrorMessage('Une erreur est survenue lors de la recherche des actualités.');
+        });
+    }
+
+    function updateActualitiesTable(actualities) {
+        actualityTableBody.innerHTML = '';
+        if (actualities.length === 0) {
+            actualityTableBody.innerHTML = '<tr><td colspan="3">Aucune actualité trouvée.</td></tr>';
+            return;
+        }
+        actualities.forEach(actuality => {
+            const row = `
+                <tr data-actuality-id="${actuality.id}">
+                    <td>${actuality.date}</td>
+                    <td>${actuality.title}</td>
+                    <td>
+                        <a href="index.php?route=actualite&id=${actuality.id}">Voir</a>
+                        <a href="#" data-id="${actuality.id}" class="edit-actuality">Modifier</a>
+                        <a href="index.php?route=admin-delete-actuality&id=${actuality.id}">Supprimer</a>
+                    </td>
+                </tr>
+            `;
+            actualityTableBody.insertAdjacentHTML('beforeend', row);
+        });
     }
 
     function showErrorMessage(message) {
-        alert(message);
+        if (errorMessage) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        } else {
+            alert(message);
+        }
     }
 
     function showSuccessMessage(message) {

@@ -178,37 +178,6 @@ class DashboardController extends AbstractController
         }
     }
 
-    public function deleteEvent(): void
-    {
-        if ($this->isAjaxRequest()) {
-            $eventId = $_GET['id'] ?? null;
-            
-            try {
-                if (!$eventId || !is_numeric($eventId)) {
-                    throw new Exception("ID événement invalide.");
-                }
-                
-                $event = $this->em->findOne($eventId);
-                $media_id = $event->getMediaId();
-                $result = $this->mm->delete((int)$media_id);
-                
-                if ($result) {
-                    echo json_encode(['success' => true, 'message' => 'Événement supprimé avec succès.']);
-                } else {
-                    throw new Exception('Erreur lors de la suppression de l\'événement.');
-                }
-            } catch (Exception $e) {
-                error_log("Erreur lors de la suppression de l'événement : " . $e->getMessage());
-                echo json_encode(['success' => false, 'message' => 'Erreur : ' . $e->getMessage()]);
-            }
-            
-            exit;
-        } else {
-            $_SESSION['error_message'] = "Méthode non autorisée.";
-            $this->redirect("index.php?route=admin-evenements");
-        }
-    }
-
 
     public function updateEvent(): void
     {
@@ -219,7 +188,7 @@ class DashboardController extends AbstractController
                     throw new Exception("ID événement invalide.");
                 }
     
-                $event = $this->em->findOne((int)$eventId);
+                $event = $this->em->findOne($eventId);
                 if (!$event) {
                     throw new Exception("Événement non trouvé.");
                 }
@@ -230,33 +199,32 @@ class DashboardController extends AbstractController
                 if (isset($_FILES['media']) && $_FILES['media']['error'] !== UPLOAD_ERR_NO_FILE) {
                     $fileData = $_FILES['media'];
                     $this->validateFileData($fileData);
-    
+                
                     $uploadDir = 'assets/img/img-events/';
                     $fileName = $eventData['image_name'];
                     $fileExtension = pathinfo($fileData['name'], PATHINFO_EXTENSION);
                     $filePath = $uploadDir . $fileName . '.' . $fileExtension;
-    
+                
                     $oldMedia = $event->getMedia();
                     if ($oldMedia) {
                         $oldFilePath = $oldMedia->getUrl();
                         if (file_exists($oldFilePath)) {
                             unlink($oldFilePath);
                         }
-                        $event = $this->em->findOne($eventId);
-                        $media_id = $event->getMediaId();
-                        $this->mm->delete((int)$media_id);
+                        $oldMediaId = $event->getMediaId();
+                        $this->mm->delete((int)$oldMediaId);
                     }
-    
+                
                     if (!move_uploaded_file($fileData['tmp_name'], $filePath)) {
                         throw new Exception("Erreur lors de l'upload du fichier.");
                     }
-    
+                
                     $media = new Media($filePath, $eventData['alt-img'] ?? '');
                     $this->mm->create($media);
                     $eventData['media_id'] = $media->getId();
                 } else {
-                    // Conserver l'ancien media_id s'il existe
-                    $eventData['media_id'] = $event->getMedia() ? $event->getMedia()->getId() : null;
+                    // Si aucune nouvelle image, conserver l'ancien media_id s'il existe
+                    $eventData['media_id'] = $event->getMediaId() ?? null;
                 }
     
                 // Mise à jour des autres champs
@@ -284,6 +252,39 @@ class DashboardController extends AbstractController
                 $this->renderEventForm();
             }
         } else {
+            $this->redirect("index.php?route=admin-evenements");
+        }
+    }
+
+
+    public function deleteEvent(): void
+    {
+        if ($this->isAjaxRequest()) {
+            $eventId = $_GET['id'] ?? null;
+            
+            try {
+                if (!$eventId || !is_numeric($eventId)) {
+                    throw new Exception("ID événement invalide.");
+                }
+                
+                $event = $this->em->findOne($eventId);
+                $media_id = $event->getMediaId();
+                $resultMedia = $this->mm->delete($media_id);
+                $resultEvent = $this->em->delete($eventId);
+                
+                if ($resultMedia && $resultEvent) {
+                    echo json_encode(['success' => true, 'message' => 'Événement supprimé avec succès.']);
+                } else {
+                    throw new Exception('Erreur lors de la suppression de l\'événement.');
+                }
+            } catch (Exception $e) {
+                error_log("Erreur lors de la suppression de l'événement : " . $e->getMessage());
+                echo json_encode(['success' => false, 'message' => 'Erreur : ' . $e->getMessage()]);
+            }
+            
+            exit;
+        } else {
+            $_SESSION['error_message'] = "Méthode non autorisée.";
             $this->redirect("index.php?route=admin-evenements");
         }
     }
@@ -421,7 +422,9 @@ class DashboardController extends AbstractController
 
     public function adminActualities() : void
     {
-        $scripts = $this->addScripts([]);
+        $scripts = $this->addScripts([
+            'assets/js/ajaxActualitiesDashboard.js'
+        ]);
 
         $actualities = $this->am->findAll();
 
@@ -440,9 +443,6 @@ class DashboardController extends AbstractController
                     'id' => $actuality->getId(),
                     'title' => $actuality->getTitle(),
                     'date' => $actuality->getDate()->format('Y-m-d'),
-                    'content' => $actuality->getContent(),
-                    'media_url' => $actuality->getMedia() ? $actuality->getMedia()->getUrl() : null,
-                    'media_alt' => $actuality->getMedia() ? $actuality->getMedia()->getAlt() : null
                 ];
             }, $actualities);
     
@@ -454,7 +454,6 @@ class DashboardController extends AbstractController
             $this->redirect("index.php?route=admin-actualites");
         }
     }
-    
     public function createActuality(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -462,6 +461,7 @@ class DashboardController extends AbstractController
                 $actualityData = $_POST;
                 $this->validateActualityData($actualityData);
 
+                
                 if (isset($_FILES['media']) && $_FILES['media']['error'] !== UPLOAD_ERR_NO_FILE) {
                     $fileData = $_FILES['media'];
                     $this->validateFileData($fileData);
@@ -492,6 +492,155 @@ class DashboardController extends AbstractController
             }
         } else {
             $this->renderActualityForm();
+        }
+    }
+
+
+    public function updateActuality(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            try {
+                
+                $actualityId = $_POST['id'] ?? null;
+                if (!$actualityId || !is_numeric($actualityId)) {
+                    throw new Exception("ID Actualité invalide.");
+                }
+                
+                $actuality = $this->am->findOne((int)$actualityId);
+                if (!$actuality) {
+                    throw new Exception("Actualité non trouvée.");
+                }
+                
+                $actualityData = $_POST;
+                
+                // Gestion de l'image
+                if (isset($_FILES['media']) && $_FILES['media']['error'] !== UPLOAD_ERR_NO_FILE) {
+                    $fileData = $_FILES['media'];
+                    $this->validateFileData($fileData);
+                    
+                    $uploadDir = 'assets/img/img-actus/';
+                    $fileName = $actualityData['image_name'];
+                    $fileExtension = pathinfo($fileData['name'], PATHINFO_EXTENSION);
+                    $filePath = $uploadDir . $fileName . '.' . $fileExtension;
+                    
+                    $oldMedia = $actuality->getMedia();
+                    if ($oldMedia) {
+                        $oldFilePath = $oldMedia->getUrl();
+                        if (file_exists($oldFilePath)) {
+                            unlink($oldFilePath);
+                        }
+                        $oldMediaId = $actuality->getMediaId();
+                        $this->mm->delete((int)$oldMediaId);
+                    }
+    
+                    if (!move_uploaded_file($fileData['tmp_name'], $filePath)) {
+                        throw new Exception("Erreur lors de l'upload de l'image.");
+                    }
+    
+                    $media = new Media($filePath, $actualityData['alt-img'] ?? '');
+                    $this->mm->create($media);
+                    $actualityData['media_id'] = $media->getId();
+                } else {
+                    $actualityData['media_id'] = $actuality->getMediaId(); 
+                }
+
+
+                $fieldsToUpdate = ['title', 'content', 'date'];
+                foreach ($fieldsToUpdate as $field) {
+                    if (!isset($actualityData[$field]) || $actualityData[$field] === '') {
+                        $actualityData[$field] = $actuality->{"get" . ucfirst($field)}();
+                    }
+                }
+    
+                // Mise à jour de l'actualité dans la base de données
+                $this->am->update($actualityData);
+    
+                // Message de succès et redirection
+                $_SESSION['success_message'] = "L'actualité a été mise à jour avec succès.";
+                $this->redirect("index.php?route=admin-actualites");
+    
+            } catch (Exception $e) {
+                // Gestion des erreurs
+                error_log("Erreur lors de la mise à jour : " . $e->getMessage());
+                $_SESSION['error_message'] = $e->getMessage();
+                $this->redirect("index.php?route=admin-actualites");
+            }
+        } else {
+            // Redirection si la requête n'est pas un POST
+            $this->redirect("index.php?route=admin-actualites");
+        }
+    }
+    
+
+    public function deleteActuality(): void
+    {
+        if ($this->isAjaxRequest()) {
+            $actualityId = $_GET['id'] ?? null;
+
+            try {
+                if (!$actualityId || !is_numeric($actualityId)) {
+                    throw new Exception("ID Actualité invalide.");
+                }
+
+                $actuality = $this->am->findOne($actualityId);
+                $media_id = $actuality->getMediaId();
+                $resultMedia = $this->mm->delete($media_id);
+                $resultActuality = $this->am->delete($actualityId);
+
+                if ($resultMedia && $resultActuality) {
+                    echo json_encode(['success' => true, 'message' => 'Actualité supprimé avec succès.']);
+                } else {
+                    throw new Exception('Erreur lors de la suppression de l\'actualité.');
+                }
+            } catch (Exception $e) {
+                error_log("Erreur lors de la suppression de l'actualité : " . $e->getMessage());
+                echo json_encode(['success' => false, 'message' => 'Erreur : ' . $e->getMessage()]);
+            }
+            
+            exit;
+        } else {
+            $_SESSION['error_message'] = "Méthode non autorisée.";
+            $this->redirect("index.php?route=admin-evenements");
+        }
+    }
+
+    public function getActualityData(): void
+    {
+        if ($this->isAjaxRequest()) {
+            $actualityId = $_GET['id'] ?? null;
+            
+            if ($actualityId && is_numeric($actualityId)) {
+                $actuality = $this->am->findOne((int)$actualityId);
+                
+                if ($actuality) {
+
+                    error_log("Actuality data: " . print_r([
+                        'id' => $actuality->getId(),
+                        'mediaId' => $actuality->getMedia()->getId(),
+                        'mediaObject' => $actuality->getMedia(),
+                    ], true));
+    
+                    $actualityData = [
+                        'id' => $actuality->getId(),
+                        'title' => $actuality->getTitle(),
+                        'date' => $actuality->getDate()->format('Y-m-d'),
+                        'content' => $actuality->getContent(),
+                        'media_id' => $actuality->getMedia() ? $actuality->getMedia()->getId() : null,
+                        'media_url' => $actuality->getMedia() ? $actuality->getMedia()->getUrl() : null,
+                        'media_alt' => $actuality->getMedia() ? $actuality->getMedia()->getAlt() : null
+                    ];
+                    
+                    echo json_encode(['success' => true, 'data' => $actualityData]);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Actualité non trouvée.']);
+                }
+            } else {
+                echo json_encode(['success' => false, 'message' => 'ID actualité invalide.']);
+            }
+            
+            exit;
+        } else {
+            $this->redirect("index.php?route=admin-actualites");
         }
     }
 
