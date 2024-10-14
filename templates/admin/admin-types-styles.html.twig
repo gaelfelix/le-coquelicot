@@ -1,0 +1,46 @@
+{% extends "layout.html.twig" %}
+
+{% block description %}
+{% endblock %}
+
+{% block title %}
+Types et Styles
+{% endblock %}
+
+{% block main %}
+<main id="admin-types-styles">
+    <div class="types-styles-container">
+        <section id="types-section">
+            <h2>Types d'événements</h2>
+            <div>
+                <input type="text" id="new-type-input" placeholder="Nouveau type">
+                <button id="add-type-btn">Ajouter</button>
+            </div>
+            <ul id="types-list">
+                {% for type in types %}
+                    <li data-id="{{ type.id }}">
+                        {{ type.name }}
+                        <button id="delete-type-{{ type.id }}">Supprimer</button>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section id="styles-section" class="mt-5">
+            <h2>Styles d'événements</h2>
+            <div>
+                <input type="text" id="new-style-input" placeholder="Nouveau style">
+                <button id="add-style-btn">Ajouter</button>
+            </div>
+            <ul id="styles-list">
+                {% for style in styles %}
+                    <li data-id="{{ style.id }}">
+                        {{ style.name }}
+                        <button id="delete-style-{{ style.id }}">Supprimer</button>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+</main>
+{% endblock %}

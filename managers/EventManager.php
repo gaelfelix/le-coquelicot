@@ -96,6 +96,15 @@ class EventManager extends AbstractManager
         return $this->createEventObjects($result);
     }
 
+    public function findByStyle(string $styleId): array
+    {
+        $query = $this->db->prepare('SELECT * FROM events WHERE style1_id = :styleId OR style2_id = :styleId ORDER BY date ASC');
+        $query->bindParam(':styleId', $styleId, PDO::PARAM_STR);
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $this->createEventObjects($result);
+    }
+
     public function findAllEventsArray(): array
     {
         $query = $this->db->prepare('SELECT * FROM events ORDER BY date ASC');

@@ -41,18 +41,10 @@ class StyleManager extends AbstractManager
         $style->setId($this->db->lastInsertId());
     }
 
-    public function update(Style $style): void
-    {
-        $query = $this->db->prepare("UPDATE styles SET name = :name WHERE id = :id");
-        $query->execute([
-            'id' => $style->getId(),
-            'name' => $style->getName()
-        ]);
-    }
-
-    public function delete(int $id): void
+    public function delete(int $id): bool
     {
         $query = $this->db->prepare("DELETE FROM styles WHERE id = :id");
-        $query->execute(['id' => $id]);
+        $result = $query->execute(['id' => $id]);
+        return $result;
     }
 }

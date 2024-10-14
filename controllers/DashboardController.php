@@ -360,6 +360,7 @@ class DashboardController extends AbstractController
             throw new Exception("Le style 2 sélectionné n'existe pas.");
         }
     }
+
     
     private function validateFileData(array $fileData): void
     {
@@ -664,6 +665,135 @@ class DashboardController extends AbstractController
         $this->render("admin/admin-actualites.html.twig", [
             'actualities' => $actualities,
         ], $scripts);
+    }
+
+
+    public function adminTypesStyles(): void
+    {
+        $scripts = $this->addScripts(['assets/js/ajaxTypesStylesDashboard.js']);
+        $types = $this->tm->findAll();
+        $styles = $this->sm->findAll();
+
+        $this->render("admin/admin-types-styles.html.twig", [
+            "types" => $types,
+            "styles" => $styles
+        ], $scripts);
+    }
+
+    public function addType(): void
+    {
+        header('Content-Type: application/json');
+        if ($this->isAjaxRequest()) {
+            $rawData = file_get_contents('php://input');
+            error_log("Données brutes reçues : " . $rawData);
+            
+            $data = json_decode($rawData, true);
+            error_log("Données décodées : " . print_r($data, true));
+            
+            $name = $data['name'] ?? '';
+            error_log("Nom extrait : " . $name);
+            
+            if (!empty($name)) {
+                $type = new Type($name);
+                $this->tm->create($type);
+                echo json_encode(['success' => true, 'id' => $type->getId(), 'name' => $type->getName()]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Le nom du type ne peut pas être vide.']);
+            }
+            exit;
+        }
+    }
+    
+    public function deleteType(): void
+    {
+        header('Content-Type: application/json');
+        if (!$this->isAjaxRequest()) {
+            echo json_encode(['success' => false, 'message' => 'Requête non autorisée.']);
+            exit;
+        }
+    
+        $id = $_GET['id'] ?? null;
+        error_log("Tentative de suppression du type avec l'ID : " . $id);
+    
+        if (!$id || !is_numeric($id)) {
+            echo json_encode(['success' => false, 'message' => 'ID de type invalide.']);
+            exit;
+        }
+    
+        $eventsUsingType = $this->em->findByType($id);
+        error_log("Événements utilisant le type : " . json_encode($eventsUsingType));
+    
+        if (!empty($eventsUsingType)) {
+            echo json_encode(['success' => false, 'message' => 'Ce type est utilisé par des événements et ne peut pas être supprimé.']);
+            exit;
+        }
+    
+        $result = $this->tm->delete($id);
+        if ($result) {
+            echo json_encode(['success' => true, 'message' => 'Type supprimé avec succès.']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Erreur lors de la suppression du type.']);
+        }
+        exit;
+    }
+
+    public function addStyle(): void
+    {
+        header('Content-Type: application/json');
+        if ($this->isAjaxRequest()) {
+            $rawData = file_get_contents('php://input');
+            error_log("Données brutes reçues pour l'ajout de style : " . $rawData);
+            
+            $data = json_decode($rawData, true);
+            error_log("Données décodées : " . print_r($data, true));
+            
+            $name = $data['name'] ?? '';
+            error_log("Nom du style extrait : " . $name);
+            
+            if (!empty($name)) {
+                $style = new Style($name);
+                $this->sm->create($style);
+                echo json_encode(['success' => true, 'id' => $style->getId(), 'name' => $style->getName()]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Le nom du style ne peut pas être vide.']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Requête non autorisée.']);
+        }
+        exit;
+    }
+    
+    public function deleteStyle(): void
+    {
+        header('Content-Type: application/json');
+        if (!$this->isAjaxRequest()) {
+            echo json_encode(['success' => false, 'message' => 'Requête non autorisée.']);
+            exit;
+        }
+    
+        $id = $_GET['id'] ?? null;
+        error_log("Tentative de suppression du style avec l'ID : " . $id);
+    
+        if (!$id || !is_numeric($id)) {
+            echo json_encode(['success' => false, 'message' => 'ID de style invalide.']);
+            exit;
+        }
+    
+        $eventsUsingStyle = $this->em->findByStyle($id);
+        error_log("Événements utilisant le style : " . json_encode($eventsUsingStyle));
+    
+        if (!empty($eventsUsingStyle)) {
+            echo json_encode(['success' => false, 'message' => 'Ce style est utilisé par des événements et ne peut pas être supprimé.']);
+            exit;
+        }
+    
+        $result = $this->sm->delete($id);
+        if ($result) {
+            echo json_encode(['success' => true, 'message' => 'Style supprimé avec succès.']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Erreur lors de la suppression du style.']);
+        }
+        exit;
     }
 
 }

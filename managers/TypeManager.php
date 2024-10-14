@@ -33,4 +33,19 @@ class TypeManager extends AbstractManager
 
         return $types;
     }
+
+    public function create(Type $type): void
+    {
+        $query = $this->db->prepare("INSERT INTO types (name) VALUES (:name)");
+        $query->execute(['name' => $type->getName()]);
+        $type->setId($this->db->lastInsertId());
+    }
+
+
+    public function delete(int $id): bool
+    {
+        $query = $this->db->prepare("DELETE FROM types WHERE id = :id");
+        $result = $query->execute(['id' => $id]);
+        return $result;
+    }
 }
