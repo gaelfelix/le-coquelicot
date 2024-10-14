@@ -567,7 +567,6 @@ class DashboardController extends AbstractController
                 $this->redirect("index.php?route=admin-actualites");
             }
         } else {
-            // Redirection si la requête n'est pas un POST
             $this->redirect("index.php?route=admin-actualites");
         }
     }
@@ -794,6 +793,66 @@ class DashboardController extends AbstractController
             echo json_encode(['success' => false, 'message' => 'Erreur lors de la suppression du style.']);
         }
         exit;
+    }
+
+    public function adminMessages(): void
+    {
+        $scripts = $this->addScripts(['assets/js/ajaxMessagesDashboard.js']);
+        $contactManager = new ContactManager();
+        $messages = $contactManager->findAll();
+        
+        $this->render("admin/admin-messages.html.twig", ["messages" => $messages], $scripts);
+    }
+
+    public function viewMessage(): void
+    {
+        if ($this->isAjaxRequest()) {
+            $messageId = $_GET['id'] ?? null;
+            if ($messageId && is_numeric($messageId)) {
+                $contactManager = new ContactManager();
+                $message = $contactManager->findOne((int)$messageId);
+                if ($message) {
+                    $contactManager->markAsRead((int)$messageId);
+                    echo json_encode([
+                        'success' => true, 
+                        'message' => [
+                            'id' => $message->getId(),
+                            'firstName' => $message->getFirstName(),
+                            'lastName' => $message->getLastName(),
+                            'email' => $message->getEmail(),
+                            'phone' => $message->getPhone(),
+                            'subject' => $message->getSubject(),
+                            'message' => $message->getMessage(),
+                            'createdAt' => $message->getCreatedAt()->format('Y-m-d H:i:s')
+                        ]
+                    ]);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Message non trouvé.']);
+                }
+            } else {
+                echo json_encode(['success' => false, 'message' => 'ID de message invalide.']);
+            }
+            exit;
+        }
+    }
+
+    public function deleteMessage(): void
+    {
+        if ($this->isAjaxRequest()) {
+            $messageId = $_GET['id'] ?? null;
+            if ($messageId && is_numeric($messageId)) {
+                $contactManager = new ContactManager();
+                $result = $contactManager->delete((int)$messageId);
+                if ($result) {
+                    echo json_encode(['success' => true, 'message' => 'Message supprimé avec succès.']);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Erreur lors de la suppression du message.']);
+                }
+            } else {
+                echo json_encode(['success' => false, 'message' => 'ID de message invalide.']);
+            }
+            exit;
+        }
     }
 
 }

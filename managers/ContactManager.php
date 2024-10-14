@@ -7,6 +7,31 @@ class ContactManager extends AbstractManager
         parent::__construct();
     }
 
+    public function findAll(): array
+    {
+        $query = $this->db->query("SELECT * FROM contact ORDER BY created_at DESC");
+        $contacts = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+        return array_map(function ($contactData) {
+            return $this->createContactFromArray($contactData);
+        }, $contacts);
+    }
+
+    public function findOne(int $id): ?Contact
+    {
+        $query = $this->db->prepare("SELECT * FROM contact WHERE id = :id");
+        $query->bindValue(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        
+        $contactData = $query->fetch(PDO::FETCH_ASSOC);
+        
+        if ($contactData) {
+            return $this->createContactFromArray($contactData);
+        }
+        
+        return null;
+    }
+
     public function addContact(Contact $contact): bool
     {
 
@@ -40,4 +65,35 @@ class ContactManager extends AbstractManager
 
         return $query->execute();
     }
+    
+    public function delete(int $id): bool
+    {
+        $query = $this->db->prepare("DELETE FROM contact WHERE id = :id");
+        $query->bindValue(':id', $id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+
+    public function markAsRead(int $id): bool
+    {
+        $query = $this->db->prepare("UPDATE contact SET `read` = 1 WHERE id = :id");
+        $query->bindValue(':id', $id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+
+    private function createContactFromArray(array $contactData): Contact
+    {
+        $contact = new Contact(
+            $contactData['first_name'],
+            $contactData['last_name'],
+            $contactData['email'],
+            $contactData['phone'],
+            $contactData['subject'],
+            $contactData['message'],
+            (bool)$contactData['read'],
+            new DateTime($contactData['created_at'])
+        );
+        $contact->setId($contactData['id']);
+        return $contact;
+    }
+    
 }

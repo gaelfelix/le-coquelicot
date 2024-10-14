@@ -239,6 +239,24 @@ class Router
                 });
                 break;
 
+            case 'admin-messages':
+                $this->handleAdminRoute(function() {
+                    $this->dashc->adminMessages();
+                });
+                break;
+
+            case 'admin-view-message':
+                $this->handleAdminRoute(function() {
+                    $this->dashc->viewMessage();
+                });
+                break;
+            
+            case 'admin-delete-message':
+                $this->handleAdminRoute(function() {
+                    $this->dashc->deleteMessage();
+                });
+                break;
+
             case 'inscription-newsletter':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $this->nc->subscribe();
