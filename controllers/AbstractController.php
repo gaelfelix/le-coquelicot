@@ -11,10 +11,8 @@ abstract class AbstractController
             'debug' => true,
         ]);
         
-        // Ajouter la session comme variable globale
         $this->twig->addGlobal('session', $_SESSION);
         
-        // Vérifier les préférences d'accessibilité et les ajouter comme variables globales
         $dyslexiaActive = isset($_SESSION['dyslexia']) && $_SESSION['dyslexia'] == true;
         $lineSpacingActive = isset($_SESSION['lineSpacing']) && $_SESSION['lineSpacing'] == true;
         
