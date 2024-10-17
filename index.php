@@ -10,14 +10,13 @@ session_start();
 require_once __DIR__ . '/vendor/autoload.php';
 
 if(!isset($_SESSION["csrf_token"]))
-    {
-        $tokenManager = new CSRFTokenManager();
-        $token = $tokenManager->generateCSRFToken();
+{
+    $tokenManager = new CSRFTokenManager();
+    $token = $tokenManager->generateCSRFToken();
 
-        $_SESSION["csrf_token"] = $token;
-    }
+    $_SESSION["csrf_token"] = $token;
+}
 
-// Load the environment variables from the .env file
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
