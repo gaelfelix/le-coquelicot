@@ -1,6 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block description %}
+Interface d'administration des événements du Coquelicot. Gérez, modifiez et créez les événements du café-concert associatif.
 {% endblock %}
 
 {% block title %}
@@ -9,23 +10,23 @@
 
 {% block main %}
 <main id="admin-event">
-    <section>
-        <h2>Administration des évènements</h2>
+    <section aria-labelledby="titre-admin-evenements">
+        <h2 id="titre-admin-evenements">Administration des évènements</h2>
         <fieldset>
-            <form id="searchForm" action="/search" method="get" class="search-bar">
+            <form id="searchForm" action="/search" method="get" class="search-bar" aria-label="Recherche d'événements">
                 <input type="search" name="q" placeholder="Rechercher..." aria-label="Recherche">
-                <button class="search-button"><i class="fas fa-search"></i></button>
+                <button class="search-button" aria-label="Lancer la recherche"><i class="fas fa-search" aria-hidden="true"></i></button>
             </form>
-            <select name="type" id="type">
+            <select name="type" id="type" aria-label="Filtrer par type d'événement">
                 <option value="all">Tous</option>
                 {% for type in types %}
-                <option value="{{ type.id|striptags }}">{{ type.name|striptags }}</option>            
+                <option value="{{ type.id|e }}">{{ type.name|e }}</option>            
                 {% endfor %}
             </select>
         </fieldset>
 
         <div class="table-container">
-            <table id="eventTable">
+            <table id="eventTable" aria-label="Liste des événements">
                 <thead>
                     <tr>
                         <th>Date</th>
@@ -42,19 +43,19 @@
 
                 <tbody>
                 {% for event in events %}
-                    <tr data-event-id="{{ event.event.id|striptags }}">
-                        <td>{{ event.shortDay|striptags }} {{ event.number|striptags }} {{ event.shortMonth|striptags }}</td>
-                        <td>{{ event.event.name|striptags }}</td>
-                        <td>{{ event.event.debut|date('H:i')|striptags }}</td>
-                        <td>{{ event.event.end|date('H:i')|striptags }}</td>
-                        <td>{{ event.event.ticket_price|striptags }}</td>
-                        <td>{{ event.event.type.name|striptags }}</td>
-                        <td>{{ event.event.style1.name|striptags }}</td>
-                        <td>{{ event.event.style2.name|striptags }}</td>
+                    <tr data-event-id="{{ event.event.id|e }}">
+                        <td>{{ event.shortDay|e }} {{ event.number|e }} {{ event.shortMonth|e }}</td>
+                        <td>{{ event.event.name|e }}</td>
+                        <td>{{ event.event.debut|date('H:i')|e }}</td>
+                        <td>{{ event.event.end|date('H:i')|e }}</td>
+                        <td>{{ event.event.ticket_price|e }}</td>
+                        <td>{{ event.event.type.name|e }}</td>
+                        <td>{{ event.event.style1.name|e }}</td>
+                        <td>{{ event.event.style2.name|e }}</td>
                         <td>
-                            <a href="index.php?route=evenement&id={{ event.event.id|striptags }}">Voir</a>
-                            <a href="#" data-id="{{ event.event.id|striptags }}" class="edit-event">Modifier</a>
-                            <a href="index.php?route=admin-delete-event&id={{ event.event.id|striptags }}">Supprimer</a>
+                            <a href="index.php?route=evenement&id={{ event.event.id|e }}" aria-label="Voir l'événement {{ event.event.name|e }}">Voir</a>
+                            <a href="#" data-id="{{ event.event.id|e }}" class="edit-event" aria-label="Modifier l'événement {{ event.event.name|e }}">Modifier</a>
+                            <a href="index.php?route=admin-delete-event&id={{ event.event.id|e }}" aria-label="Supprimer l'événement {{ event.event.name|e }}">Supprimer</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -63,81 +64,85 @@
         </div>
 
         {% if session.error_message is not null %}
-            <div class="alert" id="error-message">
-                <p>{{ session.error_message|striptags }}</p>
-                <i class="fa-solid fa-xmark" id="close-error"></i>
+            <div class="alert" id="error-message" role="alert">
+                <p>{{ session.error_message|e }}</p>
+                <i class="fa-solid fa-xmark" id="close-error" aria-label="Fermer le message d'erreur"></i>
             </div>
         {% endif %}
 
         <div class="create-event-form">
-            <form id="event-form" method="POST" action="index.php?route=admin-create-event" enctype="multipart/form-data">
+            <form id="event-form" method="POST" action="index.php?route=admin-create-event" enctype="multipart/form-data" aria-labelledby="titre-creation-evenement">
+                                
+                <h3 id="titre-creation-evenement">Créer un nouvel événement</h3>
                 
                 <input type="hidden" name="id" id="event-id">
                 <input type="hidden" name="media_id" id="media-id">
 
                 <label for="name">Nom de l'évènement</label>
-                <input type="text" name="name" placeholder="Nom de l'événement" required>
+                <input type="text" name="name" id="name" placeholder="Nom de l'événement" required>
 
                 <label for="main_description">Description courte</label>
-                <textarea name="main_description" placeholder="Sous titre d'accroche"></textarea>
+                <textarea name="main_description" id="main_description" placeholder="Sous titre d'accroche"></textarea>
 
                 <label for="description">Description</label>
-                <textarea name="description" placeholder="Description de l'évènement"></textarea>
+                <textarea name="description" id="description" placeholder="Description de l'évènement"></textarea>
 
                 <label for="date">Date</label>
-                <input type="date" name="date" required>
+                <input type="date" name="date" id="date" required>
 
                 <label for="debut">Heure de début</label>
-                <input type="time" name="debut" required>
+                <input type="time" name="debut" id="debut" required>
 
                 <label for="end">Heure de fin</label>
-                <input type="time" name="end" required>
+                <input type="time" name="end" id="end" required>
 
                 <label for="ticket_price">Prix</label>
-                <input type="number" name="ticket_price" placeholder="Prix du ticket" required min="0>
+                <input type="number" name="ticket_price" id="ticket_price" placeholder="Prix du ticket" required min="0">
 
                 <label for="video_link">Lien Youtube</label>
-                <input type="text" name="video_link" placeholder="Lien vidéo">
+                <input type="text" name="video_link" id="video_link" placeholder="Lien vidéo">
 
                 <label for="ticketing_link">Lien billetterie</label>
-                <input type="text" name="ticketing_link" placeholder="Lien billetterie">
+                <input type="text" name="ticketing_link" id="ticketing_link" placeholder="Lien billetterie">
 
                 <div id="current-image"></div>
 
                 <label for="media">Image évènement</label>
-                <input type="file" name="media" accept="image/*" required>
+                <input type="file" name="media" id="media" accept="image/*" required>
 
                 <label for="image_name">Nom de l'image</label>
-                <input type="text" name="image_name" placeholder="Nom de l'image" required>
+                <input type="text" name="image_name" id="image_name" placeholder="Nom de l'image" required>
 
                 <label for="alt-img">Description de l'image</label>
-                <input type="text" name="alt-img" placeholder="Description de l'image">
+                <input type="text" name="alt-img" id="alt-img" placeholder="Description de l'image">
 
-                <select name="type_id" required>
+                <label for="type_id">Type d'événement</label>
+                <select name="type_id" id="type_id" required>
                     <option value="" disabled selected>Sélectionner un type</option>
                 {% for type in types %}
-                    <option value="{{ type.id }}">{{ type.name }}</option>
+                    <option value="{{ type.id|e }}">{{ type.name|e }}</option>
                 {% endfor %}
                 </select>
 
-                <select name="style1_id" required>
+                <label for="style1_id">Style principal</label>
+                <select name="style1_id" id="style1_id" required>
                     <option value="" disabled selected>Sélectionner un style</option>
                 {% for style in styles %}
-                    <option value="{{ style.id }}">{{ style.name }}</option>
+                    <option value="{{ style.id|e }}">{{ style.name|e }}</option>
                 {% endfor %}
                 </select>
 
-                <select name="style2_id">
+                <label for="style2_id">Style secondaire</label>
+                <select name="style2_id" id="style2_id">
                     <option value="" disabled selected>Sélectionner un style</option>
                 {% for style in styles %}
-                    <option value="{{ style.id }}">{{ style.name }}</option>
+                    <option value="{{ style.id|e }}">{{ style.name|e }}</option>
                 {% endfor %}
                 </select>
 
                 <button type="submit">Créer l'événement</button>
             </form>
         </div>
-
     </section>
 </main>
 {% endblock %}

@@ -1,20 +1,21 @@
 {% extends "layout.html.twig" %}
 
 {% block description %}
+{{ actuality.content|striptags|slice(0, 155) }}...
 {% endblock %}
 
 {% block title %}
-{{ actuality.title|striptags }}
+{{ actuality.title|e }}
 {% endblock %}
 
 {% block main %}
 <main id="actualite">
-    <section class="actu-container">
-        <img src="{{ actuality.media.url|striptags }}" alt="{{ actuality.media.alt|striptags }}">
+    <section class="actu-container" aria-labelledby="actuality-titre">
+        <img src="{{ actuality.media.url|e }}" alt="{{ actuality.media.alt|e }}">
         <div class="actu-info-container">
-            <h3>{{ actuality.title|striptags }}</h3>
-            <p class="integral-day">{{ integralDay|striptags }}</p>
-            <p>{{ actuality.content|striptags }}</p>
+            <h3 id="actuality-title">{{ actuality.title|e }}</h3>
+            <p class="integral-day">{{ integralDay|e }}</p>
+            <div class="actuality-content">{{ actuality.content|e }}</div>
         </div>
     </section>
 </main>

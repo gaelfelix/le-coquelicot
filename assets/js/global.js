@@ -1,146 +1,112 @@
-// Wait for all the content to load before displaying the body
-window.onload = function() {
-  document.body.classList.add('loaded');
-};
+// Add 'loaded' class to body when content is fully loaded
+window.onload = () => document.body.classList.add('loaded');
 
-// Utility function to add/remove a class on a list of elements
+// Toggle class on multiple elements
 function toggleClassOnElements(elements, className, add) {
-  elements.forEach(element => {
-    if (add) {
-      element.classList.add(className); // Add the class if 'add' is true
-    } else {
-      element.classList.remove(className); // Remove the class if 'add' is false
-    }
-  });
+  elements.forEach(element => element.classList[add ? 'add' : 'remove'](className));
 }
 
-// Function to apply preferences from local storage
+// Apply accessibility preferences from local storage
 function applyPreferences() {
   const dyslexiaPreference = JSON.parse(localStorage.getItem('dyslexia')) || false;
   const lineSpacingPreference = JSON.parse(localStorage.getItem('lineSpacing')) || false;
 
-  // Select all relevant headings and text excluding those with class "no-toggle-dyslexia" or "no-toggle-line-spacing"
-  const headingsAndTextDyslexia = document.querySelectorAll("h3:not(.no-toggle-dyslexia), h4:not(.no-toggle-dyslexia), h5:not(.no-toggle-dyslexia), h6:not(.no-toggle-dyslexia), p:not(.no-toggle-dyslexia)"); 
-  const headingsAndTextLineSpacing = document.querySelectorAll("h3:not(.no-toggle-line-spacing), h4:not(.no-toggle-line-spacing), h5:not(.no-toggle-line-spacing), h6:not(.no-toggle-line-spacing), p:not(.no-toggle-line-spacing)"); 
+  // Select elements for dyslexia and line spacing
+  const dyslexiaElements = document.querySelectorAll("h3:not(.no-toggle-dyslexia), h4:not(.no-toggle-dyslexia), h5:not(.no-toggle-dyslexia), h6:not(.no-toggle-dyslexia), p:not(.no-toggle-dyslexia)");
+  const lineSpacingElements = document.querySelectorAll("h3:not(.no-toggle-line-spacing), h4:not(.no-toggle-line-spacing), h5:not(.no-toggle-line-spacing), h6:not(.no-toggle-line-spacing), p:not(.no-toggle-line-spacing)");
 
-  // Apply dyslexia class if preference is true
-  toggleClassOnElements(headingsAndTextDyslexia, "dyslexia", dyslexiaPreference);
-  
-  // Set toggle state for dyslexia
-  const dyslexiaToggle = document.getElementById("toggle-dyslexia");
-  if (dyslexiaToggle) {
-    dyslexiaToggle.checked = dyslexiaPreference;
-    dyslexiaToggle.setAttribute("data-active", dyslexiaPreference);
-    document.getElementById("toggle-dyslexia-label").textContent = dyslexiaPreference ? "Activé" : "Désactivé";
-  }
+  // Apply preferences
+  toggleClassOnElements(dyslexiaElements, "dyslexia", dyslexiaPreference);
+  toggleClassOnElements(lineSpacingElements, "line-spacing", lineSpacingPreference);
 
-  // Apply line spacing class if preference is true
-  toggleClassOnElements(headingsAndTextLineSpacing, "line-spacing", lineSpacingPreference);
-  
-  // Set toggle state for line spacing
-  const lineSpacingToggle = document.getElementById("toggle-line-spacing");
-  if (lineSpacingToggle) {
-    lineSpacingToggle.checked = lineSpacingPreference;
-    lineSpacingToggle.setAttribute("data-active", lineSpacingPreference);
-    document.getElementById("toggle-line-spacing-label").textContent = lineSpacingPreference ? "Activé" : "Désactivé";
+  // Update toggle states
+  updateToggleState("toggle-dyslexia", dyslexiaPreference);
+  updateToggleState("toggle-line-spacing", lineSpacingPreference);
+}
+
+// Update toggle state and label
+function updateToggleState(toggleId, isActive) {
+  const toggle = document.getElementById(toggleId);
+  if (toggle) {
+    toggle.checked = isActive;
+    toggle.setAttribute("data-active", isActive);
+    document.getElementById(`${toggleId}-label`).textContent = isActive ? "Enabled" : "Disabled";
   }
 }
 
-// Save preferences to localStorage
+// Save preference to localStorage
 function savePreference(preference, value) {
   localStorage.setItem(preference, JSON.stringify(value));
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  // MENU BURGER JS
+  // Mobile menu functionality
   const burgerToggler = document.getElementById('menu-toggle');
   const navLinksContainer = document.getElementById('nav-links-container');
   const overlayMobile = document.querySelector('#overlay-mobile');
   const main = document.querySelector('main');
   const footer = document.querySelector('footer');
 
+  // Toggle mobile navigation
   const toggleNav = () => {
     const isOpen = burgerToggler.classList.toggle('open');
     toggleClassOnElements([navLinksContainer, overlayMobile], 'open', isOpen);
     overlayMobile.classList.toggle('overlay-visible');
   };
 
+  // Close mobile navigation
   const closeNav = () => {
     toggleClassOnElements([burgerToggler, navLinksContainer, overlayMobile], 'open', false);
     overlayMobile.classList.remove('overlay-visible');
   };
 
-  burgerToggler.addEventListener('click', toggleNav); 
-  main.addEventListener('click', closeNav); 
-  footer.addEventListener('click', closeNav); 
-  overlayMobile.addEventListener('click', closeNav); 
-  
+  // Event listeners for mobile menu
+  burgerToggler.addEventListener('click', toggleNav);
+  [main, footer, overlayMobile].forEach(el => el.addEventListener('click', closeNav));
+
+  // Close nav on window resize
   new ResizeObserver(entries => {
     if (entries[0].contentRect.width >= 992) {
-      navLinksContainer.style.transition = 'none'; 
-      closeNav(); 
+      navLinksContainer.style.transition = 'none';
+      closeNav();
     }
-  }).observe(document.body); 
+  }).observe(document.body);
 
+  // Accessibility modal functionality
   const modal = document.getElementById("customization-modal");
-  const accessibilityButtons = document.querySelectorAll(".header-accessibility"); // Query all accessibility buttons
+  const accessibilityButtons = document.querySelectorAll(".header-accessibility");
   const closeModalButton = document.getElementById("close-modal");
 
-  // Add click event listener to each accessibility button
+  // Open accessibility modal
   accessibilityButtons.forEach(button => {
     button.addEventListener("click", () => {
-      // Close the navigation if it is open
-      const isNavOpen = burgerToggler.classList.contains('open');
-      if (isNavOpen) {
-        closeNav(); // Close the navigation and the overlay
-      }
-      
-      // Show the modal
-      modal.style.display = "block"; 
+      if (burgerToggler.classList.contains('open')) closeNav();
+      modal.style.display = "block";
     });
   });
 
-  closeModalButton.addEventListener("click", () => {
-    modal.style.display = "none"; 
-  });
-
+  // Close accessibility modal
+  closeModalButton.addEventListener("click", () => modal.style.display = "none");
   window.addEventListener("click", event => {
-    if (event.target === modal) {
-      modal.style.display = "none"; 
-    }
+    if (event.target === modal) modal.style.display = "none";
   });
 
-  // Apply preferences from localStorage when page loads
+  // Apply saved preferences
   applyPreferences();
 
-  // Select all relevant headings and text excluding those with class "no-toggle-dyslexia" or "no-toggle-line-spacing"
-  const headingsAndTextDyslexia = document.querySelectorAll("h3:not(.no-toggle-dyslexia), h4:not(.no-toggle-dyslexia), h5:not(.no-toggle-dyslexia), h6:not(.no-toggle-dyslexia), p:not(.no-toggle-dyslexia)"); 
-  const headingsAndTextLineSpacing = document.querySelectorAll("h3:not(.no-toggle-line-spacing), h4:not(.no-toggle-line-spacing), h5:not(.no-toggle-line-spacing), h6:not(.no-toggle-line-spacing), p:not(.no-toggle-line-spacing)"); 
-
   // Toggle dyslexia-friendly font
-  const dyslexiaToggle = document.getElementById("toggle-dyslexia");
-  dyslexiaToggle.addEventListener("change", () => {
-    const isActive = dyslexiaToggle.checked;
-    
-    toggleClassOnElements(headingsAndTextDyslexia, "dyslexia", isActive);
-    dyslexiaToggle.setAttribute("data-active", isActive);
-    document.getElementById("toggle-dyslexia-label").textContent = isActive ? "Activé" : "Désactivé"; 
-    
-    // Save to localStorage
+  document.getElementById("toggle-dyslexia").addEventListener("change", (e) => {
+    const isActive = e.target.checked;
+    toggleClassOnElements(document.querySelectorAll("h3:not(.no-toggle-dyslexia), h4:not(.no-toggle-dyslexia), h5:not(.no-toggle-dyslexia), h6:not(.no-toggle-dyslexia), p:not(.no-toggle-dyslexia)"), "dyslexia", isActive);
+    updateToggleState("toggle-dyslexia", isActive);
     savePreference('dyslexia', isActive);
   });
 
   // Toggle line spacing
-  const lineSpacingToggle = document.getElementById("toggle-line-spacing");
-  lineSpacingToggle.addEventListener("change", () => {
-    const isActive = lineSpacingToggle.checked;
-    
-    toggleClassOnElements(headingsAndTextLineSpacing, "line-spacing", isActive);
-    lineSpacingToggle.setAttribute("data-active", isActive);
-    document.getElementById("toggle-line-spacing-label").textContent = isActive ? "Activé" : "Désactivé"; 
-    
-    // Save to localStorage
+  document.getElementById("toggle-line-spacing").addEventListener("change", (e) => {
+    const isActive = e.target.checked;
+    toggleClassOnElements(document.querySelectorAll("h3:not(.no-toggle-line-spacing), h4:not(.no-toggle-line-spacing), h5:not(.no-toggle-line-spacing), h6:not(.no-toggle-line-spacing), p:not(.no-toggle-line-spacing)"), "line-spacing", isActive);
+    updateToggleState("toggle-line-spacing", isActive);
     savePreference('lineSpacing', isActive);
   });
-
 });

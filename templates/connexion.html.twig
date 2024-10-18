@@ -1,6 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block description %}
+Page de connexion pour les artistes et professionnels du spectacle. Accédez à votre espace personnel sur le site du Coquelicot, café-concert associatif à Fougères.
 {% endblock %}
 
 {% block title %}
@@ -9,33 +10,30 @@ Se connecter
 
 {% block main %}
 <main id="connexion">
-    <section>
-        <h2>Se connecter</h2>
-        <p>Cette page est réservée aux artistes et professionnels du spectacle. Pour accéder y accéder, veuillez vous connecter avec votre compte.</p>
+    <section aria-labelledby="titre-connexion">
+        <h2 id="titre-connexion">Se connecter</h2>
+        <p>Cette page est réservée aux artistes et professionnels du spectacle. Pour y accéder, veuillez vous connecter avec votre compte.</p>
         <p>Si vous n'avez pas encore de compte, n'hésitez pas à cliquer sur Créer un compte pour vous inscrire.</p>
-        {% if  session.error_message is not null %}
-            <div class="alert">
-                <p>{{ session.error_message|striptags|striptags }}</p>
-                <i class="fa-solid fa-xmark"></i>
+        {% if session.error_message is not null %}
+            <div class="alert" role="alert">
+                <p>{{ session.error_message|e }}</p>
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
             </div>
         {% endif %}
 
-        <form action="index.php?route=check-login" method="post">
+        <form action="index.php?route=check-login" method="post" aria-labelledby="titre-connexion">
             <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session.csrf_token }}" />
 
-                <label for="email">Adresse mail</label>
-                <input type="email" name="email" id="email"/>
+            <label for="email">Adresse mail</label>
+            <input type="email" name="email" id="email" required aria-required="true"/>
 
-                <label for="password">Mot de passe</label>
-                <input type="password" name="password" id="password" />
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" id="password" required aria-required="true"/>
 
-                <button type="submit" class="submit-button">Se connecter</button>
-
+            <button type="submit" class="submit-button">Se connecter</button>
         </form>
-        <a href="">Mot de passe oublié ?</a>
-        <a href="index.php?route=inscription">Créer un compte</a>
+        <a href="" aria-label="Réinitialiser le mot de passe">Mot de passe oublié ?</a>
+        <a href="index.php?route=inscription" aria-label="Créer un nouveau compte">Créer un compte</a>
     </section>
 </main>
-
-
 {% endblock %}

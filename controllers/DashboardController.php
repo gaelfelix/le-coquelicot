@@ -65,10 +65,10 @@ class DashboardController extends AbstractController
     {
         if ($this->isAjaxRequest()) {
             $userId = $_GET['id'] ?? null;
-
+    
             if ($userId && is_numeric($userId)) {
                 $result = $this->um->deleteUser((int)$userId);
-
+    
                 if ($result) {
                     echo json_encode(['success' => true, 'message' => 'Utilisateur supprimé avec succès.']);
                 } else {
@@ -84,7 +84,6 @@ class DashboardController extends AbstractController
             error_log("La requête n'est pas AJAX");
         }
     }
-
     public function adminEvents() : void
     {
         $scripts = $this->addScripts(['assets/js/ajaxEventsDashboard.js']);
@@ -139,6 +138,7 @@ class DashboardController extends AbstractController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
+                $this->validateCsrfToken();
                 $eventData = $_POST;
                 $this->validateEventData($eventData);
     
@@ -178,11 +178,11 @@ class DashboardController extends AbstractController
         }
     }
 
-
     public function updateEvent(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
+                $this->validateCsrfToken();
                 $eventId = $_POST['id'] ?? null;
                 if (!$eventId || !is_numeric($eventId)) {
                     throw new Exception("ID événement invalide.");
@@ -256,13 +256,12 @@ class DashboardController extends AbstractController
         }
     }
 
-
     public function deleteEvent(): void
     {
         if ($this->isAjaxRequest()) {
-            $eventId = $_GET['id'] ?? null;
-            
             try {
+                $eventId = $_GET['id'] ?? null;
+                
                 if (!$eventId || !is_numeric($eventId)) {
                     throw new Exception("ID événement invalide.");
                 }
@@ -288,7 +287,6 @@ class DashboardController extends AbstractController
             $this->redirect("index.php?route=admin-evenements");
         }
     }
-    
 
     public function getEventData(): void
     {
@@ -330,17 +328,15 @@ class DashboardController extends AbstractController
             $this->redirect("index.php?route=admin-evenements");
         }
     }
-    
+
     private function validateEventData(array $eventData): void
     {
         $requiredFields = ['name', 'date', 'debut', 'end', 'ticket_price', 'type_id', 'style1_id', 'style2_id', 'image_name','alt-img'];
         foreach ($requiredFields as $field) {
-
             if (!isset($eventData[$field]) || $eventData[$field] === '') {
                 throw new Exception("Le champ '$field' est requis.");
             }
         }
-    
         if (!isset($eventData['ticket_price']) || !is_numeric($eventData['ticket_price'])) {
             throw new Exception("Le prix du ticket doit être un nombre.");
         }
@@ -361,7 +357,6 @@ class DashboardController extends AbstractController
         }
     }
 
-    
     private function validateFileData(array $fileData): void
     {
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp'];
@@ -432,6 +427,7 @@ class DashboardController extends AbstractController
         $this->render("admin/admin-actualites.html.twig", ["actualities" => $actualities], $scripts);
     }
 
+
     public function searchActualities(): void
     {
         if ($this->isAjaxRequest()) {
@@ -455,14 +451,15 @@ class DashboardController extends AbstractController
             $this->redirect("index.php?route=admin-actualites");
         }
     }
+
     public function createActuality(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
+                $this->validateCsrfToken();
                 $actualityData = $_POST;
                 $this->validateActualityData($actualityData);
 
-                
                 if (isset($_FILES['media']) && $_FILES['media']['error'] !== UPLOAD_ERR_NO_FILE) {
                     $fileData = $_FILES['media'];
                     $this->validateFileData($fileData);
@@ -496,12 +493,11 @@ class DashboardController extends AbstractController
         }
     }
 
-
     public function updateActuality(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
-                
+                $this->validateCsrfToken();
                 $actualityId = $_POST['id'] ?? null;
                 if (!$actualityId || !is_numeric($actualityId)) {
                     throw new Exception("ID Actualité invalide.");
@@ -545,7 +541,6 @@ class DashboardController extends AbstractController
                     $actualityData['media_id'] = $actuality->getMediaId(); 
                 }
 
-
                 $fieldsToUpdate = ['title', 'content', 'date'];
                 foreach ($fieldsToUpdate as $field) {
                     if (!isset($actualityData[$field]) || $actualityData[$field] === '') {
@@ -570,25 +565,24 @@ class DashboardController extends AbstractController
             $this->redirect("index.php?route=admin-actualites");
         }
     }
-    
 
     public function deleteActuality(): void
     {
         if ($this->isAjaxRequest()) {
-            $actualityId = $_GET['id'] ?? null;
-
             try {
+                $actualityId = $_GET['id'] ?? null;
+    
                 if (!$actualityId || !is_numeric($actualityId)) {
                     throw new Exception("ID Actualité invalide.");
                 }
-
+    
                 $actuality = $this->am->findOne($actualityId);
                 $media_id = $actuality->getMediaId();
                 $resultMedia = $this->mm->delete($media_id);
                 $resultActuality = $this->am->delete($actualityId);
-
+    
                 if ($resultMedia && $resultActuality) {
-                    echo json_encode(['success' => true, 'message' => 'Actualité supprimé avec succès.']);
+                    echo json_encode(['success' => true, 'message' => 'Actualité supprimée avec succès.']);
                 } else {
                     throw new Exception('Erreur lors de la suppression de l\'actualité.');
                 }
@@ -613,7 +607,6 @@ class DashboardController extends AbstractController
                 $actuality = $this->am->findOne((int)$actualityId);
                 
                 if ($actuality) {
-
                     error_log("Actuality data: " . print_r([
                         'id' => $actuality->getId(),
                         'mediaId' => $actuality->getMedia()->getId(),
@@ -655,7 +648,7 @@ class DashboardController extends AbstractController
         }
     }
 
-    public  function renderActualityForm(): void
+    public function renderActualityForm(): void
     {
         $scripts = $this->addScripts(['assets/js/ajaxActualityDashboard.js']);
 
@@ -665,7 +658,6 @@ class DashboardController extends AbstractController
             'actualities' => $actualities,
         ], $scripts);
     }
-
 
     public function adminTypesStyles(): void
     {
@@ -683,21 +675,25 @@ class DashboardController extends AbstractController
     {
         header('Content-Type: application/json');
         if ($this->isAjaxRequest()) {
-            $rawData = file_get_contents('php://input');
-            error_log("Données brutes reçues : " . $rawData);
-            
-            $data = json_decode($rawData, true);
-            error_log("Données décodées : " . print_r($data, true));
-            
-            $name = $data['name'] ?? '';
-            error_log("Nom extrait : " . $name);
-            
-            if (!empty($name)) {
-                $type = new Type($name);
-                $this->tm->create($type);
-                echo json_encode(['success' => true, 'id' => $type->getId(), 'name' => $type->getName()]);
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Le nom du type ne peut pas être vide.']);
+            try {
+                $rawData = file_get_contents('php://input');
+                error_log("Données brutes reçues : " . $rawData);
+                
+                $data = json_decode($rawData, true);
+                error_log("Données décodées : " . print_r($data, true));
+                
+                $name = $data['name'] ?? '';
+                error_log("Nom extrait : " . $name);
+                
+                if (!empty($name)) {
+                    $type = new Type($name);
+                    $this->tm->create($type);
+                    echo json_encode(['success' => true, 'id' => $type->getId(), 'name' => $type->getName()]);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Le nom du type ne peut pas être vide.']);
+                }
+            } catch (Exception $e) {
+                echo json_encode(['success' => false, 'message' => $e->getMessage()]);
             }
             exit;
         }
@@ -706,55 +702,61 @@ class DashboardController extends AbstractController
     public function deleteType(): void
     {
         header('Content-Type: application/json');
-        if (!$this->isAjaxRequest()) {
-            echo json_encode(['success' => false, 'message' => 'Requête non autorisée.']);
+        if ($this->isAjaxRequest()) {
+            try {
+                $id = $_GET['id'] ?? null;
+                error_log("Tentative de suppression du type avec l'ID : " . $id);
+            
+                if (!$id || !is_numeric($id)) {
+                    echo json_encode(['success' => false, 'message' => 'ID de type invalide.']);
+                    exit;
+                }
+    
+                $eventsUsingType = $this->em->findByType($id);
+    
+                error_log("Événements utilisant le type : " . json_encode($eventsUsingType));
+            
+                if (!empty($eventsUsingType)) {
+                    echo json_encode(['success' => false, 'message' => 'Ce type est utilisé par des événements et ne peut pas être supprimé.']);
+                    exit;
+                }
+            
+                $result = $this->tm->delete($id);
+                if ($result) {
+                    echo json_encode(['success' => true, 'message' => 'Type supprimé avec succès.']);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Erreur lors de la suppression du type.']);
+                }
+            } catch (Exception $e) {
+                echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            }
             exit;
         }
-    
-        $id = $_GET['id'] ?? null;
-        error_log("Tentative de suppression du type avec l'ID : " . $id);
-    
-        if (!$id || !is_numeric($id)) {
-            echo json_encode(['success' => false, 'message' => 'ID de type invalide.']);
-            exit;
-        }
-    
-        $eventsUsingType = $this->em->findByType($id);
-        error_log("Événements utilisant le type : " . json_encode($eventsUsingType));
-    
-        if (!empty($eventsUsingType)) {
-            echo json_encode(['success' => false, 'message' => 'Ce type est utilisé par des événements et ne peut pas être supprimé.']);
-            exit;
-        }
-    
-        $result = $this->tm->delete($id);
-        if ($result) {
-            echo json_encode(['success' => true, 'message' => 'Type supprimé avec succès.']);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Erreur lors de la suppression du type.']);
-        }
-        exit;
     }
 
     public function addStyle(): void
     {
         header('Content-Type: application/json');
         if ($this->isAjaxRequest()) {
-            $rawData = file_get_contents('php://input');
-            error_log("Données brutes reçues pour l'ajout de style : " . $rawData);
-            
-            $data = json_decode($rawData, true);
-            error_log("Données décodées : " . print_r($data, true));
-            
-            $name = $data['name'] ?? '';
-            error_log("Nom du style extrait : " . $name);
-            
-            if (!empty($name)) {
-                $style = new Style($name);
-                $this->sm->create($style);
-                echo json_encode(['success' => true, 'id' => $style->getId(), 'name' => $style->getName()]);
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Le nom du style ne peut pas être vide.']);
+            try {
+                $rawData = file_get_contents('php://input');
+                error_log("Données brutes reçues pour l'ajout de style : " . $rawData);
+                
+                $data = json_decode($rawData, true);
+                error_log("Données décodées : " . print_r($data, true));
+                
+                $name = $data['name'] ?? '';
+                error_log("Nom du style extrait : " . $name);
+                
+                if (!empty($name)) {
+                    $style = new Style($name);
+                    $this->sm->create($style);
+                    echo json_encode(['success' => true, 'id' => $style->getId(), 'name' => $style->getName()]);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Le nom du style ne peut pas être vide.']);
+                }
+            } catch (Exception $e) {
+                echo json_encode(['success' => false, 'message' => $e->getMessage()]);
             }
         } else {
             echo json_encode(['success' => false, 'message' => 'Requête non autorisée.']);
@@ -765,34 +767,35 @@ class DashboardController extends AbstractController
     public function deleteStyle(): void
     {
         header('Content-Type: application/json');
-        if (!$this->isAjaxRequest()) {
-            echo json_encode(['success' => false, 'message' => 'Requête non autorisée.']);
+        if ($this->isAjaxRequest()) {
+            try {
+                $id = $_GET['id'] ?? null;
+                error_log("Tentative de suppression du style avec l'ID : " . $id);
+            
+                if (!$id || !is_numeric($id)) {
+                    echo json_encode(['success' => false, 'message' => 'ID de style invalide.']);
+                    exit;
+                }
+            
+                $eventsUsingStyle = $this->em->findByStyle($id);
+                error_log("Événements utilisant le style : " . json_encode($eventsUsingStyle));
+            
+                if (!empty($eventsUsingStyle)) {
+                    echo json_encode(['success' => false, 'message' => 'Ce style est utilisé par des événements et ne peut pas être supprimé.']);
+                    exit;
+                }
+            
+                $result = $this->sm->delete($id);
+                if ($result) {
+                    echo json_encode(['success' => true, 'message' => 'Style supprimé avec succès.']);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Erreur lors de la suppression du style.']);
+                }
+            } catch (Exception $e) {
+                echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            }
             exit;
         }
-    
-        $id = $_GET['id'] ?? null;
-        error_log("Tentative de suppression du style avec l'ID : " . $id);
-    
-        if (!$id || !is_numeric($id)) {
-            echo json_encode(['success' => false, 'message' => 'ID de style invalide.']);
-            exit;
-        }
-    
-        $eventsUsingStyle = $this->em->findByStyle($id);
-        error_log("Événements utilisant le style : " . json_encode($eventsUsingStyle));
-    
-        if (!empty($eventsUsingStyle)) {
-            echo json_encode(['success' => false, 'message' => 'Ce style est utilisé par des événements et ne peut pas être supprimé.']);
-            exit;
-        }
-    
-        $result = $this->sm->delete($id);
-        if ($result) {
-            echo json_encode(['success' => true, 'message' => 'Style supprimé avec succès.']);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Erreur lors de la suppression du style.']);
-        }
-        exit;
     }
 
     public function adminMessages(): void
@@ -839,20 +842,23 @@ class DashboardController extends AbstractController
     public function deleteMessage(): void
     {
         if ($this->isAjaxRequest()) {
-            $messageId = $_GET['id'] ?? null;
-            if ($messageId && is_numeric($messageId)) {
-                $contactManager = new ContactManager();
-                $result = $contactManager->delete((int)$messageId);
-                if ($result) {
-                    echo json_encode(['success' => true, 'message' => 'Message supprimé avec succès.']);
+            try {
+                $messageId = $_GET['id'] ?? null;
+                if ($messageId && is_numeric($messageId)) {
+                    $contactManager = new ContactManager();
+                    $result = $contactManager->delete((int)$messageId);
+                    if ($result) {
+                        echo json_encode(['success' => true, 'message' => 'Message supprimé avec succès.']);
+                    } else {
+                        echo json_encode(['success' => false, 'message' => 'Erreur lors de la suppression du message.']);
+                    }
                 } else {
-                    echo json_encode(['success' => false, 'message' => 'Erreur lors de la suppression du message.']);
+                    echo json_encode(['success' => false, 'message' => 'ID de message invalide.']);
                 }
-            } else {
-                echo json_encode(['success' => false, 'message' => 'ID de message invalide.']);
+            } catch (Exception $e) {
+                echo json_encode(['success' => false, 'message' => $e->getMessage()]);
             }
             exit;
         }
     }
-
 }

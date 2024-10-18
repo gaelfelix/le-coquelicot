@@ -28,10 +28,8 @@ class NewsletterController extends AbstractController
                 exit();
             }
 
-            // Vérification du token CSRF
-            $tokenManager = new CSRFTokenManager();
-
-            if (isset($_POST["csrf-token"]) && $tokenManager->validateCSRFToken($_POST["csrf-token"])) {
+            try {
+                $this->validateCsrfToken();
                 
                 // Vérifier si l'email existe déjà
                 if ($nm->findByEmail($email) === null) {
@@ -47,10 +45,8 @@ class NewsletterController extends AbstractController
                 } else {
                     $response["message"] = "Cet email est déjà inscrit à la newsletter.";
                 }
-            } else {
-                // Jeton CSRF invalide
-                $response["message"] = "Jeton CSRF invalide.";
-                $this->redirect("index.php");
+            } catch (Exception $e) {
+                $response["message"] = $e->getMessage();
             }
         } else {
             // Requête non POST

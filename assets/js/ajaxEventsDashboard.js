@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Éléments du DOM
+
     const errorMessage = document.getElementById('error-message');
     const closeError = document.getElementById('close-error');
     const searchInput = document.querySelector('input[name="q"]');
@@ -9,13 +9,15 @@ document.addEventListener("DOMContentLoaded", function() {
     const fileInput = document.querySelector('input[name="media"]');
     const eventForm = document.querySelector('#event-form');
 
-    // Configuration initiale
+    // Initial setup
     searchButton.disabled = true;
     setupFileInput();
     setupErrorHandling();
     setupEventListeners();
 
-    // Fonctions principales
+    // Main functions
+
+    // Set up file input to display selected file name
     function setupFileInput() {
         const fileNameDisplay = document.createElement('span');
         fileInput.parentNode.insertBefore(fileNameDisplay, fileInput.nextSibling);
@@ -30,20 +32,22 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // Set up error handling
     function setupErrorHandling() {
         if (closeError) {
             closeError.addEventListener('click', clearErrorMessage);
         }
     }
 
+    // Set up event listeners for table, search, and type selection
     function setupEventListeners() {
         eventTableBody.addEventListener('click', handleEventTableClick);
         searchInput.addEventListener('input', handleSearch);
         typeSelect.addEventListener('change', handleTypeChange);
     }
 
+    // Fetch event data and populate form for editing
     function editEvent(eventId) {
-        console.log("Édition de l'événement avec l'ID:", eventId);
         fetch(`index.php?route=get-event-data&id=${encodeURIComponent(eventId)}`, {
             method: 'GET',
             headers: { 'X-Requested-With': 'XMLHttpRequest' }
@@ -58,13 +62,14 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         })
         .catch(error => {
-            console.error('Erreur:', error);
+            console.error('Error:', error);
             showErrorMessage('Une erreur est survenue lors de la récupération des données de l\'événement.');
         });
     }
 
+    // Fill the event form with data for editing
     function fillEventForm(data) {
-        // Remplir les champs texte et input
+        // Fill text and input fields
         ['name', 'date', 'debut', 'end', 'ticket_price', 'video_link', 'ticketing_link'].forEach(field => {
             document.querySelector(`input[name="${field}"]`).value = data[field];
         });
@@ -75,24 +80,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
         document.querySelector('#event-id').value = data.id;
 
-        // Remplir les champs select
+        // Fill select fields
         ['type_id', 'style1_id', 'style2_id'].forEach(field => {
             document.querySelector(`select[name="${field}"]`).value = data[field];
         });
 
-        // Afficher l'image actuelle
         updateCurrentImage(data);
-
-        // Modifier le formulaire pour la mise à jour
         eventForm.action = `index.php?route=admin-update-event`;
         document.querySelector('#event-form button[type="submit"]').textContent = 'Modifier l\'événement';
         fileInput.removeAttribute('required');
-
-        // Mettre à jour le champ caché media_id
         updateMediaIdField(data.media_id);
-        console.log("Mise à jour du champ media_id avec la valeur:", data.media_id);
     }
 
+    // Update the current image preview in the form
     function updateCurrentImage(data) {
         const currentImage = document.getElementById('current-image');
         if (data.media_url) {
@@ -105,6 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    // Update or create the hidden media_id field
     function updateMediaIdField(mediaId) {
         let mediaIdInput = document.querySelector('input[name="media_id"]');
         if (!mediaIdInput) {
@@ -116,15 +117,14 @@ document.addEventListener("DOMContentLoaded", function() {
         mediaIdInput.value = mediaId;
     }
 
+    // Delete an event after confirmation
     function deleteEvent(eventId) {
-        console.log("Tentative de suppression de l'événement ID:", eventId);
         fetch(`index.php?route=admin-delete-event&id=${encodeURIComponent(eventId)}`, {
             method: 'GET',
             headers: { 'X-Requested-With': 'XMLHttpRequest' }
         })
         .then(response => response.json())
         .then(data => {
-            console.log("Données reçues:", data);
             if (data.success) {
                 showSuccessMessage(data.message);
                 removeEventRow(eventId);
@@ -133,12 +133,12 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         })
         .catch(error => {
-            console.error('Erreur lors de la requête Ajax:', error);
+            console.error('Error during Ajax request:', error);
             showErrorMessage('Une erreur est survenue lors de la suppression de l\'événement.');
         });
     }
 
-    // Fonctions utilitaires
+    // Clear the current image preview
     function clearCurrentImage() {
         const currentImage = document.getElementById('current-image');
         if (currentImage) {
@@ -146,6 +146,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    // Clear the error message and send a request to clear it on the server
     function clearErrorMessage() {
         errorMessage.style.display = 'none';
         fetch('index.php?route=clear-error-message', {
@@ -155,14 +156,15 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(response => response.json())
         .then(data => {
             if (!data.success) {
-                console.error("Erreur lors de la suppression du message d'erreur");
+                console.error("Error while clearing error message");
             }
         })
         .catch(error => {
-            console.error('Erreur:', error);
+            console.error('Error:', error);
         });
     }
 
+    // Handle clicks on the event table (edit and delete actions)
     function handleEventTableClick(event) {
         if (event.target.matches('a.edit-event')) {
             event.preventDefault();
@@ -170,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (eventId) {
                 editEvent(eventId);
             } else {
-                console.error("ID de l'événement non trouvé");
+                console.error("Event ID not found");
             }
         } else if (event.target.matches('a[href*="delete"]')) {
             event.preventDefault();
@@ -181,35 +183,77 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    // Handle the search input and update the event list
     function handleSearch() {
         const query = searchInput.value;
         updateEvents(`index.php?route=admin-search-event&q=${encodeURIComponent(query)}`);
     }
 
+    // Handle changes in the event type select and update the event list
     function handleTypeChange() {
         searchInput.value = '';
         const selectedType = typeSelect.value;
         updateEvents(`index.php?route=admin-search-event&type=${encodeURIComponent(selectedType)}`);
     }
 
+    // Remove an event row from the table
     function removeEventRow(eventId) {
         const row = document.querySelector(`tr[data-event-id="${eventId}"]`);
         if (row) {
             row.remove();
         } else {
-            console.error("Ligne de l'événement non trouvée dans le tableau");
+            console.error("Event row not found in the table");
         }
     }
 
+    // Update the event list based on search or filter criteria
     function updateEvents(url) {
-        // Implémentez cette fonction pour mettre à jour la liste des événements
-        console.log("Mise à jour des événements avec l'URL:", url);
+        fetch(url, {
+            method: 'GET',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(response => response.json())
+        .then(data => {
+            eventTableBody.innerHTML = '';
+            data.forEach(event => {
+                const row = createEventRow(event);
+                eventTableBody.appendChild(row);
+            });
+        })
+        .catch(error => {
+            console.error('Error updating events:', error);
+            showErrorMessage('Une erreur est survenue lors de la mise à jour des événements.');
+        });
     }
 
+    // Create a table row for an event
+    function createEventRow(event) {
+        const row = document.createElement('tr');
+        row.setAttribute('data-event-id', event.id);
+        row.innerHTML = `
+            <td>${event.shortDay} ${event.number} ${event.shortMonth}</td>
+            <td>${event.name}</td>
+            <td>${event.debut}</td>
+            <td>${event.end}</td>
+            <td>${event.ticket_price}</td>
+            <td>${event.type.name}</td>
+            <td>${event.style1.name}</td>
+            <td>${event.style2.name}</td>
+            <td>
+                <a href="index.php?route=evenement&id=${event.id}" aria-label="Voir l'événement ${event.name}">Voir</a>
+                <a href="#" data-id="${event.id}" class="edit-event" aria-label="Modifier l'événement ${event.name}">Modifier</a>
+                <a href="index.php?route=admin-delete-event&id=${event.id}" aria-label="Supprimer l'événement ${event.name}">Supprimer</a>
+            </td>
+        `;
+        return row;
+    }
+
+    // Display an error message
     function showErrorMessage(message) {
         alert(message);
     }
 
+    // Display a success message
     function showSuccessMessage(message) {
         alert(message);
     }

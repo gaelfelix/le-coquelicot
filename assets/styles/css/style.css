@@ -1264,7 +1264,7 @@ footer .footer-copyright {
   cursor: pointer;
 }
 #programmation fieldset .search-bar button i {
-  font-size: 2rem;
+  font-size: 1.9rem;
 }
 #programmation fieldset .search-bar button:hover {
   color: #2E2D52;
@@ -1297,12 +1297,12 @@ footer .footer-copyright {
     width: 80%;
   }
   #programmation fieldset .search-bar button i {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 }
 @media only screen and (min-width: 768px) {
   #programmation fieldset .search-bar button i {
-    font-size: 2.3rem;
+    font-size: 2.1rem;
   }
 }
 @media only screen and (min-width: 850px) {
@@ -1317,6 +1317,11 @@ footer .footer-copyright {
   }
   #programmation .programmation-events-container .event-card-container {
     margin: 2rem;
+  }
+}
+@media screen and (min-width: 893px) {
+  #programmation fieldset .search-bar button i {
+    font-size: 2.2rem;
   }
 }
 

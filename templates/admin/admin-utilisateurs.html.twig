@@ -1,6 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block description %}
+Interface d'administration des utilisateurs du Coquelicot. Gérez les comptes des artistes et professionnels du spectacle.
 {% endblock %}
 
 {% block title %}
@@ -9,29 +10,29 @@ Utilisateurs
 
 {% block main %}
 <main id="admin-user">
-    <section>
-        <h2>Administration des utilisateurs</h2>
+    <section aria-labelledby="titre-admin-utilisateurs">
+        <h2 id="titre-admin-utilisateurs">Administration des utilisateurs</h2>
         <fieldset>
-            <form id="searchForm" action="/search" method="get" class="search-bar">
+            <form id="searchForm" action="/search" method="get" class="search-bar" aria-label="Recherche d'utilisateurs">
                 <input type="search" name="q" placeholder="Rechercher..." aria-label="Recherche">
-                <button class="search-button"><i class="fas fa-search"></i></button>
+                <button class="search-button" aria-label="Lancer la recherche"><i class="fas fa-search" aria-hidden="true"></i></button>
             </form>
-            <select name="role" id="role">
+            <select name="role" id="role" aria-label="Filtrer par rôle">
                 <option value="all">Tous</option>
                 {% for user in users %}
-                <option value="{{ user.role|striptags }}">{{ user.role|striptags }}</option>            
+                <option value="{{ user.role|e }}">{{ user.role|e }}</option>            
                 {% endfor %}
             </select>
         </fieldset>
         
         <div class="table-container">
-            <table id="userTable">
+            <table id="userTable" aria-label="Liste des utilisateurs">
                 <thead>
                     <tr>
                         <th>Id</th>
                         <th>Prénom</th>
                         <th>Nom</th>
-                        <th>Rôle</th>
+                        <th>Rôle</th>
                         <th>Structure / Groupe</th>
                         <th>Compétence</th>
                         <th>Mail</th>
@@ -42,15 +43,15 @@ Utilisateurs
                 <tbody>
                 {% for user in users %}
                     <tr>
-                        <td>{{ user.id|striptags }}</td>
-                        <td>{{ user.firstname|striptags }}</td>
-                        <td>{{ user.lastname|striptags }}</td>
-                        <td>{{ user.role|striptags }}</td>
-                        <td>{{ user.structure|striptags }}</td>
-                        <td>{{ user.specialization.name|striptags }}</td>
-                        <td>{{ user.email|striptags }}</td>
+                        <td>{{ user.id|e }}</td>
+                        <td>{{ user.firstname|e }}</td>
+                        <td>{{ user.lastname|e }}</td>
+                        <td>{{ user.role|e }}</td>
+                        <td>{{ user.structure|e }}</td>
+                        <td>{{ user.specialization.name|e }}</td>
+                        <td>{{ user.email|e }}</td>
                         <td>
-                            <a href="index.php?route=admin-delete-user&id={{ user.id }}">Supprimer</a>
+                            <a href="index.php?route=admin-delete-user&id={{ user.id|e }}" aria-label="Supprimer l'utilisateur {{ user.firstname|e }} {{ user.lastname|e }}">Supprimer</a>
                         </td>
                     </tr>
                 {% endfor %}

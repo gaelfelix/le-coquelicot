@@ -1,6 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block description %}
+Le Coquelicot, café-concert associatif à Fougères. Découvrez notre programmation, nos actualités et inscrivez-vous à notre newsletter pour ne rien manquer de nos événements musicaux et culturels.
 {% endblock %}
 
 {% block title %}
@@ -9,29 +10,29 @@ Accueil
 
 {% block main %}
 <main id="homepage">
-    <section class="home-next-events">
-        <h2>Les prochains rendez-vous</h2>
+    <section class="home-next-events" aria-labelledby="upcoming-events-titre">
+        <h2 id="upcoming-events-title">Les prochains rendez-vous</h2>
 
         <div class="glider-contain">
-            <button class="glider-prev">
-                <i class="fa-solid fa-chevron-left"></i>
+            <button class="glider-prev" aria-label="Événement précédent">
+                <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
             </button>
 
-            <div class="glider">
+            <div class="glider" aria-label="Carrousel des prochains événements">
                 {% for event in events %}
-                    <article class="event-card" style="background-image: url('{{ event.event.media.url|striptags }}')">
-                        <a href="index.php?route=evenement&id={{ event.event.id|striptags }}">
-                            <div class="card-block-date mono">
-                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortDay|striptags }}</p>
-                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.number|striptags }}</p>
-                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortMonth|striptags }}</p>                           
+                    <article class="event-card" style="background-image: url('{{ event.event.media.url|e }}')" aria-labelledby="event-title-{{ event.event.id|e }}">
+                        <a href="index.php?route=evenement&id={{ event.event.id|e }}">
+                            <div class="card-block-date mono" aria-label="Date de l'événement">
+                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortDay|e }}</p>
+                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.number|e }}</p>
+                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortMonth|e }}</p>                           
                             </div>
                             <div class="info-event-container">
-                                <h3 class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.name|striptags }}</h3>
-                                <div class="rect-event-container">
-                                    <div class="rect-event type no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.type.name|striptags }}</div>
-                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style1.name|striptags }}</div>
-                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style2.name|striptags }}</div>
+                                <h3 id="event-title-{{ event.event.id|e }}" class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.name|e }}</h3>
+                                <div class="rect-event-container" aria-label="Catégories de l'événement">
+                                    <div class="rect-event type no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.type.name|e }}</div>
+                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style1.name|e }}</div>
+                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style2.name|e }}</div>
                                 </div>
                             </div>
                         </a>
@@ -39,31 +40,31 @@ Accueil
                 {% endfor %}
             </div>
 
-            <button class="glider-next">
-                <i class="fa-solid fa-chevron-right"></i>
+            <button class="glider-next" aria-label="Événement suivant">
+                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
             </button>
             <div id="dots" class="glider-dots"></div>
         </div>
     </section>
     
-    <section class="home-last-actualities">
-        <h2>Dernières actualités</h2>
+    <section class="home-last-actualities" aria-labelledby="last-news-titre">
+        <h2 id="last-news-title">Dernières actualités</h2>
         <div class="home-last-actualities-container">
             {% for actuality in actualities %}
-            <a class="actuality-card" href="index.php?route=actualite&id={{ actuality.id|striptags }}">
-                <img src="{{ actuality.media.url|striptags }}" alt="{{ actuality.media.alt|striptags }}" class="actuality-card">
-                <h3>{{ actuality.title|striptags }}</h3>
+            <a class="actuality-card" href="index.php?route=actualite&id={{ actuality.id|e }}" aria-labelledby="actuality-title-{{ actuality.id|e }}">
+                <img src="{{ actuality.media.url|e }}" alt="{{ actuality.media.alt|e }}" class="actuality-card">
+                <h3 id="actuality-title-{{ actuality.id|e }}">{{ actuality.title|e }}</h3>
             </a>
             {% endfor %}
         </div>
     </section>
 
-    <section class="home-newsletter" id="home-newsletter">
-        <h2>Pour ne plus rien rater</h2>
-        <p>Parce que rater des choses c’est pas cool, inscris-toi à la newsletter du Coquelicot !</p>
+    <section class="home-newsletter" id="home-newsletter" aria-labelledby="newsletter-titre">
+        <h2 id="newsletter-title">Pour ne plus rien rater</h2>
+        <p>Parce que rater des choses c'est pas cool, inscris-toi à la newsletter du Coquelicot !</p>
         <p>Tu recevras la programmation toute chaude, les dernières actus et aussi quelques secrets directement dans ta boîte mail... Alors, elle est pas belle la vie ?</p>
-        <form action="index.php?route=inscription-newsletter" method="post" novalidate>
-            <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session.csrf_token }}" />
+        <form action="index.php?route=inscription-newsletter" method="post" novalidate aria-label="Formulaire d'inscription à la newsletter">
+            <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session.csrf_token }}" >
             <div class="home-newsletter-input-container">
                 <div class="firstname-newsletter-input">
                     <label for="firstName">Prénom</label>

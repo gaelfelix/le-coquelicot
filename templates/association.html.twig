@@ -1,6 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block description %}
+Découvrez l'histoire et la mission de l'Association Le Jazz et La Java, gestionnaire du café-concert Le Coquelicot à Fougères. Informez-vous sur notre équipe, nos valeurs et nos partenaires.
 {% endblock %}
 
 {% block title %}
@@ -9,65 +10,65 @@ L'association
 
 {% block main %}
 <main id="association">
-    <section class="association-container">
+    <section class="association-container" aria-labelledby="association-titre">
         <div>
-            <h2>L'association</h2>
+            <h2 id="association-title">L'association</h2>
             <img src="assets/img/equipe_asso.jpeg" alt="Image des membres de l'association">
-            <p>L’Association Le Jazz et La Java, a été créée en 1996 afin d’apporter une structure associative à la salle de concert Le Coquelicot inscrit dans le panorama fougerais depuis 1979. Depuis juillet 2015, date de reprise du fonds de commerce du Coquelicot par le Jazz et La Java, les bénévoles et les salarié-e-s de l’association s’associent dans une véritable aventure collective :  tout faire pour que Le Coquelicot continue à vivre à l’échelle de la Ville, de l‘Agglomération et du Pays de Fougères comme un lieu incontournable de rencontres musicales, de lien social et comme une salle de concert reconnue régionalement et nationalement.</p>
-            <p>En 2019, l'association s'organise autour d'un conseil d'administration de 9 membres, dont deux co-présidentes. Elle compte également plus de 200 adhérents et 8 commissions, qui constituent la dynamique associative du Jazz et la Java. La gouvernance de l’association repose sur une démarche participative et collective, permettant à chaque acteur de se retrouver autour de valeurs communes.</p>
+            <p>L'Association Le Jazz et La Java, a été créée en 1996 afin d'apporter une structure associative à la salle de concert Le Coquelicot inscrit dans le panorama fougerais depuis 1979. Depuis juillet 2015, date de reprise du fonds de commerce du Coquelicot par le Jazz et La Java, les bénévoles et les salarié-e-s de l'association s'associent dans une véritable aventure collective :  tout faire pour que Le Coquelicot continue à vivre à l'échelle de la Ville, de l'Agglomération et du Pays de Fougères comme un lieu incontournable de rencontres musicales, de lien social et comme une salle de concert reconnue régionalement et nationalement.</p>
+            <p>En 2019, l'association s'organise autour d'un conseil d'administration de 9 membres, dont deux co-présidentes. Elle compte également plus de 200 adhérents et 8 commissions, qui constituent la dynamique associative du Jazz et la Java. La gouvernance de l'association repose sur une démarche participative et collective, permettant à chaque acteur de se retrouver autour de valeurs communes.</p>
             <p>Cette dynamique collective et démocratique a permis de définir un projet, de cerner les besoins et de réfléchir aux conditions de fonctionnement de la structure. Elle repose sur cinq fondements majeurs :</p>
             <ul>
                 <li>L'artistique et la créativité au cœur du projet.</li>
                 <li>La curiosité et la découverte musicale comme moteurs des coopérations.</li>
                 <li>La mixité des publics et des populations.</li>
-                <li>L’ancrage sur le territoire de la ville et du Pays de Fougères, en prenant en compte les singularités du territoire et de ses publics.</li>
+                <li>L'ancrage sur le territoire de la ville et du Pays de Fougères, en prenant en compte les singularités du territoire et de ses publics.</li>
                 <li>La solidarité entre artistes, professionnels et bénévoles, basée sur des principes de coopération et de mutualisation des compétences.</li>
             </ul>
         </div>
     </section>
 
-    <section class="equipe-container">
+    <section class="equipe-container" aria-labelledby="equipe-titre">
         <div>
-            <h3>L’équipe du café concert Le Coquelicot</h3>
-            <h4>L’équipe salariée</h4>
+            <h3 id="equipe-title">L'équipe du café concert Le Coquelicot</h3>
+            <h4>L'équipe salariée</h4>
             <p><span>Emmanuelle Houée</span> - Administratrice / Régie / Communication</p>
             <p><span>Benoît PIEL</span> - Programmation / Bar / Coordinateur vie associative</p>
-            <h4>L’équipe associative</h4>
-            <p>L’association est dirigée par un comité collégial élu.</p>
-            <p>Des commissions orientent et animent la vie de ce lieu associatif : programmation, communication, avenir associatif, cuisine, bar… Ces commissions sont ouvertes à tous ceux et celles qui souhaitent s’investir dans la vie du lieu !</p>
-            <p><span>Si vous voulez en faire partie ou avoir plus d’information, contactez-nous.</span></p>
+            <h4>L'équipe associative</h4>
+            <p>L'association est dirigée par un comité collégial élu.</p>
+            <p>Des commissions orientent et animent la vie de ce lieu associatif : programmation, communication, avenir associatif, cuisine, bar… Ces commissions sont ouvertes à tous ceux et celles qui souhaitent s'investir dans la vie du lieu !</p>
+            <p><span>Si vous voulez en faire partie ou avoir plus d'information, contactez-nous.</span></p>
         </div>
     </section>
 
-    <section class="adhesion-don-container">
-        <h3>Pour adhérer à l'association ou faire un don</h3>
+    <section class="adhesion-don-container" aria-labelledby="adhesion-don-titre">
+        <h3 id="adhesion-don-title">Pour adhérer à l'association ou faire un don</h3>
         <div class="button-container">
-            <a href="index.php?route=adherer-faire-un-don#adhesion">Adhérer</a>
-            <a href="index.php?route=adherer-faire-un-don#don">Faire un don</a>
+            <a href="index.php?route=adherer-faire-un-don#adhesion" aria-label="Adhérer à l'association">Adhérer</a>
+            <a href="index.php?route=adherer-faire-un-don#don" aria-label="Faire un don à l'association">Faire un don</a>
         </div>
     </section>
 
-    <section class="mecenat-container">
+    <section class="mecenat-container" aria-labelledby="mecenat-titre">
         <div>
-            <h3>Le choix du mécénat</h3>
+            <h3 id="mecenat-title">Le choix du mécénat</h3>
             <h4>Soutenez Le Jazz et La Java !</h4>
-            <p>Soutenir le Coquelicot et l’association Le Jazz et la Java c’est s’associer à une volonté de dynamiser notre territoire, c’est appuyer l’investissement d’une équipe pour accompagner les artistes émergents, c’est rendre accessible la musique au plus grand nombre !</p>
-            <h4>Qu’est ce que le mécénat ?</h4>
-            <p>Le mécénat c’est un soutien matériel apporté à une personne, à une œuvre ou à un organisme d’intérêt général comme le Jazz et la Java, qui œuvre pour la diversité culturelle et musicale. L’entreprise mécène peut bénéficier de certaines contreparties en communication et relations publiques. Il pourra s’agir de la présence du logo ou du nom de l’entreprise dans la communication, mais aussi d’entrées gratuites et plus encore...</p>
+            <p>Soutenir le Coquelicot et l'association Le Jazz et la Java c'est s'associer à une volonté de dynamiser notre territoire, c'est appuyer l'investissement d'une équipe pour accompagner les artistes émergents, c'est rendre accessible la musique au plus grand nombre !</p>
+            <h4>Qu'est ce que le mécénat ?</h4>
+            <p>Le mécénat c'est un soutien matériel apporté à une personne, à une œuvre ou à un organisme d'intérêt général comme le Jazz et la Java, qui œuvre pour la diversité culturelle et musicale. L'entreprise mécène peut bénéficier de certaines contreparties en communication et relations publiques. Il pourra s'agir de la présence du logo ou du nom de l'entreprise dans la communication, mais aussi d'entrées gratuites et plus encore...</p>
             <h4>Le mécénat, pourquoi ?</h4>
             <p>Le mécénat est une question cruciale pour une association comme le Jazz et la Java et lui permet de poursuivre des projets artistiques et culturels.</p>
             <h4>Le mécénat, pour qui ?</h4>
             <h5>Pour les entreprises</h5>
-            <p>C’est la possibilité de bénéficier d’une <span>réduction d’impôt à hauteur de 60%</span> du montant du don effectué en compétence, en nature ou en numéraire.</p>
-            <p>L’entreprise mécène peut bénéficier de certaines contreparties en communication et relations publiques. Il pourra s’agir de la présence du logo ou du nom de l’entreprise dans la communication, mais aussi d’entrées gratuites et plus encore.</p>
+            <p>C'est la possibilité de bénéficier d'une <span>réduction d'impôt à hauteur de 60%</span> du montant du don effectué en compétence, en nature ou en numéraire.</p>
+            <p>L'entreprise mécène peut bénéficier de certaines contreparties en communication et relations publiques. Il pourra s'agir de la présence du logo ou du nom de l'entreprise dans la communication, mais aussi d'entrées gratuites et plus encore.</p>
             <h5>Pour les particuliers</h5>
-            <p>Il donne également la possibilité d’une <span>réduction d’impôts sur le revenu égale à 66%</span> de leur montant les sommes qui correspondent à des dons et des versements.</p>
-            <p>Pour plus d’informations, contactez-nous au<span> 02.99.99.84.52 </span>ou via <span>communication@le-coquelicot.fr</span>.</p>
+            <p>Il donne également la possibilité d'une <span>réduction d'impôts sur le revenu égale à 66%</span> de leur montant les sommes qui correspondent à des dons et des versements.</p>
+            <p>Pour plus d'informations, contactez-nous au<span> 02.99.99.84.52 </span>ou via <span>communication@le-coquelicot.fr</span>.</p>
         </div>
     </section>
 
-    <section class="partner-container">
-        <h3>Nos partenaires</h3>
+    <section class="partner-container" aria-labelledby="partner-titre">
+        <h3 id="partner-title">Nos partenaires</h3>
         <div class="partner-logo-container">
             <img src="assets/img/img-partner/region_bretagne.jpg" alt="Logo de la région Bretagne">
             <img src="assets/img/img-partner/departement.jpg" alt="Logo du département d'Ille et Vilaine ">
@@ -84,7 +85,6 @@ L'association
         <p>La Médiathèque du Pays de Fougères Agglomération</p>
         <p>Le Conservatoire de Musique de Fougères Agglomération</p>
         <p>Familles Actives au Centre Social Fougères</p>
-
     </section>
 </main>
 {% endblock %}

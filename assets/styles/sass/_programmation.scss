@@ -30,7 +30,7 @@
         cursor: pointer;
 
         i {
-          font-size: 2rem;
+          font-size: 1.9rem;
         }
 
         &:hover {
@@ -77,7 +77,7 @@
         }
 
         .search-bar button i {
-            font-size: 2.2rem;
+            font-size: 2rem;
         }
     }
   }
@@ -85,7 +85,7 @@
   @media #{$medium} {
     // Styles pour les appareils moyens (min-width: 768px)
     fieldset .search-bar button i {
-        font-size: 2.3rem;
+        font-size: 2.1rem;
     }
   }
   
@@ -104,6 +104,12 @@
 
     .programmation-events-container .event-card-container {
         margin: 2rem;
+    }
+  }
+
+  @media screen and (min-width: 893px) {
+    fieldset .search-bar button i {
+      font-size: 2.2rem;
     }
   }
 }

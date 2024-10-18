@@ -14,33 +14,23 @@
     </head>
 
     <body>
-
         <div id="overlay-mobile"></div>
 
-        <div id="loader">
+        <div id="loader" aria-label="Chargement de la page">
             <div class="loader"></div>
             <p>Chargement de la page</p>
         </div>
 
-    {# Header #}
-    {% include "_header.html.twig" %}
-    {# Header #}
+        {% include "_header.html.twig" %}
 
-    {# Page content #}
-    {% block main %}{% endblock %}
-    {# Page content #}
+        {% block main %}{% endblock %}
 
-    {# Footer #}
-    {% include "_footer.html.twig" %}
-    {# Footer #}
+        {% include "_footer.html.twig" %}
 
-    {# Scripts JS #}
-    {% if scripts is defined %}
-        {% for script in scripts %}
-            <script src="{{ script|striptags }}"></script>
-        {% endfor %}
-    {% endif %}
-    {# Scripts JS #}
-
+        {% if scripts is defined %}
+            {% for script in scripts %}
+                <script src="{{ script|e }}"></script>
+            {% endfor %}
+        {% endif %}
     </body>
 </html>

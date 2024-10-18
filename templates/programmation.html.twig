@@ -1,6 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block description %}
+Découvrez la programmation des événements à venir au Coquelicot, café-concert associatif à Fougères. Concerts, spectacles et plus encore.
 {% endblock %}
 
 {% block title %}
@@ -9,18 +10,18 @@ Programmation
 
 {% block main %}
 <main id="programmation">
-    <section>
-        <h2>Programmation</h2>
+    <section aria-labelledby="titre-programmation">
+        <h2 id="titre-programmation">Programmation</h2>
         <fieldset>
-            <form action="/search" method="get" class="search-bar">
+            <form action="/search" method="get" class="search-bar" aria-label="Recherche d'événements">
                 <input type="search" name="q" placeholder="Rechercher..." aria-label="Recherche">
-                <button class="search-button"><i class="fas fa-search"></i></button>
+                <button class="search-button" aria-label="Lancer la recherche"><i class="fas fa-search" aria-hidden="true"></i></button>
             </form>
-            <select name="type" id="type">
+            <select name="type" id="type" aria-label="Filtrer par type d'événement">
                 <option value="all">Tous</option>
                 <option value="upcoming">A venir</option>
                 {% for type in types %}
-                <option value="{{ type.id|striptags }}">{{ type.name|striptags }}</option>            
+                <option value="{{ type.id|e }}">{{ type.name|e }}</option>            
                 {% endfor %}
             </select>
         </fieldset>
@@ -28,19 +29,19 @@ Programmation
         <div class="programmation-events-container">
             {% for event in events %}
                 <div class="event-card-container">
-                    <article class="event-card" style="background-image: url('{{ event.event.media.url|striptags }}')">
-                        <a href="index.php?route=evenement&id={{ event.event.id|striptags }}">
-                            <div class="card-block-date mono">
-                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortDay|striptags }}</p>
-                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.number|striptags }}</p>
-                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortMonth|striptags }}</p>                              
+                    <article class="event-card" style="background-image: url('{{ event.event.media.url|e }}')" aria-labelledby="event-title-{{ event.event.id|e }}">
+                        <a href="index.php?route=evenement&id={{ event.event.id|e }}">
+                            <div class="card-block-date mono" aria-label="Date de l'événement">
+                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortDay|e }}</p>
+                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.number|e }}</p>
+                                <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortMonth|e }}</p>                              
                             </div>                        
                             <div class="info-event-container">
-                                <h3 class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.name|striptags }}</h3>
-                                <div class="rect-event-container">
-                                    <div class="rect-event type no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.type.name|striptags }}</div>
-                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style1.name|striptags }}</div>
-                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style2.name|striptags }}</div>
+                                <h3 id="event-title-{{ event.event.id|e }}" class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.name|e }}</h3>
+                                <div class="rect-event-container" aria-label="Catégories de l'événement">
+                                    <div class="rect-event type no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.type.name|e }}</div>
+                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style1.name|e }}</div>
+                                    <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style2.name|e }}</div>
                                 </div>
                             </div>
                         </a>

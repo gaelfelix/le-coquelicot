@@ -35,6 +35,26 @@ abstract class AbstractController
         header("Location: $route");
     }
 
+    protected function validateCsrfToken(): void
+    {
+        $tokenManager = new CSRFTokenManager();
+        $token = null;
+    
+        // Vérifie si le jeton est dans $POST (formulaires HTML)
+        if (isset($_POST["csrf-token"])) {
+            $token = $_POST["csrf-token"];
+        }
+        // Vérifie si le jeton est dans le HTTP (requêtes AJAX)
+        elseif (isset($_SERVER['HTTP_X_CSRF_TOKEN'])) {
+            $token = $_SERVER['HTTP_X_CSRF_TOKEN'];
+        }
+    
+        // Erreur si pas de jeton
+        if (!$token || !$tokenManager->validateCSRFToken($token)) {
+            throw new Exception("Invalidité du jeton CSRF");
+        }
+    }
+
     protected function addScripts(array $scripts): array
     {
         return array_merge($this->getDefaultScripts(), $scripts);

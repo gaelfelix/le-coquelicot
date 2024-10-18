@@ -1,13 +1,17 @@
 {% extends "layout.html.twig" %}
 
+{% block description %}
+Interface d'administration des messages reçus par Le Coquelicot. Gérez et consultez les messages des utilisateurs.
+{% endblock %}
+
 {% block title %}Messages{% endblock %}
 
 {% block main %}
 <main id="admin-messages">
-    <section>
-        <h2>Administration des messages</h2>
+    <section aria-labelledby="titre-admin-messages">
+        <h2 id="titre-admin-messages">Administration des messages</h2>
         <div class="table-container">
-            <table id="messageTable">
+            <table id="messageTable" aria-label="Liste des messages reçus">
                 <thead>
                     <tr>
                         <th>Date</th>
@@ -18,13 +22,13 @@
                 </thead>
                 <tbody>
                 {% for message in messages %}
-                    <tr class="{{ message.read ? '' : 'unread' }}" data-id="{{ message.id }}">
-                        <td>{{ message.createdAt|date("d/m/Y H:i") }}</td>
-                        <td>{{ message.firstName }} {{ message.lastName }}</td>
-                        <td>{{ message.subject }}</td>
+                    <tr class="{{ message.read ? '' : 'unread' }}" data-id="{{ message.id|e }}">
+                        <td>{{ message.createdAt|date("d/m/Y H:i")|e }}</td>
+                        <td>{{ message.firstName|e }} {{ message.lastName|e }}</td>
+                        <td>{{ message.subject|e }}</td>
                         <td>
-                            <button class="view-message">Voir</button>
-                            <button class="delete-message">Supprimer</button>
+                            <button class="view-message" aria-label="Voir le message de {{ message.firstName|e }} {{ message.lastName|e }}">Voir</button>
+                            <button class="delete-message" aria-label="Supprimer le message de {{ message.firstName|e }} {{ message.lastName|e }}">Supprimer</button>
                         </td>
                     </tr>
                 {% endfor %}
@@ -34,10 +38,10 @@
     </section>
 </main>
 
-<div id="messageModal" class="modal">
+<div id="messageModal" class="modal" aria-labelledby="titre-modal-message">
     <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Message</h2>
+        <span class="close" aria-label="Fermer le modal">&times;</span>
+        <h2 id="titre-modal-message">Message</h2>
         <p><strong>De :</strong> <span id="modalFrom"></span></p>
         <p><strong>Email :</strong> <span id="modalEmail"></span></p>
         <p><strong>Téléphone :</strong> <span id="modalPhone"></span></p>

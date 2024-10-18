@@ -1,6 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block description %}
+Détails de l'événement {{ event.name|e }} au Coquelicot, café-concert associatif à Fougères. Date, horaires, description et informations de réservation.
 {% endblock %}
 
 {% block title %}
@@ -9,20 +10,20 @@
 
 {% block main %}
 <main id="event">
-    <section>
-        <h2>{{ event.name|e }}</h2>
+    <section aria-labelledby="titre-evenement">
+        <h2 id="titre-evenement">{{ event.name|e }}</h2>
         <div class="event-container">
             <div class="event-card-container">
-                <article class="event-card" style="background-image: url('{{ event.media.url|e }}')">
+                <article class="event-card" style="background-image: url('{{ event.media.url|e }}')" aria-labelledby="titre-evenement">
                     <a>
-                        <div class="card-block-date mono">
+                        <div class="card-block-date mono" aria-label="Date de l'événement">
                             <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ shortDay|e }}</p>
                             <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ number|e }}</p>
                             <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ shortMonth|e }}</p>
                         </div>
                         <div class="info-event-container">
                             <h3 class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.name|e }}</h3>
-                            <div class="rect-event-container">
+                            <div class="rect-event-container" aria-label="Catégories de l'événement">
                                 <div class="rect-event type no-toggle-dyslexia no-toggle-line-spacing">{{ event.type.name|e }}</div>
                                 <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.style1.name|e }}</div>
                                 <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.style2.name|e }}</div>
@@ -45,18 +46,18 @@
                 <p>{{ event.description|e }}</p>
                 <div class="price-reservation-container">
                 {% if (event.ticketprice == 0 or event.ticketprice is null) and event.date|date('c', 'Europe/Paris') > "now"|date("Y-m-d H:i:s") %}
-                    <p>Tarif : Gratuit</p>
+                    <p aria-label="Entrée gratuite">Tarif : Gratuit</p>
                 {% else %}
                     {% if event.date|date('c', 'Europe/Paris') > "now"|date("Y-m-d H:i:s") %}
-                        <p class="price">Tarif : {{ event.ticketprice|e }}€</p>
-                        <a href="{{ event.ticketinglink|e }}" class="reservation-button">Réservez</a>
+                        <p class="price" aria-label="Prix du billet">Tarif : {{ event.ticketprice|e }}€</p>
+                        <a href="{{ event.ticketinglink|e }}" class="reservation-button" aria-label="Réserver des billets">Réservez</a>
                     {% endif %}
                 {% endif %}
                 </div>
             </div>
         </div>  
         {% if youtubeId is not null %}
-            <div id="{{ youtubeId|e }}" class="iframe-container"></div>
+            <div id="{{ youtubeId|e }}" class="iframe-container" aria-label="Vidéo de l'événement"></div>
         {% endif %}     
     </section>
 </main>

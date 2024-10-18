@@ -1,6 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block description %}
+Interface d'administration des actualités du Coquelicot. Gérez et modifiez les actualités du café-concert associatif.
 {% endblock %}
 
 {% block title %}
@@ -9,17 +10,17 @@ Actualités
 
 {% block main %}
 <main id="admin-actu">
-    <section>
-        <h2>Administration des actualités</h2>
+    <section aria-labelledby="titre-admin-actualites">
+        <h2 id="titre-admin-actualites">Administration des actualités</h2>
         <fieldset>
-            <form id="searchForm" action="/search" method="get" class="search-bar">
+            <form id="searchForm" action="/search" method="get" class="search-bar" aria-label="Recherche d'actualités">
                 <input type="search" name="q" placeholder="Rechercher..." aria-label="Recherche">
-                <button class="search-button"><i class="fas fa-search"></i></button>
+                <button class="search-button" aria-label="Lancer la recherche"><i class="fas fa-search" aria-hidden="true"></i></button>
             </form>
         </fieldset>
 
         <div class="table-container">
-            <table id="actualityTable">
+            <table id="actualityTable" aria-label="Liste des actualités">
                 <thead>
                     <tr>
                         <th>Date</th>
@@ -30,13 +31,13 @@ Actualités
 
                 <tbody>
                 {% for actuality in actualities %}
-                    <tr data-actuality-id="{{ actuality.id|striptags }}">
-                        <td>{{ actuality.date|date('d/m/Y')|striptags }}</td>
-                        <td>{{ actuality.title|striptags }}</td>
+                    <tr data-actuality-id="{{ actuality.id|e }}">
+                        <td>{{ actuality.date|date('d/m/Y')|e }}</td>
+                        <td>{{ actuality.title|e }}</td>
                         <td>
-                            <a href="index.php?route=actualite&id={{ actuality.id|striptags }}">Voir</a>
-                            <a href="#" data-id="{{ actuality.id|striptags }}" class="edit-actuality">Modifier</a>
-                            <a href="index.php?route=admin-delete-actuality&id={{ actuality.id|striptags }}">Supprimer</a>
+                            <a href="index.php?route=actualite&id={{ actuality.id|e }}" aria-label="Voir l'actualité {{ actuality.title|e }}">Voir</a>
+                            <a href="#" data-id="{{ actuality.id|e }}" class="edit-actuality" aria-label="Modifier l'actualité {{ actuality.title|e }}">Modifier</a>
+                            <a href="index.php?route=admin-delete-actuality&id={{ actuality.id|e }}" aria-label="Supprimer l'actualité {{ actuality.title|e }}">Supprimer</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -45,42 +46,43 @@ Actualités
         </div>
 
         {% if session.error_message is not null %}
-            <div class="alert" id="error-message">
-                <p>{{ session.error_message|striptags }}</p>
-                <i class="fa-solid fa-xmark" id="close-error"></i>
+            <div class="alert" id="error-message" role="alert">
+                <p>{{ session.error_message|e }}</p>
+                <i class="fa-solid fa-xmark" id="close-error" aria-label="Fermer le message d'erreur"></i>
             </div>
         {% endif %}
 
         <div class="create-actuality-form">
-            <form id="actuality-form" method="POST" action="index.php?route=admin-create-actuality" enctype="multipart/form-data">
+            <form id="actuality-form" method="POST" action="index.php?route=admin-create-actuality" enctype="multipart/form-data" aria-labelledby="titre-creation-actualite">
+                
+                <h3 id="titre-creation-actualite">Créer une nouvelle actualité</h3>
                 
                 <input type="hidden" name="id" id="actuality-id">
                 <input type="hidden" name="media_id" id="media-id">
 
                 <label for="title">Titre de l'actualité</label>
-                <input type="text" name="title" placeholder="Titre de l'actualité" required>
+                <input type="text" name="title" id="title" placeholder="Titre de l'actualité" required>
 
                 <label for="date">Date</label>
-                <input type="date" name="date" required>
+                <input type="date" name="date" id="date" required>
 
                 <label for="content">Contenu</label>
-                <textarea name="content" placeholder="Contenu de l'actualité" required></textarea>
+                <textarea name="content" id="content" placeholder="Contenu de l'actualité" required></textarea>
 
                 <div id="current-image"></div>
 
                 <label for="media">Image de l'actualité</label>
-                <input type="file" name="media" accept="image/*">
+                <input type="file" name="media" id="media" accept="image/*">
 
                 <label for="image_name">Nom de l'image</label>
-                <input type="text" name="image_name" placeholder="Nom de l'image">
+                <input type="text" name="image_name" id="image_name" placeholder="Nom de l'image">
 
                 <label for="alt-img">Description de l'image</label>
-                <input type="text" name="alt-img" placeholder="Description de l'image">
+                <input type="text" name="alt-img" id="alt-img" placeholder="Description de l'image">
 
                 <button type="submit">Créer l'actualité</button>
             </form>
         </div>
-
     </section>
 </main>
 {% endblock %}

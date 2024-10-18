@@ -44,5 +44,4 @@ class ActualityController extends AbstractController
             $this->redirect("index.php");
         }
     }
-
 }

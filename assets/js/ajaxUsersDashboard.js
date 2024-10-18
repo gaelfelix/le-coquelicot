@@ -5,125 +5,87 @@ document.addEventListener("DOMContentLoaded", function() {
     const userTableBody = document.querySelector('#userTable tbody');
     searchButton.disabled = true;
 
-    // Fonction pour échapper les caractères spéciaux
-    function htmlspecialchars(str) {
-        if (typeof str !== 'string') {
-            return str;
-        }
-        return str.replace(/&/g, '&amp;')
-                  .replace(/</g, '&lt;')
-                  .replace(/>/g, '&gt;')
-                  .replace(/"/g, '&quot;')
-                  .replace(/'/g, '&#39;');
-    }
-
-    // Fonction pour mettre à jour les utilisateurs affichés
+    // Update user list based on search or filter
     function updateUsers(url) {
-        userTableBody.innerHTML = '<tr><td colspan="8" class="loading">Chargement des utilisateurs...</td></tr>'; // Message de chargement
+        userTableBody.innerHTML = '<tr><td colspan="8" class="loading">Loading users...</td></tr>';
 
         fetch(url, {
             method: 'GET',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'  // Important pour la détection Ajax côté serveur
-            }
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erreur réseau : ' + response.statusText);
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(users => {
-            userTableBody.innerHTML = ''; // Vider le tableau avant d'ajouter les résultats
+            userTableBody.innerHTML = '';
 
             if (users.length > 0) {
-                users.forEach(user => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${htmlspecialchars(user.id)}</td>
-                        <td>${htmlspecialchars(user.firstname)}</td>
-                        <td>${htmlspecialchars(user.lastname)}</td>
-                        <td>${htmlspecialchars(user.role)}</td>
-                        <td>${htmlspecialchars(user.structure)}</td>
-                        <td>${user.specialization ? htmlspecialchars(user.specialization) : ''}</td>
-                        <td>${htmlspecialchars(user.email)}</td>
-                        <td>
-                            <a href="index.php?route=admin-delete-user&id=${htmlspecialchars(user.id)}">Supprimer</a>
-                        </td>
-                    `;
-                    userTableBody.appendChild(row);
-                });
+                users.forEach(user => createUserRow(user));
             } else {
-                userTableBody.innerHTML = '<tr><td colspan="8" class="search-error">Aucun utilisateur ne correspond à votre recherche.</td></tr>';
+                userTableBody.innerHTML = '<tr><td colspan="8" class="search-error">No users match your search.</td></tr>';
             }
         })
         .catch(error => {
-            console.error('Erreur lors de la requête Ajax:', error);
-            userTableBody.innerHTML = '<tr><td colspan="8" class="search-error">Erreur de chargement des utilisateurs. Veuillez réessayer.</td></tr>';
+            console.error('AJAX request error:', error);
+            userTableBody.innerHTML = '<tr><td colspan="8" class="search-error">Error loading users. Please try again.</td></tr>';
         });
     }
 
+    // Create a row for a user
+    function createUserRow(user) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${user.id}</td>
+            <td>${user.firstname}</td>
+            <td>${user.lastname}</td>
+            <td>${user.role}</td>
+            <td>${user.structure}</td>
+            <td>${user.specialization || ''}</td>
+            <td>${user.email}</td>
+            <td>
+                <a href="index.php?route=admin-delete-user&id=${user.id}">Delete</a>
+            </td>
+        `;
+        userTableBody.appendChild(row);
+    }
+
+    // Handle search input
     searchInput.addEventListener('input', function() {
         const query = searchInput.value;
-        const url = `index.php?route=admin-search-user&q=${encodeURIComponent(query)}`;
-        updateUsers(url);
+        updateUsers(`index.php?route=admin-search-user&q=${encodeURIComponent(query)}`);
     });
 
-
+    // Handle role selection change
     roleSelect.addEventListener('change', function() {
         searchInput.value = '';
         const selectedRole = roleSelect.value;
-        const url = `index.php?route=admin-search-user&role=${encodeURIComponent(selectedRole)}`;
-        updateUsers(url);
+        updateUsers(`index.php?route=admin-search-user&role=${encodeURIComponent(selectedRole)}`);
     });
 
-
+    // Delete a user
     function deleteUser(userId) {
-        const url = `index.php?route=admin-delete-user&id=${encodeURIComponent(userId)}`;
-        
-        fetch(url, {
+        fetch(`index.php?route=admin-delete-user&id=${encodeURIComponent(userId)}`, {
             method: 'GET',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'  // Important pour la détection Ajax côté serveur
-            }
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erreur réseau : ' + response.statusText);
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
+            alert(data.message);
             if (data.success) {
-                alert(data.message); // Affichez un message de succès
-                // Appel à la fonction updateUsers avec la dernière requête utilisée
-                const currentQuery = searchInput.value;
-                const currentRole = roleSelect.value;
-                let url;
-    
-                if (currentRole === 'all') {
-                    url = `index.php?route=admin-search-user&q=${encodeURIComponent(currentQuery)}`;
-                } else {
-                    url = `index.php?route=admin-search-user&role=${encodeURIComponent(currentRole)}`;
-                }
-    
-                updateUsers(url); // Recharger les utilisateurs
-            } else {
-                alert(data.message); // Affichez un message d'erreur
+                // Refresh user list
+                const url = roleSelect.value === 'all'
+                    ? `index.php?route=admin-search-user&q=${encodeURIComponent(searchInput.value)}`
+                    : `index.php?route=admin-search-user&role=${encodeURIComponent(roleSelect.value)}`;
+                updateUsers(url);
             }
         })
-        .catch(error => {
-            console.error('Erreur lors de la requête Ajax:', error);
-        });
+        .catch(error => console.error('AJAX request error:', error));
     }
 
-    // Ajoutez un écouteur d'événements sur les liens de suppression
+    // Handle delete user clicks
     userTableBody.addEventListener('click', function(event) {
         if (event.target.matches('a[href*="delete"]')) {
-            event.preventDefault(); // Empêche le lien de se comporter normalement
-            const userId = event.target.href.split('id=')[1]; // Récupère l'ID de l'utilisateur à partir de l'URL
-            const confirmation = confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?");
-            if (confirmation) {
+            event.preventDefault();
+            const userId = event.target.href.split('id=')[1];
+            if (confirm("Are you sure you want to delete this user?")) {
                 deleteUser(userId);
             }
         }
