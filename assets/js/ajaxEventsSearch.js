@@ -66,9 +66,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const query = searchInput.value;
         const url = `index.php?route=search&q=${encodeURIComponent(query)}`;
         updateEvents(url);
-        
-        // Enable or disable search button based on input
-        searchButton.disabled = query.trim() === '';
     });
 
     // Listen for changes in the type select
@@ -77,8 +74,5 @@ document.addEventListener("DOMContentLoaded", function() {
         const type = this.value;
         const url = `index.php?route=filterEvents&type=${encodeURIComponent(type)}`;
         updateEvents(url);
-        
-        // Disable search button when type is changed
-        searchButton.disabled = true;
     });
 });

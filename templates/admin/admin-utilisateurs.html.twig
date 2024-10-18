@@ -19,8 +19,8 @@ Utilisateurs
             </form>
             <select name="role" id="role" aria-label="Filtrer par rôle">
                 <option value="all">Tous</option>
-                {% for user in users %}
-                <option value="{{ user.role|e }}">{{ user.role|e }}</option>            
+                {% for role in roles %}
+                <option value="{{ role }}">{{ role }}</option>
                 {% endfor %}
             </select>
         </fieldset>

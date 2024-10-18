@@ -137,19 +137,41 @@ class EventManager extends AbstractManager
         return $this->createEventObjects($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    public function findByType(string $typeId): array
+    public function findByType(int $typeId): array
     {
-        $query = $this->db->prepare('SELECT * FROM events WHERE type_id = :typeId ORDER BY date ASC');
-        $query->bindParam(':typeId', $typeId, PDO::PARAM_STR);
+        $query = $this->db->prepare('
+            SELECT e.*, m.url AS media_url, m.alt AS media_alt,
+                   t.name AS type_name,
+                   s1.name AS style1_name, s2.name AS style2_name
+            FROM events e
+            LEFT JOIN medias m ON e.media_id = m.id
+            LEFT JOIN types t ON e.type_id = t.id
+            LEFT JOIN styles s1 ON e.style1_id = s1.id
+            LEFT JOIN styles s2 ON e.style2_id = s2.id
+            WHERE e.type_id = :typeId
+            ORDER BY e.date ASC
+        ');
+        $query->bindParam(':typeId', $typeId, PDO::PARAM_INT);
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $this->createEventObjects($result);
     }
 
-    public function findByStyle(string $styleId): array
+    public function findByStyle(int $styleId): array
     {
-        $query = $this->db->prepare('SELECT * FROM events WHERE style1_id = :styleId OR style2_id = :styleId ORDER BY date ASC');
-        $query->bindParam(':styleId', $styleId, PDO::PARAM_STR);
+        $query = $this->db->prepare('
+            SELECT e.*, m.url AS media_url, m.alt AS media_alt,
+                   t.name AS type_name,
+                   s1.name AS style1_name, s2.name AS style2_name
+            FROM events e
+            LEFT JOIN medias m ON e.media_id = m.id
+            LEFT JOIN types t ON e.type_id = t.id
+            LEFT JOIN styles s1 ON e.style1_id = s1.id
+            LEFT JOIN styles s2 ON e.style2_id = s2.id
+            WHERE e.style1_id = :styleId OR e.style2_id = :styleId
+            ORDER BY e.date ASC
+        ');
+        $query->bindParam(':styleId', $styleId, PDO::PARAM_INT);
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $this->createEventObjects($result);

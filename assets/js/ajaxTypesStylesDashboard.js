@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (typeName) {
             addItem('type', typeName);
         } else {
-            showMessage("Type name cannot be empty.", 'error');
+            showMessage("Le nom du type ne peut pas être vide.", 'error');
         }
     }
 
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (styleName) {
             addItem('style', styleName);
         } else {
-            showMessage("Style name cannot be empty.", 'error');
+            showMessage("Le nom du style ne peut pas être vide.", 'error');
         }
     }
 
@@ -67,19 +67,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 const newItem = createListItem(data.id, data.name, itemType);
                 list.appendChild(newItem);
                 clearInput(itemType);
-                showMessage(data.message || `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} added successfully.`, 'success');
+                showMessage(data.message || `${itemType === 'type' ? 'Type' : 'Style'} ajouté avec succès.`, 'success');
             } else {
-                showMessage(data.message || `Error adding ${itemType}`, 'error');
+                showMessage(data.message || `Erreur lors de l'ajout du ${itemType === 'type' ? 'type' : 'style'}`, 'error');
             }
         })
         .catch(error => {
-            showMessage(`An error occurred while adding the ${itemType}: ${error.message}`, 'error');
+            showMessage(`Une erreur s'est produite lors de l'ajout du ${itemType === 'type' ? 'type' : 'style'} : ${error.message}`, 'error');
         });
     }
 
     // Delete an item (type or style)
     function deleteItem(itemType, id) {
-        if (confirm(`Are you sure you want to delete this ${itemType}?`)) {
+        if (confirm(`Êtes-vous sûr de vouloir supprimer ce ${itemType === 'type' ? 'type' : 'style'} ?`)) {
             fetch(`index.php?route=delete-${itemType}&id=${encodeURIComponent(id)}`, {
                 method: 'POST',
                 headers: { 
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             })
             .catch(error => {
-                showMessage(`An error occurred while deleting the ${itemType}: ${error.message}`, 'error');
+                showMessage(`Une erreur s'est produite lors de la suppression du ${itemType === 'type' ? 'type' : 'style'} : ${error.message}`, 'error');
             });
         }
     }
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function() {
         li.dataset.id = id;
         li.innerHTML = `
             ${name}
-            <button id="delete-${itemType}-${id}">Delete</button>
+            <button id="delete-${itemType}-${id}">Supprimer</button>
         `;
         return li;
     }
@@ -131,6 +131,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Show message (success or error)
     function showMessage(message, type) {
-        alert(type.charAt(0).toUpperCase() + type.slice(1) + ': ' + message);
+        alert((type === 'success' ? 'Succès' : 'Erreur') + ' : ' + message);
     }
 });

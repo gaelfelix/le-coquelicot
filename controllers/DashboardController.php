@@ -30,7 +30,9 @@ class DashboardController extends AbstractController
     {
         $scripts = $this->addScripts(['assets/js/ajaxUsersDashboard.js']);
         $users = $this->um->findAll();
-        $this->render("admin/admin-utilisateurs.html.twig", ["users" => $users], $scripts);
+        $roles = $this->um->getUniqueRoles();
+
+        $this->render("admin/admin-utilisateurs.html.twig", ["users" => $users, "roles" => $roles], $scripts);
     }
 
     public function searchUsers() : void

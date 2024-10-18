@@ -89,6 +89,12 @@ class UserManager extends AbstractManager
         return $result ? $this->createUserFromArray($result) : null;
     }
 
+    public function getUniqueRoles(): array
+    {
+        $query = $this->db->query('SELECT DISTINCT role FROM users ORDER BY role ASC');
+        return $query->fetchAll(PDO::FETCH_COLUMN);
+    }
+
     public function searchUsers(string $query, string $role = 'all'): array
     {
         $searchQuery = '%' . $query . '%';

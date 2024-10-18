@@ -21,7 +21,7 @@ Programmation
                 <option value="all">Tous</option>
                 <option value="upcoming">A venir</option>
                 {% for type in types %}
-                <option value="{{ type.id|e }}">{{ type.name|e }}</option>            
+                <option value="{{ type.id }}">{{ type.name|e }}</option>            
                 {% endfor %}
             </select>
         </fieldset>
