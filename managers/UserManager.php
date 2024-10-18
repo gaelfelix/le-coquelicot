@@ -2,147 +2,112 @@
 
 class UserManager extends AbstractManager
 {
-
-    private MediaManager $mm;
-    private SpecializationManager $sm;
-
     public function __construct()
     {
         parent::__construct();
-        $this->mm = new MediaManager();
-        $this->sm = new SpecializationManager();
     }
 
-    public function findAll() : array
+    private function createUsersFromArrays(array $result): array
     {
-        $query = $this->db->query('SELECT * FROM users ORDER BY id ASC');
-        $query->execute();
+        return array_map([$this, 'createUserFromArray'], $result);
+    }
+
+    private function createUserFromArray(array $item): User
+    {
+        $media = null;
+        if ($item["media_id"]) {
+            $media = new Media($item["media_url"], $item["media_alt"]);
+            $media->setId($item["media_id"]);
+        }
+
+        $specialization = null;
+        if ($item["specialization_id"]) {
+            $specialization = new Specialization($item["specialization_name"], $item["specialization_role"]);
+            $specialization->setId($item["specialization_id"]);
+        }
+
+        $user = new User(
+            $item["first_name"],
+            $item["last_name"],
+            $item["email"],
+            $item["password"],
+            $item["role"],
+            $specialization,
+            $media,
+            new DateTime($item["created_at"]),
+            $item["structure"]
+        );
+
+        $user->setId($item["id"]);
+        return $user;
+    }
+
+    public function findAll(): array
+    {
+        $sql = 'SELECT u.*, m.url AS media_url, m.alt AS media_alt, 
+                       s.name AS specialization_name, s.role AS specialization_role
+                FROM users u
+                LEFT JOIN medias m ON u.media_id = m.id
+                LEFT JOIN specializations s ON u.specialization_id = s.id
+                ORDER BY u.id ASC';
+        
+        $query = $this->db->query($sql);
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        $users = [];
-    
-        foreach($result as $item) {
-            // Récupérer l'objet Media à partir de l'ID
-            $media = null;
-            if ($item["media_id"]) {
-                $media = $this->mm->findOne($item["media_id"]);
-            }
-    
-            // Récupérer l'objet Specialization à partir de l'ID
-            $specialization = null;
-            if ($item["specialization_id"]) {
-                $specialization = $this->sm->findOne($item["specialization_id"]);
-            }
-    
-            // Créer un nouvel utilisateur avec les objets Media et Specialization
-            $user = new User(
-                $item["first_name"],
-                $item["last_name"],
-                $item["email"],
-                $item["password"],
-                $item["role"],
-                $specialization,
-                $media,
-                new DateTime($item["created_at"]),
-                $item["structure"]
-            );
-    
-            $user->setId($item["id"]);
-            $users[] = $user;
-        }
-    
-        return $users;
+        
+        return $this->createUsersFromArrays($result);
     }
     
-    public function findByEmail(string $email) : ?User
+    public function findByEmail(string $email): ?User
     {
-        $query = $this->db->prepare('SELECT * FROM users WHERE email=:email');
-        $parameters = ["email" => $email];
-        $query->execute($parameters);
-        $result = $query->fetch(PDO::FETCH_ASSOC);
-    
-        if($result) {
-            // Récupérer l'objet Media à partir de l'ID
-            $media = null;
-            if ($result["media_id"]) {
-                $media = $this->mm->findOne($result["media_id"]);
-            }
-    
-            // Récupérer l'objet Specialization à partir de l'ID
-            $specialization = null;
-            if ($result["specialization_id"]) {
-                $specialization = $this->sm->findOne($result["specialization_id"]);
-            }
-    
-            $user = new User(
-                $result["first_name"],
-                $result["last_name"],
-                $result["email"],
-                $result["password"],
-                $result["role"],
-                $specialization,
-                $media,
-                new DateTime($result["created_at"]),
-                $result["structure"]
-            );
-    
-            $user->setId($result["id"]);
-            return $user;
-        }
-    
-        return null;
-    }    
-    public function findById(int $id) : ?User
-    {
-        $query = $this->db->prepare('SELECT * FROM users WHERE id=:id');
-        $parameters = ["id" => $id];
-        $query->execute($parameters);
-        $result = $query->fetch(PDO::FETCH_ASSOC);
-    
-        if($result) {
-            // Récupérer l'objet Media à partir de l'ID
-            $media = null;
-            if ($result["media_id"]) {
-                $media = $this->mm->findOne($result["media_id"]);
-            }
-    
-            // Récupérer l'objet Specialization à partir de l'ID
-            $specialization = null;
-            if ($result["specialization_id"]) {
-                $specialization = $this->sm->findOne($result["specialization_id"]);
-            }
-    
-            $user = new User(
-                $result["first_name"],
-                $result["last_name"],
-                $result["email"],
-                $result["password"],
-                $result["role"],
-                $specialization,
-                $media,
-                new DateTime($result["created_at"]),
-                $result["structure"]
-            );
-    
-            $user->setId($result["id"]);
-            return $user;
-        }
-    
-        return null;
-    }
-
-    public function searchUsers(string $query, string $role = 'all') : array
-    {
-        $query = '%' . $query . '%';
-        $sql = 'SELECT * FROM users WHERE (first_name LIKE :query OR last_name LIKE :query OR email LIKE :query OR structure LIKE :query)';
-        
-        if ($role !== 'all') {
-            $sql .= ' AND role = :role';
-        }
-        
-        $sql .= ' ORDER BY last_name ASC';
+        $sql = 'SELECT u.*, m.url AS media_url, m.alt AS media_alt, 
+                       s.name AS specialization_name, s.role AS specialization_role
+                FROM users u
+                LEFT JOIN medias m ON u.media_id = m.id
+                LEFT JOIN specializations s ON u.specialization_id = s.id
+                WHERE u.email = :email';
         
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':query', $query, PDO::PARAM_STR);
+        $stmt->execute(['email' => $email]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        return $result ? $this->createUserFromArray($result) : null;
+    }
+    
+    public function findById(int $id): ?User
+    {
+        $sql = 'SELECT u.*, m.url AS media_url, m.alt AS media_alt, 
+                       s.name AS specialization_name, s.role AS specialization_role
+                FROM users u
+                LEFT JOIN medias m ON u.media_id = m.id
+                LEFT JOIN specializations s ON u.specialization_id = s.id
+                WHERE u.id = :id';
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        return $result ? $this->createUserFromArray($result) : null;
+    }
+
+    public function searchUsers(string $query, string $role = 'all'): array
+    {
+        $searchQuery = '%' . $query . '%';
+        $sql = 'SELECT u.*, m.url AS media_url, m.alt AS media_alt, 
+                       s.name AS specialization_name, s.role AS specialization_role
+                FROM users u
+                LEFT JOIN medias m ON u.media_id = m.id
+                LEFT JOIN specializations s ON u.specialization_id = s.id
+                WHERE (u.first_name LIKE :query OR u.last_name LIKE :query 
+                       OR u.email LIKE :query OR u.structure LIKE :query)';
+        
+        if ($role !== 'all') {
+            $sql .= ' AND u.role = :role';
+        }
+        
+        $sql .= ' ORDER BY u.last_name ASC';
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':query', $searchQuery, PDO::PARAM_STR);
         
         if ($role !== 'all') {
             $stmt->bindParam(':role', $role, PDO::PARAM_STR);
@@ -151,40 +116,10 @@ class UserManager extends AbstractManager
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-        $users = [];
-        
-        foreach ($result as $item) {
-            $media = null;
-            if ($item["media_id"]) {
-                $media = $this->mm->findOne($item["media_id"]);
-            }
-    
-            $specialization = null;
-            if ($item["specialization_id"]) {
-                $specialization = $this->sm->findOne($item["specialization_id"]);
-            }
-    
-            $user = new User(
-                $item["first_name"],
-                $item["last_name"],
-                $item["email"],
-                $item["password"],
-                $item["role"],
-                $specialization,
-                $media,
-                new DateTime($item["created_at"]),
-                $item["structure"]
-            );
-    
-            $user->setId($item["id"]);
-            $users[] = $user;
-        }
-    
-        return $users;
+        return $this->createUsersFromArrays($result);
     }
-    
 
-    public function create(User $user) : void
+    public function create(User $user): void
     {
         $currentDateTime = date('Y-m-d H:i:s');
 
@@ -206,15 +141,37 @@ class UserManager extends AbstractManager
 
         $query->execute($parameters);
         $user->setId($this->db->lastInsertId());
-
     }
 
-        public function deleteUser(int $userId): bool
+    public function update(User $user): void
+    {
+        $query = $this->db->prepare(
+            'UPDATE users SET first_name = :first_name, last_name = :last_name, 
+            email = :email, password = :password, role = :role, 
+            specialization_id = :specialization_id, structure = :structure 
+            WHERE id = :id'
+        );
+
+        $parameters = [
+            "id" => $user->getId(),
+            "first_name" => $user->getFirstName(),
+            "last_name" => $user->getLastName(),
+            "email" => $user->getEmail(),
+            "password" => $user->getPassword(),
+            "role" => $user->getRole(),
+            "specialization_id" => $user->getSpecializationId(),
+            "structure" => $user->getStructure(),
+        ];
+
+        $query->execute($parameters);
+    }
+
+    public function deleteUser(int $userId): bool
     {
         $sql = 'DELETE FROM users WHERE id = :id';
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
         
-        return $stmt->execute(); // Retourne true si la suppression a réussi
+        return $stmt->execute();
     }
 }

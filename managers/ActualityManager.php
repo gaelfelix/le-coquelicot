@@ -10,122 +10,61 @@ class ActualityManager extends AbstractManager
         $this->mm = new MediaManager();
     }
 
-    public function findAll() : array
+    public function findAll(): array
     {
-        $query = $this->db->prepare('SELECT * FROM actualities ORDER BY date DESC');
+        $query = $this->db->prepare('
+            SELECT a.*, m.url AS media_url, m.alt AS media_alt
+            FROM actualities a
+            LEFT JOIN medias m ON a.media_id = m.id
+            ORDER BY a.date DESC
+        ');
         $query->execute();
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        $actualities = [];
-    
-        foreach ($result as $item)
-        {
-            $date = new DateTime($item["date"]);
-            $media = $item['media_id'] ? $this->mm->findOne($item['media_id']) : null;
-
-            $actuality = new Actuality(
-                $item["title"],
-                $date,
-                $item["content"],
-                $media ? $media->getId() : null
-            );
-    
-            $actuality->setId($item["id"]);
-            $actuality->setMedia($media);
-
-            $actualities[] = $actuality;
-        }
-    
-        return $actualities;
+        return $this->createActualitiesFromArrays($query->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    public function findLatest() : array
+    public function findLatest(): array
     {
-        $query = $this->db->prepare('SELECT * FROM actualities ORDER BY date DESC LIMIT 2');
+        $query = $this->db->prepare('
+            SELECT a.*, m.url AS media_url, m.alt AS media_alt
+            FROM actualities a
+            LEFT JOIN medias m ON a.media_id = m.id
+            ORDER BY a.date DESC
+            LIMIT 2
+        ');
         $query->execute();
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        $actualities = [];
-
-        foreach ($result as $item)
-        {
-            $date = new DateTime($item["date"]);
-            $media = $item['media_id'] ? $this->mm->findOne($item['media_id']) : null;
-
-            $actuality = new Actuality(
-                $item["title"],
-                $date,
-                $item["content"],
-                $media ? $media->getId() : null
-            );
-
-            $actuality->setMedia($media);
-            $actuality->setId($item["id"]);
-            
-            $actualities[] = $actuality;
-        }
-
-        return $actualities;
+        return $this->createActualitiesFromArrays($query->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    public function findOne(int $id) : ?Actuality
+    public function findOne(int $id): ?Actuality
     {
-        $query = $this->db->prepare('SELECT * FROM actualities WHERE id=:id');
-        $parameters = [
-            "id" => $id
-        ];
-        $query->execute($parameters);
+        $query = $this->db->prepare('
+            SELECT a.*, m.url AS media_url, m.alt AS media_alt
+            FROM actualities a
+            LEFT JOIN medias m ON a.media_id = m.id
+            WHERE a.id = :id
+        ');
+        $query->execute(['id' => $id]);
         $result = $query->fetch(PDO::FETCH_ASSOC);
 
-        if ($result)
-        {
-            $date = new DateTime($result["date"]);
-            $media = $result['media_id'] ? $this->mm->findOne($result['media_id']) : null;
-
-            $actuality = new Actuality($result["title"],
-            $date,
-            $result["content"],
-            $media ? $media->getId() : null
-        );
-
-            $actuality->setMedia($media);
-            $actuality->setId($result["id"]);
-            
-            return $actuality;
-        }
-
-        return null;
+        return $result ? $this->createActualityFromArray($result) : null;
     }
 
     public function searchActualities(string $query): array
     {
-        $query = '%' . $query . '%';
-        $sql = 'SELECT * FROM actualities WHERE title LIKE :query ORDER BY date DESC';
-    
+        $searchQuery = '%' . $query . '%';
+        $sql = '
+            SELECT a.*, m.url AS media_url, m.alt AS media_alt
+            FROM actualities a
+            LEFT JOIN medias m ON a.media_id = m.id
+            WHERE a.title LIKE :query
+            ORDER BY a.date DESC
+        ';
+
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':query', $query, PDO::PARAM_STR);
-    
+        $stmt->bindParam(':query', $searchQuery, PDO::PARAM_STR);
         $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $actualities = [];
-    
-        foreach ($result as $item)
-        {
-            $date = new DateTime($item["date"]);
-            $media = $item['media_id'] ? $this->mm->findOne($item['media_id']) : null;
-    
-            $actuality = new Actuality(
-                $item["title"],
-                $date,
-                $item["content"],
-                $media ? $media->getId() : null
-            );
-    
-            $actuality->setMedia($media);
-            $actuality->setId($item["id"]);
-    
-            $actualities[] = $actuality;
-        }
-    
-        return $actualities;
+
+        return $this->createActualitiesFromArrays($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
     public function create (array $actualityData) : ?Actuality
@@ -271,5 +210,36 @@ class ActualityManager extends AbstractManager
             error_log("Erreur lors de la suppression de l'actualité : " . $e->getMessage());
             throw $e;
         }
+    }
+
+    private function createActualitiesFromArrays(array $result): array
+    {
+        $actualities = [];
+        foreach ($result as $item) {
+            $actualities[] = $this->createActualityFromArray($item);
+        }
+        return $actualities;
+    }
+
+    private function createActualityFromArray(array $item): Actuality
+    {
+        $date = new DateTime($item["date"]);
+        $media = null;
+        if ($item['media_id']) {
+            $media = new Media($item['media_url'], $item['media_alt']);
+            $media->setId($item['media_id']);
+        }
+
+        $actuality = new Actuality(
+            $item["title"],
+            $date,
+            $item["content"],
+            $item["media_id"]
+        );
+
+        $actuality->setId($item["id"]);
+        $actuality->setMedia($media);
+
+        return $actuality;
     }
 }

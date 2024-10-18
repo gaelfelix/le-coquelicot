@@ -16,53 +16,94 @@ class EventManager extends AbstractManager
 
     public function findAll(): array
     {
-        $query = $this->db->prepare('SELECT * FROM events ORDER BY date ASC');
+        $query = $this->db->prepare('
+            SELECT e.*, m.url AS media_url, m.alt AS media_alt,
+                   t.name AS type_name,
+                   s1.name AS style1_name, s2.name AS style2_name
+            FROM events e
+            LEFT JOIN medias m ON e.media_id = m.id
+            LEFT JOIN types t ON e.type_id = t.id
+            LEFT JOIN styles s1 ON e.style1_id = s1.id
+            LEFT JOIN styles s2 ON e.style2_id = s2.id
+            ORDER BY e.date ASC
+        ');
         $query->execute();
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        return $this->createEventObjects($result);
+        return $this->createEventObjects($query->fetchAll(PDO::FETCH_ASSOC));
     }
 
     public function findOne(int $id): ?Event
     {
-        $query = $this->db->prepare('SELECT * FROM events WHERE id = :id');
-        $parameters = ["id" => $id];
-        $query->execute($parameters);
+        $query = $this->db->prepare('
+            SELECT e.*, m.url AS media_url, m.alt AS media_alt,
+                   t.name AS type_name,
+                   s1.name AS style1_name, s2.name AS style2_name
+            FROM events e
+            LEFT JOIN medias m ON e.media_id = m.id
+            LEFT JOIN types t ON e.type_id = t.id
+            LEFT JOIN styles s1 ON e.style1_id = s1.id
+            LEFT JOIN styles s2 ON e.style2_id = s2.id
+            WHERE e.id = :id
+        ');
+        $query->execute(['id' => $id]);
         $result = $query->fetch(PDO::FETCH_ASSOC);
 
-        if ($result) {
-            return $this->createEventObject($result);
-        }
-
-        return null;
+        return $result ? $this->createEventObject($result) : null;
     }
 
     public function upcomingEvents(): array
     {
-        $query = $this->db->prepare('SELECT * FROM events WHERE date >= CURRENT_DATE ORDER BY date ASC');
+        $query = $this->db->prepare('
+            SELECT e.*, m.url AS media_url, m.alt AS media_alt,
+                   t.name AS type_name,
+                   s1.name AS style1_name, s2.name AS style2_name
+            FROM events e
+            LEFT JOIN medias m ON e.media_id = m.id
+            LEFT JOIN types t ON e.type_id = t.id
+            LEFT JOIN styles s1 ON e.style1_id = s1.id
+            LEFT JOIN styles s2 ON e.style2_id = s2.id
+            WHERE e.date >= CURRENT_DATE
+            ORDER BY e.date ASC
+        ');
         $query->execute();
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        return $this->createEventObjects($result);
+        return $this->createEventObjects($query->fetchAll(PDO::FETCH_ASSOC));
     }
 
     public function findLatest(): array
     {
-        $query = $this->db->prepare('SELECT * FROM events WHERE date >= CURRENT_DATE ORDER BY date ASC LIMIT 9');
+        $query = $this->db->prepare('
+            SELECT e.*, m.url AS media_url, m.alt AS media_alt,
+                   t.name AS type_name,
+                   s1.name AS style1_name, s2.name AS style2_name
+            FROM events e
+            LEFT JOIN medias m ON e.media_id = m.id
+            LEFT JOIN types t ON e.type_id = t.id
+            LEFT JOIN styles s1 ON e.style1_id = s1.id
+            LEFT JOIN styles s2 ON e.style2_id = s2.id
+            WHERE e.date >= CURRENT_DATE
+            ORDER BY e.date ASC
+            LIMIT 9
+        ');
         $query->execute();
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        $events = $this->createEventObjects($result);
+        $events = $this->createEventObjects($query->fetchAll(PDO::FETCH_ASSOC));
 
         if (count($events) < 9) {
             $remainingCount = 9 - count($events);
             $query = $this->db->prepare('
-                SELECT * FROM events
-                WHERE date < CURRENT_DATE
-                ORDER BY date DESC 
+                SELECT e.*, m.url AS media_url, m.alt AS media_alt,
+                       t.name AS type_name,
+                       s1.name AS style1_name, s2.name AS style2_name
+                FROM events e
+                LEFT JOIN medias m ON e.media_id = m.id
+                LEFT JOIN types t ON e.type_id = t.id
+                LEFT JOIN styles s1 ON e.style1_id = s1.id
+                LEFT JOIN styles s2 ON e.style2_id = s2.id
+                WHERE e.date < CURRENT_DATE
+                ORDER BY e.date DESC 
                 LIMIT :limit
             ');
             $query->bindParam(':limit', $remainingCount, PDO::PARAM_INT);
             $query->execute();
-            $result = $query->fetchAll(PDO::FETCH_ASSOC);
-            $events = array_merge($events, $this->createEventObjects($result));
+            $events = array_merge($events, $this->createEventObjects($query->fetchAll(PDO::FETCH_ASSOC)));
         }
 
         return $events;
@@ -70,21 +111,30 @@ class EventManager extends AbstractManager
 
     public function searchEvents(string $query, string $type = 'all'): array
     {
-        $query = '%' . $query . '%';
-        $sql = 'SELECT * FROM events WHERE name LIKE :query';
+        $searchQuery = '%' . $query . '%';
+        $sql = '
+            SELECT e.*, m.url AS media_url, m.alt AS media_alt,
+                   t.name AS type_name,
+                   s1.name AS style1_name, s2.name AS style2_name
+            FROM events e
+            LEFT JOIN medias m ON e.media_id = m.id
+            LEFT JOIN types t ON e.type_id = t.id
+            LEFT JOIN styles s1 ON e.style1_id = s1.id
+            LEFT JOIN styles s2 ON e.style2_id = s2.id
+            WHERE e.name LIKE :query
+        ';
         if ($type !== 'all') {
-            $sql .= ' AND type_id = :type';
+            $sql .= ' AND e.type_id = :type';
         }
-        $sql .= ' ORDER BY date ASC';
+        $sql .= ' ORDER BY e.date ASC';
 
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':query', $query, PDO::PARAM_STR);
+        $stmt->bindParam(':query', $searchQuery, PDO::PARAM_STR);
         if ($type !== 'all') {
             $stmt->bindParam(':type', $type, PDO::PARAM_STR);
         }
         $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $this->createEventObjects($result);
+        return $this->createEventObjects($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
     public function findByType(string $typeId): array
@@ -302,22 +352,13 @@ class EventManager extends AbstractManager
 
     private function createEventObject(array $item): Event
     {
-        $date = new DateTime($item["date"]);
-        $debut = new DateTime($item["debut"]);
-        $end = new DateTime($item["end"]);
-
-        $media = $item["media_id"] ? $this->mm->findOne($item["media_id"]) : null;
-        $type = $item["type_id"] ? $this->tm->findOne($item["type_id"]) : null;
-        $style1 = $item["style1_id"] ? $this->sm->findOne($item["style1_id"]) : null;
-        $style2 = $item["style2_id"] ? $this->sm->findOne($item["style2_id"]) : null;
-
         $event = new Event(
             $item["name"],
             $item["main_description"],
             $item["description"],
-            $date,
-            $debut,
-            $end,
+            new DateTime($item["date"]),
+            new DateTime($item["debut"]),
+            new DateTime($item["end"]),
             $item["ticket_price"],
             $item["media_id"],
             $item["type_id"],
@@ -327,11 +368,31 @@ class EventManager extends AbstractManager
             $item["ticketing_link"]
         );
 
-        $event->setMedia($media);
-        $event->setType($type);
-        $event->setStyle1($style1);
-        $event->setStyle2($style2);
         $event->setId($item["id"]);
+
+        if ($item["media_id"]) {
+            $media = new Media($item["media_url"], $item["media_alt"]);
+            $media->setId($item["media_id"]);
+            $event->setMedia($media);
+        }
+
+        if ($item["type_id"]) {
+            $type = new Type($item["type_name"]);
+            $type->setId($item["type_id"]);
+            $event->setType($type);
+        }
+
+        if ($item["style1_id"]) {
+            $style1 = new Style($item["style1_name"]);
+            $style1->setId($item["style1_id"]);
+            $event->setStyle1($style1);
+        }
+
+        if ($item["style2_id"]) {
+            $style2 = new Style($item["style2_name"]);
+            $style2->setId($item["style2_id"]);
+            $event->setStyle2($style2);
+        }
 
         return $event;
     }
