@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function addItem(itemType, name) {
         const data = JSON.stringify({ name: name });
         
-        fetch(`index.php?route=add-${itemType}`, {
+        fetch(`index.php?route=admin-add-${itemType}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Delete an item (type or style)
     function deleteItem(itemType, id) {
         if (confirm(`Êtes-vous sûr de vouloir supprimer ce ${itemType === 'type' ? 'type' : 'style'} ?`)) {
-            fetch(`index.php?route=delete-${itemType}&id=${encodeURIComponent(id)}`, {
+            fetch(`index.php?route=admin-delete-${itemType}&id=${encodeURIComponent(id)}`, {
                 method: 'POST',
                 headers: { 
                     'X-Requested-With': 'XMLHttpRequest',

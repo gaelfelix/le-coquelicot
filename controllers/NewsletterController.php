@@ -31,7 +31,6 @@ class NewsletterController extends AbstractController
             try {
                 $this->validateCsrfToken();
                 
-                // Vérifier si l'email existe déjà
                 if ($nm->findByEmail($email) === null) {
                     $newsletter = new Newsletter($firstName, $lastName, $email);
 

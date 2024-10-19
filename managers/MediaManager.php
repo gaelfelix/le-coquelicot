@@ -84,7 +84,7 @@ class MediaManager extends AbstractManager
             }
             return false;
         } catch (Exception $e) {
-            error_log("Erreur lors de la suppression du média : " . $e->getMessage());
+            error_log("Erreur lors de la suppression de l'image : " . $e->getMessage());
             return false;
         }
     }

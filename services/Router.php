@@ -23,7 +23,6 @@ class Router
 
     public function handleRequest(array $get, array $post): void
     {
-        // Si aucune route n'est définie, charger la page d'accueil
         if (!isset($get["route"])) {
             $eventId = isset($get['eventId']) ? $get['eventId'] : null;
             $actualityId = isset($get['actualityId']) ? $get['actualityId'] : null;
@@ -215,25 +214,25 @@ class Router
                 });
                 break;
 
-            case 'add-type':
+            case 'admin-add-type':
                 $this->handleAdminRoute(function() {
                     $this->dashc->addType();
                 });
                 break;
 
-            case 'delete-type':
+            case 'admin-delete-type':
                 $this->handleAdminRoute(function() {
                     $this->dashc->deleteType();
                 });
                 break;
 
-            case 'add-style':
+            case 'admin-add-style':
                 $this->handleAdminRoute(function() {
                     $this->dashc->addStyle();
                 });
                 break;
 
-            case 'delete-style':
+            case 'admin-delete-style':
                 $this->handleAdminRoute(function() {
                     $this->dashc->deleteStyle();
                 });
@@ -305,7 +304,7 @@ class Router
     private function handleUserRoute(callable $callback): void
     {
         if ($this->ac->isUserLoggedIn()) {
-            if ($this->ac->isUserRole("ARTISTE") || $this->ac->isUserRole("PRO")) {
+            if ($this->ac->isUserRole("ARTISTE") || $this->ac->isUserRole("PRO") || $this->ac->isUserRole("ADMIN")) {
                 $callback();
             } else {
                 header("Location: index.php?route=connexion");

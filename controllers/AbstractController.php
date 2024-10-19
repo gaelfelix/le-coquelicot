@@ -40,11 +40,11 @@ abstract class AbstractController
         $tokenManager = new CSRFTokenManager();
         $token = null;
     
-        // Vérifie si le jeton est dans $POST (formulaires HTML)
+        // Vérifie si  jeton est dans POST (formulaires)
         if (isset($_POST["csrf-token"])) {
             $token = $_POST["csrf-token"];
         }
-        // Vérifie si le jeton est dans le HTTP (requêtes AJAX)
+        // Vérifie si jeton est dans le HTTP (AJAX)
         elseif (isset($_SERVER['HTTP_X_CSRF_TOKEN'])) {
             $token = $_SERVER['HTTP_X_CSRF_TOKEN'];
         }
@@ -64,6 +64,8 @@ abstract class AbstractController
     {
         return [
             'assets/js/global.js',
+            'assets/js/tarteaucitron/tarteaucitron.js',
+            'assets/js/tarteaucitron/tarteaucitron-config.js',
         ];
     }
 
