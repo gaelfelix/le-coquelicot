@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Event listeners for mobile menu
   burgerToggler.addEventListener('click', toggleNav);
-  [main, footer, overlayMobile].forEach(el => el.addEventListener('click', closeNav));
+  [main, footer, overlayMobile].forEach(element => element.addEventListener('click', closeNav));
 
   // Close nav on window resize
   new ResizeObserver(entries => {

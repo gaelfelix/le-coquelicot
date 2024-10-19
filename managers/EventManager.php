@@ -343,7 +343,7 @@ class EventManager extends AbstractManager
                     }
                 }
                 if (!$this->mm->delete($media->getId())) {
-                    throw new Exception("Impossible de supprimer l'entrée média de la base de données.");
+                    throw new Exception("Impossible de supprimer l'image de la base de données.");
                 }
             }
     
