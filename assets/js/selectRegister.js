@@ -5,23 +5,23 @@ document.addEventListener('DOMContentLoaded', function() {
     // Define specializations for each role
     const specializations = {
         ARTISTE: [
-            { id: 10, name: 'Comedian' },
-            { id: 11, name: 'Musician' },
-            { id: 12, name: 'Singer' },
+            { id: 10, name: 'Comédien' },
+            { id: 11, name: 'Musicien' },
+            { id: 12, name: 'Chanteur' },
             { id: 13, name: 'Troupe' },
-            { id: 14, name: 'Dancer' },
-            { id: 15, name: 'Company' }
+            { id: 14, name: 'Danseur' },
+            { id: 15, name: 'Compagnie' }
         ],
         PRO: [
             { id: 1, name: 'Manager' },
-            { id: 2, name: 'Booker' },
-            { id: 3, name: 'Producer' },
-            { id: 4, name: 'Technician' },
-            { id: 5, name: 'Stage Manager' },
+            { id: 2, name: 'Tourneur' },
+            { id: 3, name: 'Producteur' },
+            { id: 4, name: 'Technicien' },
+            { id: 5, name: 'Régisseur' },
             { id: 6, name: 'Festival' },
             { id: 7, name: 'Association' },
-            { id: 8, name: 'Media' },
-            { id: 9, name: 'Organizer' }
+            { id: 8, name: 'Média' },
+            { id: 9, name: 'Organisateur' }
         ]
     };
 

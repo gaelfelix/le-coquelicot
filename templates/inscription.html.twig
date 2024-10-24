@@ -20,11 +20,11 @@ S'inscrire
             </div>
         {% endif %}
         <form action="index.php?route=check-register" method="post">
-            <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session.csrf_token|e }}" />
+            <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session.csrf_token|e }}">
             <label for="first-name">Prénom</label>
-            <input type="text" name="first-name" id="first-name" required aria-required="true" />
+            <input type="text" name="first-name" id="first-name" required aria-required="true">
             <label for="last-name">Nom</label>
-            <input type="text" name="last-name" id="last-name" required aria-required="true" />
+            <input type="text" name="last-name" id="last-name" required aria-required="true">
             <label for="role">Artiste / Professionnel du spectacle</label>
             <select name="role" id="role" required aria-required="true">
                 <option value="">Sélectionnez votre métier</option>
@@ -34,16 +34,16 @@ S'inscrire
             <label for="specialization">Compétence</label>
             <select name="specialization" id="specialization" required aria-required="true">
                 <option value="">Sélectionnez une spécialisation</option>
-                <!-- Les options seront ajoutées ici par JavaScript -->
+                <!-- Les options sont ajoutées ici par JavaScript -->
             </select>
             <label for="structure">Structure</label>
             <input type="text" name="structure" id="structure" required aria-required="true" />
             <label for="email">Adresse mail</label>
-            <input type="email" name="email" id="email" required aria-required="true" />
+            <input type="email" name="email" id="email" required aria-required="true">
             <label for="password">Mot de passe</label>
-            <input type="password" name="password" id="password" required aria-required="true" />
+            <input type="password" name="password" id="password" required aria-required="true">
             <label for="confirm-password">Confirmer le mot de passe</label>
-            <input type="password" name="confirm-password" id="confirm-password" required aria-required="true" />
+            <input type="password" name="confirm-password" id="confirm-password" required aria-required="true">
             <button type="submit" class="submit-button">S'inscrire</button>
         </form>
         <a href="index.php?route=connexion">Connectez-vous</a>

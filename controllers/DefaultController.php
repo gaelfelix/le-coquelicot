@@ -80,7 +80,7 @@ class DefaultController extends AbstractController
             $um = new UserManager();
             $user = $um->findById($_SESSION["user"]);
     
-            if ($user !== null && $user->getRole() === 'USER') {
+            if ($user !== null && ($user->getRole() === 'PRO' ||$user->getRole() === 'ARTISTE')) {
             
                 $this->render("artiste-pro.html.twig", [], $scripts);
             } else {

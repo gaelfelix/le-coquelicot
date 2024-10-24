@@ -10,7 +10,7 @@ Accueil
 
 {% block main %}
 <main id="homepage">
-    <section class="home-next-events" aria-labelledby="upcoming-events-titre">
+    <section class="home-next-events">
         <h2 id="upcoming-events-title">Les prochains rendez-vous</h2>
 
         <div class="glider-contain">
@@ -18,11 +18,11 @@ Accueil
                 <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
             </button>
 
-            <div class="glider" aria-label="Carrousel des prochains événements">
+            <div class="glider">
                 {% for event in events %}
-                    <article class="event-card" style="background-image: url('{{ event.event.media.url|e }}')" aria-labelledby="event-title-{{ event.event.id|e }}">
+                    <article class="event-card" style="background-image: url('{{ event.event.media.url|e }}')">
                         <a href="index.php?route=evenement&id={{ event.event.id|e }}">
-                            <div class="card-block-date mono" aria-label="Date de l'événement">
+                            <div class="card-block-date mono">
                                 <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortDay|e }}</p>
                                 <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.number|e }}</p>
                                 <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortMonth|e }}</p>                           
@@ -47,7 +47,7 @@ Accueil
         </div>
     </section>
     
-    <section class="home-last-actualities" aria-labelledby="last-news-titre">
+    <section class="home-last-actualities">
         <h2 id="last-news-title">Dernières actualités</h2>
         <div class="home-last-actualities-container">
             {% for actuality in actualities %}
@@ -59,7 +59,7 @@ Accueil
         </div>
     </section>
 
-    <section class="home-newsletter" id="home-newsletter" aria-labelledby="newsletter-titre">
+    <section class="home-newsletter" id="home-newsletter">
         <h2 id="newsletter-title">Pour ne plus rien rater</h2>
         <p>Parce que rater des choses c'est pas cool, inscris-toi à la newsletter du Coquelicot !</p>
         <p>Tu recevras la programmation toute chaude, les dernières actus et aussi quelques secrets directement dans ta boîte mail... Alors, elle est pas belle la vie ?</p>
