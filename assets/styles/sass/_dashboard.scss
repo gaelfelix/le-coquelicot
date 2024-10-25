@@ -1,19 +1,250 @@
-#admin-event{
+#espace-admin {
+    section {
+        ul {
+            li {
+                width: 300px;
+                margin: 3rem auto;
+                a {
+                    color: $blue;
+                    @include button-styles('orange');
+                }   
+            }
+        }
+    }
+}
+
+#admin-actus,
+#admin-events,
+#admin-messages,
+#admin-types-styles,
+#admin-users {
+
+    fieldset {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    
+        form,
+        select {
+            width: 85%;
+            margin: 0 0 3rem 0;
+        }
+    
+        .search-bar {
+          display: flex;
+          align-items: center;
+    
+          input[type="search"] {
+            border-radius: 14px 0 0 14px;
+            margin: 0;
+          }
+      
+          button {
+            margin: 0;
+            padding: 12px;
+            background-color: $orange;
+            border: none;
+            color: $beige;
+            border-radius: 0 14px 14px 0;
+            cursor: pointer;
+    
+            i {
+              font-size: 1.9rem;
+            }
+    
+            &:hover {
+              color: $blue;
+            }
+          }
+        }
+      }
+
+    .table-container {
+        width: 90%;
+        max-width: 1800px;
+        margin : 2rem auto;
+
+        a {
+            color: $puce;
+            font-weight: bold;
+
+            &:hover {
+                color: $black;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    @media #{$small} {
+        // Styles pour les petits appareils (min-width: 576px)
+        fieldset {
+    
+            form,
+            select {
+                width: 80%;
+            }
+    
+            .search-bar button i {
+                font-size: 2rem;
+            }
+        }
+      }
+      
+      @media #{$medium} {
+        // Styles pour les appareils moyens (min-width: 768px)
+        fieldset .search-bar button i {
+            font-size: 2.1rem;
+        }
+      }
+      
+      @media #{$medium-large} {
+        // Styles pour les appareils intermédiaires (min-width: 850px)
+        fieldset {
+            justify-content: center;
+            gap: 10%;
+    
+            form,
+            select {
+                width: 30%;
+                max-width: 500px;
+            }
+        }
+      }
+    
+      @media screen and (min-width: 893px) {
+        fieldset .search-bar button i {
+          font-size: 2.2rem;
+        }
+      }
+
+}
+
+#admin-actus,
+#admin-events {
+
     .alert {
-        background-color: #f44336;
+        background-color: $red;
         color: white;
         padding: 15px;
         margin-bottom: 15px;
         position: relative;
+
+        i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    }   
+    
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+
+        .modal-content {
+            background-color: $blue;
+            margin: 2% auto;
+            padding: 30px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            top: 150px;
+            border-radius: 20px;
+
+            .close {
+                position: absolute;
+                right: 20px;
+                top: 10px;
+                font-size: 28px;
+                font-weight: bold;
+                cursor: pointer;
+        
+                &:hover {
+                    color: $orange;
+                }
+            }
+
+            .create-event-form,
+            .create-actuality-form {
+
+                form {
+                    width: 90%;
+                    margin: 1.5rem auto;
+
+                    h3 {
+                        font-size: 2.4rem;
+                        font-weight: bold;
+                        margin-bottom: 3rem;
+                    }
+
+                    input,
+                    textarea {
+                        margin-bottom: 2rem;
+                    }
+
+                    label {
+                        font-size: 1.8rem;
+                    }
+
+                    .admin-form-flex {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        
+                        div {
+                            width: 48%;
+                        }
+                    }
+                    .file-name-display {
+                        color: $orange;
+                        margin-bottom: 1.5rem;
+                    }
+                    
+                    button {
+                        @include button-styles('orange');
+                    }
+                }
+            }
+        }
     }
     
-    .alert i {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
+    .action-buttons {
+        margin-bottom: 1rem;
+
+        .add-button {
+            display: inline-flex;
+            align-items: center;
+            font-size: 2rem;
+            margin: 2rem 0;
+            padding: 1.4rem 1.6rem;
+            background-color: #4CAF50;
+            color: $beige;
+            text-decoration: none;
+            border-radius: 10px;
+
+            &:hover {
+                background-color: #45a049;
+            }
+
+            i {
+                margin-right: 0.5rem;
+            }
+        }
     }
-    
+
 }
 
+#admin-messages {
+    .unread {
+        font-weight: bold;
+    }
+}

@@ -1,3 +1,4 @@
+// ajaxMessagesDashboard.js
 document.addEventListener("DOMContentLoaded", function() {
     const messageTable = document.getElementById('messageTable');
     const modal = document.getElementById('messageModal');
@@ -21,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const message = data.message;
                 modalFrom.textContent = `${message.firstName} ${message.lastName}`;
                 modalEmail.textContent = message.email;
-                modalPhone.textContent = message.phone || 'Not provided';
+                modalPhone.textContent = message.phone || 'Non fourni';
                 modalSubject.textContent = message.subject;
                 modalMessage.textContent = message.message;
                 modal.style.display = "block";
@@ -38,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Delete a message
     function deleteMessage(messageId) {
-        if (confirm("Are you sure you want to delete this message?")) {
+        if (confirm("Êtes-vous sûr de vouloir supprimer ce message ?")) {
             fetch(`index.php?route=admin-delete-message&id=${encodeURIComponent(messageId)}`, {
                 method: 'GET',
                 headers: { 'X-Requested-With': 'XMLHttpRequest' }
@@ -58,10 +59,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Handle message table clicks
     messageTable.addEventListener('click', function(event) {
-        if (event.target.classList.contains('view-message')) {
-            viewMessage(event.target.closest('tr').dataset.id);
-        } else if (event.target.classList.contains('delete-message')) {
-            deleteMessage(event.target.closest('tr').dataset.id);
+        if (event.target.matches('a.view-message')) {
+            event.preventDefault();
+            const messageId = event.target.href.split('id=')[1];
+            viewMessage(messageId);
+        } else if (event.target.matches('a.delete-message')) {
+            event.preventDefault();
+            const messageId = event.target.href.split('id=')[1];
+            deleteMessage(messageId);
         }
     });
 

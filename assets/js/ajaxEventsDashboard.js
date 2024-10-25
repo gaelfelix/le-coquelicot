@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-
     const errorMessage = document.getElementById('error-message');
     const closeError = document.getElementById('close-error');
     const searchInput = document.querySelector('input[name="q"]');
@@ -8,18 +7,54 @@ document.addEventListener("DOMContentLoaded", function() {
     const eventTableBody = document.querySelector('#eventTable tbody');
     const fileInput = document.querySelector('input[name="media"]');
     const eventForm = document.querySelector('#event-form');
+    const modal = document.getElementById('event-modal');
+    const addEventButton = document.getElementById('add-event-button');
+    const closeModalButton = modal.querySelector('.close');
 
     // Initial setup
     searchButton.disabled = true;
     setupFileInput();
     setupErrorHandling();
     setupEventListeners();
+    setupModalHandlers();
 
-    // Main functions
+    // Set up modal event handlers
+    function setupModalHandlers() {
+        // Ouvrir la modale pour créer un événement
+        addEventButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            resetEventForm();
+            modal.style.display = 'block';
+        });
+
+        // Fermer la modale
+        closeModalButton.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Fermer la modale en cliquant en dehors
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
+
+    // Fonction pour réinitialiser le formulaire
+    function resetEventForm() {
+        eventForm.reset();
+        eventForm.action = 'index.php?route=admin-create-event';
+        document.querySelector('#event-form button[type="submit"]').textContent = 'Créer l\'événement';
+        document.querySelector('#event-id').value = '';
+        document.querySelector('#media-id').value = '';
+        clearCurrentImage();
+        fileInput.setAttribute('required', 'required');
+    }
 
     // Set up file input to display selected file name
     function setupFileInput() {
-        const fileNameDisplay = document.createElement('span');
+        const fileNameDisplay = document.createElement('p');
+        fileNameDisplay.classList.add('file-name-display');
         fileInput.parentNode.insertBefore(fileNameDisplay, fileInput.nextSibling);
 
         fileInput.addEventListener('change', function(e) {
@@ -56,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(data => {
             if (data.success) {
                 fillEventForm(data.data);
-                eventForm.scrollIntoView({ behavior: 'smooth' });
+                modal.style.display = 'block'; // Ouvrir la modale au lieu de scroll
             } else {
                 showErrorMessage(data.message);
             }
@@ -105,7 +140,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Update or create the hidden media_id field
     function updateMediaIdField(mediaId) {
         let mediaIdInput = document.querySelector('input[name="media_id"]');
         if (!mediaIdInput) {

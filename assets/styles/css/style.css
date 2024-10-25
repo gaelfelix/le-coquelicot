@@ -234,7 +234,8 @@ header {
   z-index: 9999;
 }
 header > div:first-of-type a img {
-  max-height: calc(3em + 1.6vw);
+  height: calc(3em + 1.6vw);
+  max-height: 75px;
 }
 header > div:nth-of-type(2) > div h1 span {
   font-size: calc(1rem + 1.2vw);
@@ -428,7 +429,7 @@ header > div:nth-of-type(3) > div {
     transform: scaleX(1);
   }
   header > div:nth-of-type(3) {
-    width: 30%;
+    width: 33%;
     display: block;
   }
   header > div:nth-of-type(3) > div {
@@ -495,6 +496,12 @@ header > div:nth-of-type(3) > div {
   }
 }
 @media only screen and (min-width: 1600px) {
+  header > div:nth-of-type(2) > div h1 {
+    font-size: 4rem;
+  }
+  header > div:nth-of-type(2) > div h1 > span {
+    font-size: 3rem;
+  }
   header > div:nth-of-type(3) > div {
     margin: 1rem 0 0 40%;
   }
@@ -2024,19 +2031,349 @@ footer .footer-copyright {
     max-width: 35%;
   }
 }
-#admin-event .alert {
-  background-color: #f44336;
+#espace-admin section ul li {
+  width: 300px;
+  margin: 3rem auto;
+}
+#espace-admin section ul li a {
+  color: #2E2D52;
+  display: block;
+  font-family: "Roboto", sans-serif Arial;
+  font-size: 1.6rem;
+  font-weight: bolder;
+  text-transform: uppercase;
+  margin: auto;
+  margin-top: 2rem;
+  border-radius: 15px;
+  padding: 1rem 2.5rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+  background-color: #FFB571;
+  color: #F3F2E9;
+  border: 3px solid #F3F2E9;
+}
+#espace-admin section ul li a:hover {
+  background-color: #F3F2E9;
+  color: #FF922C;
+  border: 3px solid #FFB571;
+}
+
+#admin-actus fieldset,
+#admin-events fieldset,
+#admin-messages fieldset,
+#admin-types-styles fieldset,
+#admin-users fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+#admin-actus fieldset form,
+#admin-actus fieldset select,
+#admin-events fieldset form,
+#admin-events fieldset select,
+#admin-messages fieldset form,
+#admin-messages fieldset select,
+#admin-types-styles fieldset form,
+#admin-types-styles fieldset select,
+#admin-users fieldset form,
+#admin-users fieldset select {
+  width: 85%;
+  margin: 0 0 3rem 0;
+}
+#admin-actus fieldset .search-bar,
+#admin-events fieldset .search-bar,
+#admin-messages fieldset .search-bar,
+#admin-types-styles fieldset .search-bar,
+#admin-users fieldset .search-bar {
+  display: flex;
+  align-items: center;
+}
+#admin-actus fieldset .search-bar input[type=search],
+#admin-events fieldset .search-bar input[type=search],
+#admin-messages fieldset .search-bar input[type=search],
+#admin-types-styles fieldset .search-bar input[type=search],
+#admin-users fieldset .search-bar input[type=search] {
+  border-radius: 14px 0 0 14px;
+  margin: 0;
+}
+#admin-actus fieldset .search-bar button,
+#admin-events fieldset .search-bar button,
+#admin-messages fieldset .search-bar button,
+#admin-types-styles fieldset .search-bar button,
+#admin-users fieldset .search-bar button {
+  margin: 0;
+  padding: 12px;
+  background-color: #FFB571;
+  border: none;
+  color: #F3F2E9;
+  border-radius: 0 14px 14px 0;
+  cursor: pointer;
+}
+#admin-actus fieldset .search-bar button i,
+#admin-events fieldset .search-bar button i,
+#admin-messages fieldset .search-bar button i,
+#admin-types-styles fieldset .search-bar button i,
+#admin-users fieldset .search-bar button i {
+  font-size: 1.9rem;
+}
+#admin-actus fieldset .search-bar button:hover,
+#admin-events fieldset .search-bar button:hover,
+#admin-messages fieldset .search-bar button:hover,
+#admin-types-styles fieldset .search-bar button:hover,
+#admin-users fieldset .search-bar button:hover {
+  color: #2E2D52;
+}
+#admin-actus .table-container,
+#admin-events .table-container,
+#admin-messages .table-container,
+#admin-types-styles .table-container,
+#admin-users .table-container {
+  width: 90%;
+  max-width: 1800px;
+  margin: 2rem auto;
+}
+#admin-actus .table-container a,
+#admin-events .table-container a,
+#admin-messages .table-container a,
+#admin-types-styles .table-container a,
+#admin-users .table-container a {
+  color: #C37D92;
+  font-weight: bold;
+}
+#admin-actus .table-container a:hover,
+#admin-events .table-container a:hover,
+#admin-messages .table-container a:hover,
+#admin-types-styles .table-container a:hover,
+#admin-users .table-container a:hover {
+  color: #000F08;
+  text-decoration: underline;
+}
+@media only screen and (min-width: 576px) {
+  #admin-actus fieldset form,
+  #admin-actus fieldset select,
+  #admin-events fieldset form,
+  #admin-events fieldset select,
+  #admin-messages fieldset form,
+  #admin-messages fieldset select,
+  #admin-types-styles fieldset form,
+  #admin-types-styles fieldset select,
+  #admin-users fieldset form,
+  #admin-users fieldset select {
+    width: 80%;
+  }
+  #admin-actus fieldset .search-bar button i,
+  #admin-events fieldset .search-bar button i,
+  #admin-messages fieldset .search-bar button i,
+  #admin-types-styles fieldset .search-bar button i,
+  #admin-users fieldset .search-bar button i {
+    font-size: 2rem;
+  }
+}
+@media only screen and (min-width: 768px) {
+  #admin-actus fieldset .search-bar button i,
+  #admin-events fieldset .search-bar button i,
+  #admin-messages fieldset .search-bar button i,
+  #admin-types-styles fieldset .search-bar button i,
+  #admin-users fieldset .search-bar button i {
+    font-size: 2.1rem;
+  }
+}
+@media only screen and (min-width: 850px) {
+  #admin-actus fieldset,
+  #admin-events fieldset,
+  #admin-messages fieldset,
+  #admin-types-styles fieldset,
+  #admin-users fieldset {
+    justify-content: center;
+    gap: 10%;
+  }
+  #admin-actus fieldset form,
+  #admin-actus fieldset select,
+  #admin-events fieldset form,
+  #admin-events fieldset select,
+  #admin-messages fieldset form,
+  #admin-messages fieldset select,
+  #admin-types-styles fieldset form,
+  #admin-types-styles fieldset select,
+  #admin-users fieldset form,
+  #admin-users fieldset select {
+    width: 30%;
+    max-width: 500px;
+  }
+}
+@media screen and (min-width: 893px) {
+  #admin-actus fieldset .search-bar button i,
+  #admin-events fieldset .search-bar button i,
+  #admin-messages fieldset .search-bar button i,
+  #admin-types-styles fieldset .search-bar button i,
+  #admin-users fieldset .search-bar button i {
+    font-size: 2.2rem;
+  }
+}
+
+#admin-actus .alert,
+#admin-events .alert {
+  background-color: #D13B2C;
   color: white;
   padding: 15px;
   margin-bottom: 15px;
   position: relative;
 }
-#admin-event .alert i {
+#admin-actus .alert i,
+#admin-events .alert i {
   position: absolute;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
+}
+#admin-actus .modal,
+#admin-events .modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+#admin-actus .modal .modal-content,
+#admin-events .modal .modal-content {
+  background-color: #2E2D52;
+  margin: 2% auto;
+  padding: 30px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  top: 150px;
+  border-radius: 20px;
+}
+#admin-actus .modal .modal-content .close,
+#admin-events .modal .modal-content .close {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+#admin-actus .modal .modal-content .close:hover,
+#admin-events .modal .modal-content .close:hover {
+  color: #FFB571;
+}
+#admin-actus .modal .modal-content .create-event-form form,
+#admin-actus .modal .modal-content .create-actuality-form form,
+#admin-events .modal .modal-content .create-event-form form,
+#admin-events .modal .modal-content .create-actuality-form form {
+  width: 90%;
+  margin: 1.5rem auto;
+}
+#admin-actus .modal .modal-content .create-event-form form h3,
+#admin-actus .modal .modal-content .create-actuality-form form h3,
+#admin-events .modal .modal-content .create-event-form form h3,
+#admin-events .modal .modal-content .create-actuality-form form h3 {
+  font-size: 2.4rem;
+  font-weight: bold;
+  margin-bottom: 3rem;
+}
+#admin-actus .modal .modal-content .create-event-form form input,
+#admin-actus .modal .modal-content .create-event-form form textarea,
+#admin-actus .modal .modal-content .create-actuality-form form input,
+#admin-actus .modal .modal-content .create-actuality-form form textarea,
+#admin-events .modal .modal-content .create-event-form form input,
+#admin-events .modal .modal-content .create-event-form form textarea,
+#admin-events .modal .modal-content .create-actuality-form form input,
+#admin-events .modal .modal-content .create-actuality-form form textarea {
+  margin-bottom: 2rem;
+}
+#admin-actus .modal .modal-content .create-event-form form label,
+#admin-actus .modal .modal-content .create-actuality-form form label,
+#admin-events .modal .modal-content .create-event-form form label,
+#admin-events .modal .modal-content .create-actuality-form form label {
+  font-size: 1.8rem;
+}
+#admin-actus .modal .modal-content .create-event-form form .admin-form-flex,
+#admin-actus .modal .modal-content .create-actuality-form form .admin-form-flex,
+#admin-events .modal .modal-content .create-event-form form .admin-form-flex,
+#admin-events .modal .modal-content .create-actuality-form form .admin-form-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+#admin-actus .modal .modal-content .create-event-form form .admin-form-flex div,
+#admin-actus .modal .modal-content .create-actuality-form form .admin-form-flex div,
+#admin-events .modal .modal-content .create-event-form form .admin-form-flex div,
+#admin-events .modal .modal-content .create-actuality-form form .admin-form-flex div {
+  width: 48%;
+}
+#admin-actus .modal .modal-content .create-event-form form .file-name-display,
+#admin-actus .modal .modal-content .create-actuality-form form .file-name-display,
+#admin-events .modal .modal-content .create-event-form form .file-name-display,
+#admin-events .modal .modal-content .create-actuality-form form .file-name-display {
+  color: #FFB571;
+  margin-bottom: 1.5rem;
+}
+#admin-actus .modal .modal-content .create-event-form form button,
+#admin-actus .modal .modal-content .create-actuality-form form button,
+#admin-events .modal .modal-content .create-event-form form button,
+#admin-events .modal .modal-content .create-actuality-form form button {
+  display: block;
+  font-family: "Roboto", sans-serif Arial;
+  font-size: 1.6rem;
+  font-weight: bolder;
+  text-transform: uppercase;
+  margin: auto;
+  margin-top: 2rem;
+  border-radius: 15px;
+  padding: 1rem 2.5rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+  background-color: #FFB571;
+  color: #F3F2E9;
+  border: 3px solid #F3F2E9;
+}
+#admin-actus .modal .modal-content .create-event-form form button:hover,
+#admin-actus .modal .modal-content .create-actuality-form form button:hover,
+#admin-events .modal .modal-content .create-event-form form button:hover,
+#admin-events .modal .modal-content .create-actuality-form form button:hover {
+  background-color: #F3F2E9;
+  color: #FF922C;
+  border: 3px solid #FFB571;
+}
+#admin-actus .action-buttons,
+#admin-events .action-buttons {
+  margin-bottom: 1rem;
+}
+#admin-actus .action-buttons .add-button,
+#admin-events .action-buttons .add-button {
+  display: inline-flex;
+  align-items: center;
+  font-size: 2rem;
+  margin: 2rem 0;
+  padding: 1.4rem 1.6rem;
+  background-color: #4CAF50;
+  color: #F3F2E9;
+  text-decoration: none;
+  border-radius: 10px;
+}
+#admin-actus .action-buttons .add-button:hover,
+#admin-events .action-buttons .add-button:hover {
+  background-color: #45a049;
+}
+#admin-actus .action-buttons .add-button i,
+#admin-events .action-buttons .add-button i {
+  margin-right: 0.5rem;
+}
+
+#admin-messages .unread {
+  font-weight: bold;
 }
 
 /********** GLOBAL STYLES **********/

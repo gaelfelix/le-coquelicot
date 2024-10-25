@@ -21,7 +21,7 @@ class Event
         private ?int $style1_id,
         private ?int $style2_id,
         private ?string $video_link,
-        private string $ticketing_link
+        private ? string $ticketing_link
     ) {
         
     }
@@ -161,13 +161,13 @@ class Event
         return $this->video_link;
     }
 
-    public function setTicketingLink(string $ticketing_link): void
+    public function setTicketingLink(?string $ticketing_link): void
     {
         $this->ticketing_link = $ticketing_link;
     }
 
 
-    public function getTicketingLink(): string
+    public function getTicketingLink(): ?string
     {
         return $this->ticketing_link;
     }

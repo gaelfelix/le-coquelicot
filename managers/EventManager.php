@@ -72,8 +72,8 @@ class EventManager extends AbstractManager
     {
         $query = $this->db->prepare('
             SELECT e.*, m.url AS media_url, m.alt AS media_alt,
-                   t.name AS type_name,
-                   s1.name AS style1_name, s2.name AS style2_name
+                t.name AS type_name,
+                s1.name AS style1_name, s2.name AS style2_name
             FROM events e
             LEFT JOIN medias m ON e.media_id = m.id
             LEFT JOIN types t ON e.type_id = t.id
@@ -81,29 +81,35 @@ class EventManager extends AbstractManager
             LEFT JOIN styles s2 ON e.style2_id = s2.id
             WHERE e.date >= CURRENT_DATE
             ORDER BY e.date ASC
-            LIMIT 9
+            LIMIT 12
         ');
         $query->execute();
-        $events = $this->createEventObjects($query->fetchAll(PDO::FETCH_ASSOC));
+        $upcomingEvents = $this->createEventArrays($query->fetchAll(PDO::FETCH_ASSOC));
 
-        if (count($events) < 9) {
-            $remainingCount = 9 - count($events);
+        // Si on a moins de 12 événements, compléter avec les événements passés les plus récents
+        if (count($upcomingEvents) < 12) {
+            $remainingCount = 12 - count($upcomingEvents);
             $query = $this->db->prepare('
                 SELECT e.*, m.url AS media_url, m.alt AS media_alt,
-                       t.name AS type_name,
-                       s1.name AS style1_name, s2.name AS style2_name
+                    t.name AS type_name,
+                    s1.name AS style1_name, s2.name AS style2_name
                 FROM events e
                 LEFT JOIN medias m ON e.media_id = m.id
                 LEFT JOIN types t ON e.type_id = t.id
                 LEFT JOIN styles s1 ON e.style1_id = s1.id
                 LEFT JOIN styles s2 ON e.style2_id = s2.id
                 WHERE e.date < CURRENT_DATE
-                ORDER BY e.date DESC 
+                ORDER BY e.date ASC 
                 LIMIT :limit
             ');
             $query->bindParam(':limit', $remainingCount, PDO::PARAM_INT);
             $query->execute();
-            $events = array_merge($events, $this->createEventObjects($query->fetchAll(PDO::FETCH_ASSOC)));
+            $pastEvents = $this->createEventArrays($query->fetchAll(PDO::FETCH_ASSOC));
+            
+            $events = array_merge($upcomingEvents, $pastEvents);
+            
+        } else {
+            $events = $upcomingEvents;
         }
 
         return $events;

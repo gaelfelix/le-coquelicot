@@ -9,9 +9,10 @@ Interface d'administration des événements du Coquelicot. Gérez, modifiez et c
 {% endblock %}
 
 {% block main %}
-<main id="admin-event">
+<main id="admin-events">
     <section aria-labelledby="titre-admin-evenements">
         <h2 id="titre-admin-evenements">Administration des évènements</h2>
+
         <fieldset>
             <form id="searchForm" action="/search" method="get" class="search-bar" aria-label="Recherche d'événements">
                 <input type="search" name="q" placeholder="Rechercher..." aria-label="Recherche">
@@ -69,80 +70,105 @@ Interface d'administration des événements du Coquelicot. Gérez, modifiez et c
                 <i class="fa-solid fa-xmark" id="close-error" aria-label="Fermer le message d'erreur"></i>
             </div>
         {% endif %}
+        
+        <div id="event-modal" class="modal" aria-labelledby="titre-creation-evenement">
+            <div class="modal-content">
+                <span class="close" aria-label="Fermer le formulaire">&times;</span>
+                <div class="create-event-form">
+                    <form id="event-form" method="POST" action="index.php?route=admin-create-event" enctype="multipart/form-data" aria-labelledby="titre-creation-evenement">
+                        <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session.csrf_token }}"> 
 
-        <div class="create-event-form">
-            <form id="event-form" method="POST" action="index.php?route=admin-create-event" enctype="multipart/form-data" aria-labelledby="titre-creation-evenement">
-                                
-                <h3 id="titre-creation-evenement">Créer un nouvel événement</h3>
-                
-                <input type="hidden" name="id" id="event-id">
-                <input type="hidden" name="media_id" id="media-id">
+                        <h3 id="titre-creation-evenement">Créer un nouvel événement</h3>
+                        
+                        <input type="hidden" name="id" id="event-id">
+                        <input type="hidden" name="media_id" id="media-id">
 
-                <label for="name">Nom de l'évènement</label>
-                <input type="text" name="name" id="name" placeholder="Nom de l'événement" required>
+                        <label for="name">Nom de l'évènement</label>
+                        <input type="text" name="name" id="name" placeholder="Nom de l'événement" required>
 
-                <label for="main_description">Description courte</label>
-                <textarea name="main_description" id="main_description" placeholder="Sous titre d'accroche"></textarea>
+                        <label for="main_description">Description courte</label>
+                        <textarea name="main_description" id="main_description" placeholder="Sous titre d'accroche"></textarea>
 
-                <label for="description">Description</label>
-                <textarea name="description" id="description" placeholder="Description de l'évènement"></textarea>
+                        <label for="description">Description</label>
+                        <textarea name="description" id="description" placeholder="Description de l'évènement"></textarea>
 
-                <label for="date">Date</label>
-                <input type="date" name="date" id="date" required>
+                        <div class="admin-form-flex">
+                            <div>
+                                <label for="ticket_price">Prix</label>
+                                <input type="number" name="ticket_price" id="ticket_price" placeholder="Prix du ticket" required min="0">
+                            </div>
+                            
+                            <div>
+                                <label for="date">Date</label>
+                                <input type="date" name="date" id="date" required>    
+                            </div>
+                        </div>
 
-                <label for="debut">Heure de début</label>
-                <input type="time" name="debut" id="debut" required>
+                        <div class="admin-form-flex">
+                            <div>
+                                <label for="debut">Heure de début</label>
+                                <input type="time" name="debut" id="debut" required>
+                            </div>
 
-                <label for="end">Heure de fin</label>
-                <input type="time" name="end" id="end" required>
+                            <div>
+                                <label for="end">Heure de fin</label>
+                                <input type="time" name="end" id="end" required>    
+                            </div>
+                        </div>
 
-                <label for="ticket_price">Prix</label>
-                <input type="number" name="ticket_price" id="ticket_price" placeholder="Prix du ticket" required min="0">
+                        <label for="video_link">Lien Youtube</label>
+                        <input type="text" name="video_link" id="video_link" placeholder="Lien vidéo">
 
-                <label for="video_link">Lien Youtube</label>
-                <input type="text" name="video_link" id="video_link" placeholder="Lien vidéo">
+                        <label for="ticketing_link">Lien billetterie</label>
+                        <input type="text" name="ticketing_link" id="ticketing_link" placeholder="Lien billetterie">
 
-                <label for="ticketing_link">Lien billetterie</label>
-                <input type="text" name="ticketing_link" id="ticketing_link" placeholder="Lien billetterie">
+                        <div id="current-image"></div>
 
-                <div id="current-image"></div>
+                        <label for="media">Image évènement</label>
+                        <input type="file" name="media" id="media" accept="image/*" required>
 
-                <label for="media">Image évènement</label>
-                <input type="file" name="media" id="media" accept="image/*" required>
+                        <label for="image_name">Nom de l'image</label>
+                        <input type="text" name="image_name" id="image_name" placeholder="Nom de l'image" required>
 
-                <label for="image_name">Nom de l'image</label>
-                <input type="text" name="image_name" id="image_name" placeholder="Nom de l'image" required>
+                        <label for="alt-img">Description de l'image</label>
+                        <input type="text" name="alt-img" id="alt-img" placeholder="Description de l'image">
 
-                <label for="alt-img">Description de l'image</label>
-                <input type="text" name="alt-img" id="alt-img" placeholder="Description de l'image">
+                        <label for="type_id">Type d'événement</label>
+                        <select name="type_id" id="type_id" required>
+                            <option value="" disabled selected>Sélectionner un type</option>
+                        {% for type in types %}
+                            <option value="{{ type.id|e }}">{{ type.name|e }}</option>
+                        {% endfor %}
+                        </select>
 
-                <label for="type_id">Type d'événement</label>
-                <select name="type_id" id="type_id" required>
-                    <option value="" disabled selected>Sélectionner un type</option>
-                {% for type in types %}
-                    <option value="{{ type.id|e }}">{{ type.name|e }}</option>
-                {% endfor %}
-                </select>
+                        <label for="style1_id">Style principal</label>
+                        <select name="style1_id" id="style1_id" required>
+                            <option value="" disabled selected>Sélectionner un style</option>
+                        {% for style in styles %}
+                            <option value="{{ style.id|e }}">{{ style.name|e }}</option>
+                        {% endfor %}
+                        </select>
 
-                <label for="style1_id">Style principal</label>
-                <select name="style1_id" id="style1_id" required>
-                    <option value="" disabled selected>Sélectionner un style</option>
-                {% for style in styles %}
-                    <option value="{{ style.id|e }}">{{ style.name|e }}</option>
-                {% endfor %}
-                </select>
+                        <label for="style2_id">Style secondaire</label>
+                        <select name="style2_id" id="style2_id">
+                            <option value="" disabled selected>Sélectionner un style</option>
+                        {% for style in styles %}
+                            <option value="{{ style.id|e }}">{{ style.name|e }}</option>
+                        {% endfor %}
+                        </select>
 
-                <label for="style2_id">Style secondaire</label>
-                <select name="style2_id" id="style2_id">
-                    <option value="" disabled selected>Sélectionner un style</option>
-                {% for style in styles %}
-                    <option value="{{ style.id|e }}">{{ style.name|e }}</option>
-                {% endfor %}
-                </select>
-
-                <button type="submit">Créer l'événement</button>
-            </form>
+                        <button type="submit">Créer l'événement</button>
+                    </form>
+                </div>
+            </div>
         </div>
+
+        <div class="action-buttons">
+            <a href="#" id="add-event-button" class="add-button" aria-label="Ajouter un nouvel événement">
+                <i class="fas fa-plus" aria-hidden="true"></i> Ajouter un événement
+            </a>
+        </div>
+
     </section>
 </main>
 {% endblock %}

@@ -161,11 +161,20 @@ class EventController extends AbstractController
         exit;
     }
 
-    private function extractYoutubeId(string $url): ?string
+    private function extractYoutubeId(?string $url): ?string
     {
-        if (strpos($url, 'watch?v=') !== false) {
-            return substr($url, strpos($url, 'watch?v=') + 8);
+        // Si l'URL est null, retourner null
+        if ($url === null) {
+            return null;
         }
+    
+        // Regex pour extraire l'ID YouTube de différents formats d'URL
+        $pattern = '/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i';
+        
+        if (preg_match($pattern, $url, $matches)) {
+            return $matches[1];
+        }
+        
         return null;
     }
 

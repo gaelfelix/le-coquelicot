@@ -230,7 +230,7 @@ class DashboardController extends AbstractController
                 }
     
                 // Mise à jour des autres champs
-                $fieldsToUpdate = ['name', 'main_description', 'description', 'date', 'debut', 'end', 'ticket_price', 'type_id', 'style1_id', 'style2_id', 'video_link', 'ticketing_link'];
+                $fieldsToUpdate = ['name', 'mainDescription', 'description', 'date', 'debut', 'end', 'ticketPrice', 'type', 'style1', 'style2', 'videoLink', 'ticketingLink'];
                 foreach ($fieldsToUpdate as $field) {
                     if (!isset($eventData[$field]) || $eventData[$field] === '') {
                         $eventData[$field] = $event->{"get" . ucfirst($field)}();
@@ -359,15 +359,32 @@ class DashboardController extends AbstractController
         }
     }
 
-    private function validateFileData(array $fileData): void
+    private function validateFileData(array $fileData): void 
     {
-        $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp'];
-        $fileExtension = strtolower(pathinfo($fileData['name'], PATHINFO_EXTENSION));
-    
-        if (!in_array($fileExtension, $allowedExtensions)) {
+        // Types MIME autorisés
+        $allowedMimeTypes = [
+            'image/jpeg',
+            'image/png',
+            'image/webp'
+        ];
+
+        // Vérification du type MIME avec finfo
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $mimeType = $finfo->file($fileData['tmp_name']);
+
+        if (!in_array($mimeType, $allowedMimeTypes)) {
             throw new Exception("Format de fichier non supporté.");
         }
-    
+
+        // Double vérification avec l'extension (en complément)
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp'];
+        $fileExtension = strtolower(pathinfo($fileData['name'], PATHINFO_EXTENSION));
+
+        if (!in_array($fileExtension, $allowedExtensions)) {
+            throw new Exception("Extension de fichier non supportée.");
+        }
+
+        // Vérification de la taille
         if ($fileData['size'] > 5000000) { // 5 MB limit
             throw new Exception("Le fichier est trop volumineux.");
         }

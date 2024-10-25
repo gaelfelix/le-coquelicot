@@ -30,7 +30,7 @@ function updateToggleState(toggleId, isActive) {
   if (toggle) {
     toggle.checked = isActive;
     toggle.setAttribute("data-active", isActive);
-    document.getElementById(`${toggleId}-label`).textContent = isActive ? "Enabled" : "Disabled";
+    document.getElementById(`${toggleId}-label`).textContent = isActive ? "Activé" : "Désactivé";
   }
 }
 

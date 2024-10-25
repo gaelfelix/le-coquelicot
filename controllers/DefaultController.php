@@ -12,7 +12,7 @@ class DefaultController extends AbstractController
         $em = new EventManager();
         $am = new ActualityManager();
         
-        $events = $em->findAllEventsArray();
+        $events = $em->findLatest();
         $event = $eventId ? $em->findOne(intval($eventId)) : null;
         $actualities = $am->findLatest();
         $actuality = $actualityId ? $am->findOne(intval($actualityId)) : null;

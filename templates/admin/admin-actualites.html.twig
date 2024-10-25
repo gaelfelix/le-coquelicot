@@ -9,9 +9,10 @@ Actualités
 {% endblock %}
 
 {% block main %}
-<main id="admin-actu">
+<main id="admin-actus">
     <section aria-labelledby="titre-admin-actualites">
         <h2 id="titre-admin-actualites">Administration des actualités</h2>
+
         <fieldset>
             <form id="searchForm" action="/search" method="get" class="search-bar" aria-label="Recherche d'actualités">
                 <input type="search" name="q" placeholder="Rechercher..." aria-label="Recherche">
@@ -54,6 +55,7 @@ Actualités
 
         <div class="create-actuality-form">
             <form id="actuality-form" method="POST" action="index.php?route=admin-create-actuality" enctype="multipart/form-data" aria-labelledby="titre-creation-actualite">
+                <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session.csrf_token }}" >
                 
                 <h3 id="titre-creation-actualite">Créer une nouvelle actualité</h3>
                 
@@ -83,6 +85,13 @@ Actualités
                 <button type="submit">Créer l'actualité</button>
             </form>
         </div>
+
+        <div class="action-buttons">
+            <a href="#" id="add-actu-button" class="add-button" aria-label="Ajouter un nouvel article">
+                <i class="fas fa-plus" aria-hidden="true"></i> Ajouter un article
+            </a>
+        </div>
+        
     </section>
 </main>
 {% endblock %}

@@ -27,8 +27,8 @@ Interface d'administration des messages reçus par Le Coquelicot. Gérez et cons
                         <td>{{ message.firstName|e }} {{ message.lastName|e }}</td>
                         <td>{{ message.subject|e }}</td>
                         <td>
-                            <button class="view-message" aria-label="Voir le message de {{ message.firstName|e }} {{ message.lastName|e }}">Voir</button>
-                            <button class="delete-message" aria-label="Supprimer le message de {{ message.firstName|e }} {{ message.lastName|e }}">Supprimer</button>
+                            <a href="index.php?route=admin-view-message&id={{ message.id|e }}" class="view-message" aria-label="Voir le message de {{ message.firstName|e }} {{ message.lastName|e }}">Voir</a>
+                            <a href="index.php?route=admin-delete-message&id={{ message.id|e }}" class="delete-message" aria-label="Supprimer le message de {{ message.firstName|e }} {{ message.lastName|e }}">Supprimer</a>
                         </td>
                     </tr>
                 {% endfor %}

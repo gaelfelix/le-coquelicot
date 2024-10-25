@@ -16,7 +16,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Setup file input display
     function setupFileInput() {
-        const fileNameDisplay = document.createElement('span');
+        const fileNameDisplay = document.createElement('p');
+        fileNameDisplay.classList.add('file-name-display');
         fileInput.parentNode.insertBefore(fileNameDisplay, fileInput.nextSibling);
         fileInput.addEventListener('change', (e) => {
             fileNameDisplay.textContent = e.target.files.length > 0 ? ' ' + e.target.files[0].name : '';
@@ -150,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else if (event.target.matches('a[href*="delete"]')) {
             event.preventDefault();
             const actualityId = event.target.href.split('id=')[1];
-            if (confirm("Are you sure you want to delete this actuality?")) {
+            if (confirm("Êtes vous sûr de vouloir supprimer cette actualité ?")) {
                 deleteActuality(actualityId);
             }
         }
