@@ -1332,6 +1332,19 @@ footer .footer-copyright {
   }
 }
 
+#event .back-link {
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  align-items: center;
+  margin: 3rem auto;
+}
+#event .back-link:hover {
+  color: #F3F2E9;
+  text-decoration: underline;
+}
+#event .back-link i {
+  margin-right: 0.8rem;
+}
 #event .event-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -1486,8 +1499,7 @@ footer .footer-copyright {
   justify-content: space-around;
   gap: 2%;
   max-width: 1400px;
-  margin: 2rem auto;
-  padding: 2rem;
+  margin: 4rem auto;
 }
 #actualites .actualities-container .actuality-card {
   height: auto;
@@ -1534,6 +1546,19 @@ footer .footer-copyright {
     height: 22.75rem;
     width: 32.5rem;
   }
+}
+#actualite .back-link {
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  align-items: center;
+  margin: 3rem auto;
+}
+#actualite .back-link:hover {
+  color: #F3F2E9;
+  text-decoration: underline;
+}
+#actualite .back-link i {
+  margin-right: 0.8rem;
 }
 #actualite .actu-container {
   margin: 0 auto;
@@ -2031,6 +2056,132 @@ footer .footer-copyright {
     max-width: 35%;
   }
 }
+#connexion p,
+#inscription p {
+  font-size: 1.6rem;
+  width: 90%;
+  max-width: 700px;
+  margin: 1.5rem auto;
+}
+#connexion form,
+#inscription form {
+  width: 90%;
+  max-width: 600px;
+  padding: 3rem;
+  margin: 5rem auto;
+  background-color: rgba(79, 77, 139, 0.2352941176);
+  box-shadow: 5px 12px 25px rgba(0, 0, 0, 0.25);
+  border: 5px solid #FFB571;
+  border-radius: 20px;
+}
+#connexion form input,
+#inscription form input {
+  margin-bottom: 2rem;
+}
+#connexion form button,
+#inscription form button {
+  display: block;
+  font-family: "Roboto", sans-serif Arial;
+  font-size: 1.6rem;
+  font-weight: bolder;
+  text-transform: uppercase;
+  margin: auto;
+  margin-top: 2rem;
+  border-radius: 15px;
+  padding: 1rem 2.5rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+  background-color: #FFB571;
+  color: #F3F2E9;
+  border: 3px solid #F3F2E9;
+}
+#connexion form button:hover,
+#inscription form button:hover {
+  background-color: #F3F2E9;
+  color: #FF922C;
+  border: 3px solid #FFB571;
+}
+#connexion a,
+#inscription a {
+  display: block;
+  font-family: "Roboto", sans-serif Arial;
+  font-size: 1.6rem;
+  font-weight: bolder;
+  text-transform: uppercase;
+  margin: auto;
+  margin-top: 2rem;
+  border-radius: 15px;
+  padding: 1rem 2.5rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+  background-color: #2E2D52;
+  color: #FFB571;
+  border: 3px solid #FFB571;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-bottom: 3rem;
+}
+#connexion a:hover,
+#inscription a:hover {
+  background-color: #FFB571;
+  color: #2E2D52;
+  border: 3px solid #2E2D52;
+}
+#connexion .password-container,
+#inscription .password-container {
+  display: flex;
+}
+#connexion .password-container > input,
+#inscription .password-container > input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  border: 4px solid #FFB571;
+  border-radius: 14px;
+  background-color: #F3F2E9;
+  font-weight: 500;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  width: 100%;
+  margin-top: 0.8rem;
+}
+#connexion .password-container .fa-eye,
+#connexion .password-container .fa-eye-slash,
+#inscription .password-container .fa-eye,
+#inscription .password-container .fa-eye-slash {
+  width: 44px;
+  height: 44px;
+  text-align: center;
+  position: relative;
+  top: 8px;
+  margin-left: 10px;
+  padding-top: 1.2rem;
+  border: 3px solid #FFB571;
+  border-radius: 12px;
+  color: #FFB571;
+  background-color: #2E2D52;
+}
+#connexion .password-container .fa-eye:hover,
+#connexion .password-container .fa-eye-slash:hover,
+#inscription .password-container .fa-eye:hover,
+#inscription .password-container .fa-eye-slash:hover {
+  cursor: pointer;
+  background-color: #F3F2E9;
+  color: #2E2D52;
+  border: 3px solid #FFB571;
+}
+@media only screen and (min-width: 576px) {
+  #connexion p,
+  #inscription p {
+    font-size: 1.8rem;
+  }
+}
+
 #espace-admin section ul li {
   width: 300px;
   margin: 3rem auto;
@@ -2060,6 +2211,31 @@ footer .footer-copyright {
   border: 3px solid #FFB571;
 }
 
+#admin-actus .back-link,
+#admin-events .back-link,
+#admin-messages .back-link,
+#admin-types-styles .back-link,
+#admin-users .back-link {
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  align-items: center;
+  margin: 3rem auto;
+}
+#admin-actus .back-link:hover,
+#admin-events .back-link:hover,
+#admin-messages .back-link:hover,
+#admin-types-styles .back-link:hover,
+#admin-users .back-link:hover {
+  color: #F3F2E9;
+  text-decoration: underline;
+}
+#admin-actus .back-link i,
+#admin-events .back-link i,
+#admin-messages .back-link i,
+#admin-types-styles .back-link i,
+#admin-users .back-link i {
+  margin-right: 0.8rem;
+}
 #admin-actus fieldset,
 #admin-events fieldset,
 #admin-messages fieldset,
@@ -2080,7 +2256,7 @@ footer .footer-copyright {
 #admin-users fieldset form,
 #admin-users fieldset select {
   width: 85%;
-  margin: 0 0 3rem 0;
+  margin: 0 0 2rem 0;
 }
 #admin-actus fieldset .search-bar,
 #admin-events fieldset .search-bar,
@@ -2214,15 +2390,17 @@ footer .footer-copyright {
 }
 
 #admin-actus .alert,
-#admin-events .alert {
+#admin-events .alert,
+#admin-messages .alert {
   background-color: #D13B2C;
-  color: white;
+  color: #F3F2E9;
   padding: 15px;
   margin-bottom: 15px;
   position: relative;
 }
 #admin-actus .alert i,
-#admin-events .alert i {
+#admin-events .alert i,
+#admin-messages .alert i {
   position: absolute;
   right: 10px;
   top: 50%;
@@ -2230,7 +2408,8 @@ footer .footer-copyright {
   cursor: pointer;
 }
 #admin-actus .modal,
-#admin-events .modal {
+#admin-events .modal,
+#admin-messages .modal {
   display: none;
   position: fixed;
   z-index: 1000;
@@ -2241,7 +2420,8 @@ footer .footer-copyright {
   background-color: rgba(0, 0, 0, 0.5);
 }
 #admin-actus .modal .modal-content,
-#admin-events .modal .modal-content {
+#admin-events .modal .modal-content,
+#admin-messages .modal .modal-content {
   background-color: #2E2D52;
   margin: 2% auto;
   padding: 30px;
@@ -2254,7 +2434,8 @@ footer .footer-copyright {
   border-radius: 20px;
 }
 #admin-actus .modal .modal-content .close,
-#admin-events .modal .modal-content .close {
+#admin-events .modal .modal-content .close,
+#admin-messages .modal .modal-content .close {
   position: absolute;
   right: 20px;
   top: 10px;
@@ -2263,65 +2444,67 @@ footer .footer-copyright {
   cursor: pointer;
 }
 #admin-actus .modal .modal-content .close:hover,
-#admin-events .modal .modal-content .close:hover {
+#admin-events .modal .modal-content .close:hover,
+#admin-messages .modal .modal-content .close:hover {
   color: #FFB571;
 }
-#admin-actus .modal .modal-content .create-event-form form,
-#admin-actus .modal .modal-content .create-actuality-form form,
-#admin-events .modal .modal-content .create-event-form form,
-#admin-events .modal .modal-content .create-actuality-form form {
+
+#admin-actus .create-event-form form,
+#admin-actus .create-actuality-form form,
+#admin-events .create-event-form form,
+#admin-events .create-actuality-form form {
   width: 90%;
   margin: 1.5rem auto;
 }
-#admin-actus .modal .modal-content .create-event-form form h3,
-#admin-actus .modal .modal-content .create-actuality-form form h3,
-#admin-events .modal .modal-content .create-event-form form h3,
-#admin-events .modal .modal-content .create-actuality-form form h3 {
+#admin-actus .create-event-form form h3,
+#admin-actus .create-actuality-form form h3,
+#admin-events .create-event-form form h3,
+#admin-events .create-actuality-form form h3 {
   font-size: 2.4rem;
   font-weight: bold;
   margin-bottom: 3rem;
 }
-#admin-actus .modal .modal-content .create-event-form form input,
-#admin-actus .modal .modal-content .create-event-form form textarea,
-#admin-actus .modal .modal-content .create-actuality-form form input,
-#admin-actus .modal .modal-content .create-actuality-form form textarea,
-#admin-events .modal .modal-content .create-event-form form input,
-#admin-events .modal .modal-content .create-event-form form textarea,
-#admin-events .modal .modal-content .create-actuality-form form input,
-#admin-events .modal .modal-content .create-actuality-form form textarea {
+#admin-actus .create-event-form form input,
+#admin-actus .create-event-form form textarea,
+#admin-actus .create-actuality-form form input,
+#admin-actus .create-actuality-form form textarea,
+#admin-events .create-event-form form input,
+#admin-events .create-event-form form textarea,
+#admin-events .create-actuality-form form input,
+#admin-events .create-actuality-form form textarea {
   margin-bottom: 2rem;
 }
-#admin-actus .modal .modal-content .create-event-form form label,
-#admin-actus .modal .modal-content .create-actuality-form form label,
-#admin-events .modal .modal-content .create-event-form form label,
-#admin-events .modal .modal-content .create-actuality-form form label {
+#admin-actus .create-event-form form label,
+#admin-actus .create-actuality-form form label,
+#admin-events .create-event-form form label,
+#admin-events .create-actuality-form form label {
   font-size: 1.8rem;
 }
-#admin-actus .modal .modal-content .create-event-form form .admin-form-flex,
-#admin-actus .modal .modal-content .create-actuality-form form .admin-form-flex,
-#admin-events .modal .modal-content .create-event-form form .admin-form-flex,
-#admin-events .modal .modal-content .create-actuality-form form .admin-form-flex {
+#admin-actus .create-event-form form .admin-form-flex,
+#admin-actus .create-actuality-form form .admin-form-flex,
+#admin-events .create-event-form form .admin-form-flex,
+#admin-events .create-actuality-form form .admin-form-flex {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
-#admin-actus .modal .modal-content .create-event-form form .admin-form-flex div,
-#admin-actus .modal .modal-content .create-actuality-form form .admin-form-flex div,
-#admin-events .modal .modal-content .create-event-form form .admin-form-flex div,
-#admin-events .modal .modal-content .create-actuality-form form .admin-form-flex div {
+#admin-actus .create-event-form form .admin-form-flex div,
+#admin-actus .create-actuality-form form .admin-form-flex div,
+#admin-events .create-event-form form .admin-form-flex div,
+#admin-events .create-actuality-form form .admin-form-flex div {
   width: 48%;
 }
-#admin-actus .modal .modal-content .create-event-form form .file-name-display,
-#admin-actus .modal .modal-content .create-actuality-form form .file-name-display,
-#admin-events .modal .modal-content .create-event-form form .file-name-display,
-#admin-events .modal .modal-content .create-actuality-form form .file-name-display {
+#admin-actus .create-event-form form .file-name-display,
+#admin-actus .create-actuality-form form .file-name-display,
+#admin-events .create-event-form form .file-name-display,
+#admin-events .create-actuality-form form .file-name-display {
   color: #FFB571;
   margin-bottom: 1.5rem;
 }
-#admin-actus .modal .modal-content .create-event-form form button,
-#admin-actus .modal .modal-content .create-actuality-form form button,
-#admin-events .modal .modal-content .create-event-form form button,
-#admin-events .modal .modal-content .create-actuality-form form button {
+#admin-actus .create-event-form form button,
+#admin-actus .create-actuality-form form button,
+#admin-events .create-event-form form button,
+#admin-events .create-actuality-form form button {
   display: block;
   font-family: "Roboto", sans-serif Arial;
   font-size: 1.6rem;
@@ -2339,10 +2522,10 @@ footer .footer-copyright {
   color: #F3F2E9;
   border: 3px solid #F3F2E9;
 }
-#admin-actus .modal .modal-content .create-event-form form button:hover,
-#admin-actus .modal .modal-content .create-actuality-form form button:hover,
-#admin-events .modal .modal-content .create-event-form form button:hover,
-#admin-events .modal .modal-content .create-actuality-form form button:hover {
+#admin-actus .create-event-form form button:hover,
+#admin-actus .create-actuality-form form button:hover,
+#admin-events .create-event-form form button:hover,
+#admin-events .create-actuality-form form button:hover {
   background-color: #F3F2E9;
   color: #FF922C;
   border: 3px solid #FFB571;
@@ -2350,22 +2533,24 @@ footer .footer-copyright {
 #admin-actus .action-buttons,
 #admin-events .action-buttons {
   margin-bottom: 1rem;
+  text-transform: uppercase;
 }
 #admin-actus .action-buttons .add-button,
 #admin-events .action-buttons .add-button {
   display: inline-flex;
   align-items: center;
-  font-size: 2rem;
+  font-size: 1.8rem;
   margin: 2rem 0;
-  padding: 1.4rem 1.6rem;
-  background-color: #4CAF50;
+  padding: 1.2rem 1.4rem;
+  background-color: #FFB571;
   color: #F3F2E9;
   text-decoration: none;
+  border: 3px solid #F3F2E9;
   border-radius: 10px;
 }
 #admin-actus .action-buttons .add-button:hover,
 #admin-events .action-buttons .add-button:hover {
-  background-color: #45a049;
+  background-color: #FF922C;
 }
 #admin-actus .action-buttons .add-button i,
 #admin-events .action-buttons .add-button i {
@@ -2373,7 +2558,81 @@ footer .footer-copyright {
 }
 
 #admin-messages .unread {
-  font-weight: bold;
+  font-weight: bolder;
+  background-color: rgba(181, 20, 20, 0.35);
+}
+#admin-messages .modal-content {
+  color: #F3F2E9;
+  text-align: left;
+}
+#admin-messages .modal-content .message-container {
+  margin-top: 2rem;
+  background-color: #F3F2E9;
+  padding: 2.5rem;
+  color: #2E2D52;
+  border-radius: 15px;
+}
+#admin-messages .modal-content .message-container p {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 1.2rem;
+}
+#admin-messages .modal-content .message-container .modal-title {
+  color: #FFB571;
+  font-size: 2.2rem;
+}
+
+#admin-types-styles input {
+  width: 90%;
+  max-width: 500px;
+}
+#admin-types-styles #add-type-btn,
+#admin-types-styles #add-style-btn {
+  display: block;
+  margin: 1.5rem auto;
+  font-size: 1.8rem;
+  padding: 1rem 1.2rem;
+  background-color: #4CAF50;
+  color: #F3F2E9;
+  text-decoration: none;
+  border: none;
+  border-radius: 10px;
+}
+#admin-types-styles #add-type-btn:hover,
+#admin-types-styles #add-style-btn:hover {
+  background-color: #45a049;
+}
+#admin-types-styles ul {
+  width: 90%;
+  max-width: 900px;
+  margin: 3rem auto;
+}
+#admin-types-styles ul li {
+  position: relative;
+  left: calc(50% - 190px);
+  color: #2E2D52;
+  text-align: left;
+  font-size: 2rem;
+  background-color: #FFB571;
+  width: 220px;
+  padding: 1rem 1rem 1rem 2rem;
+  margin: 1.5rem;
+  border-radius: 10px;
+}
+#admin-types-styles ul button {
+  position: absolute;
+  left: 240px;
+  bottom: 0;
+  font-size: 2rem;
+  padding: 1rem 1.2rem;
+  background-color: #e86b60;
+  color: #F3F2E9;
+  text-decoration: none;
+  border: none;
+  border-radius: 10px;
+}
+#admin-types-styles ul button:hover {
+  background-color: #D13B2C;
 }
 
 /********** GLOBAL STYLES **********/

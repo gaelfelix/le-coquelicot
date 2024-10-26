@@ -9,6 +9,10 @@ Interface d'administration des messages reçus par Le Coquelicot. Gérez et cons
 {% block main %}
 <main id="admin-messages">
     <section aria-labelledby="titre-admin-messages">
+        <a href="index.php?route=espace-admin" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Revenir au menu d'administration
+        </a>
         <h2 id="titre-admin-messages">Administration des messages</h2>
         <div class="table-container">
             <table id="messageTable" aria-label="Liste des messages reçus">
@@ -28,6 +32,7 @@ Interface d'administration des messages reçus par Le Coquelicot. Gérez et cons
                         <td>{{ message.subject|e }}</td>
                         <td>
                             <a href="index.php?route=admin-view-message&id={{ message.id|e }}" class="view-message" aria-label="Voir le message de {{ message.firstName|e }} {{ message.lastName|e }}">Voir</a>
+                            <a href="index.php?route=admin-mark-unread&id={{ message.id|e }}" class="mark-unread {{ message.read ? '' : 'hidden' }}" aria-label="Marquer comme non lu le message de {{ message.firstName|e }} {{ message.lastName|e }}">Non lu</a>
                             <a href="index.php?route=admin-delete-message&id={{ message.id|e }}" class="delete-message" aria-label="Supprimer le message de {{ message.firstName|e }} {{ message.lastName|e }}">Supprimer</a>
                         </td>
                     </tr>
@@ -36,18 +41,24 @@ Interface d'administration des messages reçus par Le Coquelicot. Gérez et cons
             </table>
         </div>
     </section>
+    <div id="message-modal" class="modal" aria-labelledby="titre-modal-message">
+        <div class="modal-content">
+            <span class="close" aria-label="Fermer le modal">&times;</span>
+            <div class="message-container">
+                <p class="modal-title">De :</p>
+                <p id="modalFrom"></p>
+                <p class="modal-title">Email :</p>
+                <p id="modalEmail"></p>
+                <p class="modal-title">Téléphone :</p>
+                <p id="modalPhone"></p>
+                <p class="modal-title">Objet :</p>
+                <p id="modalSubject"></p>
+                <p class="modal-title">Message :</p>
+                <p id="modalMessage"></p>
+            </div>
+
+        </div>
+    </div>
 </main>
 
-<div id="messageModal" class="modal" aria-labelledby="titre-modal-message">
-    <div class="modal-content">
-        <span class="close" aria-label="Fermer le modal">&times;</span>
-        <h2 id="titre-modal-message">Message</h2>
-        <p><strong>De :</strong> <span id="modalFrom"></span></p>
-        <p><strong>Email :</strong> <span id="modalEmail"></span></p>
-        <p><strong>Téléphone :</strong> <span id="modalPhone"></span></p>
-        <p><strong>Objet :</strong> <span id="modalSubject"></span></p>
-        <p><strong>Message :</strong></p>
-        <p id="modalMessage"></p>
-    </div>
-</div>
 {% endblock %}

@@ -10,38 +10,40 @@ Types et Styles
 
 {% block main %}
 <main id="admin-types-styles">
-    <div class="types-styles-container">
-        <section id="types-section" aria-labelledby="titre-types">
-            <h2 id="titre-types">Types d'événements</h2>
-            <div>
-                <input type="text" id="new-type-input" placeholder="Nouveau type" aria-label="Entrez un nouveau type d'événement">
-                <button id="add-type-btn" aria-label="Ajouter un nouveau type">Ajouter</button>
-            </div>
-            <ul id="types-list" aria-label="Liste des types d'événements">
-                {% for type in types %}
-                    <li data-id="{{ type.id|e }}">
-                        {{ type.name|e }}
-                        <button id="delete-type-{{ type.id|e }}" aria-label="Supprimer le type {{ type.name|e }}">Supprimer</button>
-                    </li>
-                {% endfor %}
-            </ul>
-        </section>
+    <section id="types-section" aria-labelledby="titre-types">
+        <a href="index.php?route=espace-admin" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Revenir au menu d'administration
+        </a>
+        <h2 id="titre-types">Types d'événements</h2>
+        <div>
+            <input type="text" id="new-type-input" placeholder="Nouveau type" aria-label="Entrez un nouveau type d'événement">
+            <button id="add-type-btn" aria-label="Ajouter un nouveau type">+ Ajouter</button>
+        </div>
+        <ul id="types-list" aria-label="Liste des types d'événements">
+            {% for type in types %}
+                <li data-id="{{ type.id|e }}">
+                    {{ type.name|e }}
+                    <button id="delete-type-{{ type.id|e }}" aria-label="Supprimer le type {{ type.name|e }}">Supprimer</button>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
 
-        <section id="styles-section" class="mt-5" aria-labelledby="titre-styles">
-            <h2 id="titre-styles">Styles d'événements</h2>
-            <div>
-                <input type="text" id="new-style-input" placeholder="Nouveau style" aria-label="Entrez un nouveau style d'événement">
-                <button id="add-style-btn" aria-label="Ajouter un nouveau style">Ajouter</button>
-            </div>
-            <ul id="styles-list" aria-label="Liste des styles d'événements">
-                {% for style in styles %}
-                    <li data-id="{{ style.id|e }}">
-                        {{ style.name|e }}
-                        <button id="delete-style-{{ style.id|e }}" aria-label="Supprimer le style {{ style.name|e }}">Supprimer</button>
-                    </li>
-                {% endfor %}
-            </ul>
-        </section>
-    </div>
+    <section id="styles-section" class="mt-5" aria-labelledby="titre-styles">
+        <h2 id="titre-styles">Styles d'événements</h2>
+        <div>
+            <input type="text" id="new-style-input" placeholder="Nouveau style" aria-label="Entrez un nouveau style d'événement">
+            <button id="add-style-btn" aria-label="Ajouter un nouveau style">+ Ajouter</button>
+        </div>
+        <ul id="styles-list" aria-label="Liste des styles d'événements">
+            {% for style in styles %}
+                <li data-id="{{ style.id|e }}">
+                    {{ style.name|e }}
+                    <button id="delete-style-{{ style.id|e }}" aria-label="Supprimer le style {{ style.name|e }}">Supprimer</button>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
 </main>
 {% endblock %}

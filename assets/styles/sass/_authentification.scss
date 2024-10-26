@@ -1,0 +1,74 @@
+#connexion,
+#inscription {
+
+    p {
+        font-size: 1.6rem;
+        width: 90%;
+        max-width: 700px;
+        margin: 1.5rem auto;
+    }
+
+    form {
+        width: 90%;
+        max-width: 600px;
+        padding: 3rem;
+        margin: 5rem auto;
+        background-color: #4f4d8b3c;
+        box-shadow: 5px 12px 25px rgba(0, 0, 0, .25);
+        border: 5px solid $orange;
+        border-radius: 20px;
+
+        input {
+            margin-bottom: 2rem;
+        }
+
+        button {
+            @include button-styles('orange');
+        }
+    }
+
+    a {
+        @include button-styles('blue');
+        width: fit-content;
+        margin-bottom: 3rem;
+    }
+
+    .password-container {
+        display: flex;
+
+        > input {
+            @include form-element-styles;
+            width: 100%;
+            margin-top: 0.8rem;
+        }
+
+        .fa-eye,
+        .fa-eye-slash {
+            width: 44px;
+            height: 44px;
+            text-align: center;
+            position: relative;
+            top: 8px;
+            margin-left: 10px;
+            padding-top: 1.2rem;
+            border: 3px solid $orange;
+            border-radius: 12px;
+            color: $orange;
+            background-color: $blue;
+
+            &:hover {
+                cursor: pointer;
+                background-color: $beige;
+                color: $blue;
+                border: 3px solid $orange;
+            }
+        }
+    }
+
+    @media #{$small} {
+    // Styles pour les petits appareils (min-width: 576px)
+        p {
+            font-size: 1.8rem;
+        }
+    }
+}

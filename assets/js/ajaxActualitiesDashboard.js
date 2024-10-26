@@ -2,17 +2,50 @@ document.addEventListener("DOMContentLoaded", function() {
     const errorMessage = document.getElementById('error-message');
     const closeError = document.getElementById('close-error');
     const searchInput = document.querySelector('input[name="q"]');
-    const typeSelect = document.querySelector('#type');
     const searchButton = document.querySelector('.search-button');
     const actualityTableBody = document.querySelector('#actualityTable tbody');
     const fileInput = document.querySelector('input[name="media"]');
     const actualityForm = document.querySelector('#actuality-form');
+    const modal = document.getElementById('actulity-modal'); // Attention à la typo dans le HTML
+    const addActuButton = document.getElementById('add-actu-button');
+    const closeModalButton = modal.querySelector('.close');
 
     // Initial setup
     searchButton.disabled = true;
     setupFileInput();
     setupErrorHandling();
     setupEventListeners();
+    setupModalHandlers();
+
+    // Setup modal handlers
+    function setupModalHandlers() {
+        addActuButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            resetActualityForm();
+            modal.style.display = 'block';
+        });
+
+        closeModalButton.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
+
+    // Reset actuality form
+    function resetActualityForm() {
+        actualityForm.reset();
+        actualityForm.action = 'index.php?route=admin-create-actuality';
+        document.querySelector('#actuality-form button[type="submit"]').textContent = 'Créer l\'actualité';
+        document.querySelector('#actuality-id').value = '';
+        document.querySelector('#media-id').value = '';
+        clearCurrentImage();
+        fileInput.removeAttribute('required');
+    }
 
     // Setup file input display
     function setupFileInput() {
@@ -25,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Setup error message handling
+    // Setup error handling
     function setupErrorHandling() {
         if (closeError) closeError.addEventListener('click', clearErrorMessage);
     }
@@ -34,7 +67,6 @@ document.addEventListener("DOMContentLoaded", function() {
     function setupEventListeners() {
         actualityTableBody.addEventListener('click', handleActualityTableClick);
         searchInput.addEventListener('input', handleSearch);
-        if (typeSelect) typeSelect.addEventListener('change', handleTypeChange);
     }
 
     // Edit actuality
@@ -47,14 +79,14 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(data => {
             if (data.success) {
                 fillActualityForm(data.data);
-                actualityForm.scrollIntoView({ behavior: 'smooth' });
+                modal.style.display = 'block'; // Ouvrir la modale au lieu de scroll
             } else {
                 showErrorMessage(data.message);
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            showErrorMessage('An error occurred while retrieving actuality data.');
+            showErrorMessage('Une erreur est survenue lors de la récupération des données de l\'actualité.');
         });
     }
 
@@ -67,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('actuality-id').value = data.id;
         updateCurrentImage(data);
         actualityForm.action = `index.php?route=admin-update-actuality`;
-        document.querySelector('#actuality-form button[type="submit"]').textContent = 'Modify Actuality';
+        document.querySelector('#actuality-form button[type="submit"]').textContent = 'Modifier l\'actualité';
         fileInput.removeAttribute('required');
         updateMediaIdField(data.media_id);
     }

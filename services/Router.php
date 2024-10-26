@@ -249,6 +249,12 @@ class Router
                     $this->dashc->viewMessage();
                 });
                 break;
+                
+            case 'admin-mark-unread':
+                $this->handleAdminRoute(function() {
+                    $this->dashc->markMessageAsUnread();
+                });
+                break;
             
             case 'admin-delete-message':
                 $this->handleAdminRoute(function() {

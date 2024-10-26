@@ -1,7 +1,6 @@
-// ajaxMessagesDashboard.js
 document.addEventListener("DOMContentLoaded", function() {
     const messageTable = document.getElementById('messageTable');
-    const modal = document.getElementById('messageModal');
+    const modal = document.getElementById('message-modal');
     const closeBtn = modal.querySelector(".close");
     const modalFrom = document.getElementById('modalFrom');
     const modalEmail = document.getElementById('modalEmail');
@@ -27,9 +26,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 modalMessage.textContent = message.message;
                 modal.style.display = "block";
 
-                // Mark message as read
+                // Update UI to show message as read
                 const row = messageTable.querySelector(`tr[data-id="${messageId}"]`);
-                if (row) row.classList.remove('unread');
+                if (row) {
+                    row.classList.remove('unread');
+                    const markUnreadLink = row.querySelector('.mark-unread');
+                    if (markUnreadLink) {
+                        markUnreadLink.classList.remove('hidden');
+                    }
+                }
             } else {
                 alert(data.message);
             }
@@ -37,7 +42,31 @@ document.addEventListener("DOMContentLoaded", function() {
         .catch(error => console.error('AJAX request error:', error));
     }
 
-    // Delete a message
+    // Mark message as unread
+    function markAsUnread(messageId) {
+        fetch(`index.php?route=admin-mark-unread&id=${encodeURIComponent(messageId)}`, {
+            method: 'GET',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const row = messageTable.querySelector(`tr[data-id="${messageId}"]`);
+                if (row) {
+                    row.classList.add('unread');
+                    const markUnreadLink = row.querySelector('.mark-unread');
+                    if (markUnreadLink) {
+                        markUnreadLink.classList.add('hidden');
+                    }
+                }
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => console.error('AJAX request error:', error));
+    }
+
+    // Delete message
     function deleteMessage(messageId) {
         if (confirm("Êtes-vous sûr de vouloir supprimer ce message ?")) {
             fetch(`index.php?route=admin-delete-message&id=${encodeURIComponent(messageId)}`, {
@@ -47,11 +76,12 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Remove message row from table
                     const row = messageTable.querySelector(`tr[data-id="${messageId}"]`);
                     if (row) row.remove();
+                    alert(data.message);
+                } else {
+                    alert(data.message);
                 }
-                alert(data.message);
             })
             .catch(error => console.error('AJAX request error:', error));
         }
@@ -59,13 +89,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Handle message table clicks
     messageTable.addEventListener('click', function(event) {
-        if (event.target.matches('a.view-message')) {
-            event.preventDefault();
-            const messageId = event.target.href.split('id=')[1];
+        event.preventDefault();
+        const target = event.target;
+        const messageId = target.closest('tr')?.dataset.id;
+
+        if (!messageId) return;
+
+        if (target.matches('a.view-message')) {
             viewMessage(messageId);
-        } else if (event.target.matches('a.delete-message')) {
-            event.preventDefault();
-            const messageId = event.target.href.split('id=')[1];
+        } else if (target.matches('a.mark-unread')) {
+            markAsUnread(messageId);
+        } else if (target.matches('a.delete-message')) {
             deleteMessage(messageId);
         }
     });

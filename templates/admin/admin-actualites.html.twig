@@ -11,6 +11,10 @@ Actualités
 {% block main %}
 <main id="admin-actus">
     <section aria-labelledby="titre-admin-actualites">
+        <a href="index.php?route=espace-admin" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Revenir au menu d'administration
+        </a>
         <h2 id="titre-admin-actualites">Administration des actualités</h2>
 
         <fieldset>
@@ -19,6 +23,12 @@ Actualités
                 <button class="search-button" aria-label="Lancer la recherche"><i class="fas fa-search" aria-hidden="true"></i></button>
             </form>
         </fieldset>
+        
+        <div class="action-buttons">
+            <a href="#" id="add-actu-button" class="add-button" aria-label="Ajouter un nouvel article">
+                <i class="fas fa-plus" aria-hidden="true"></i> Ajouter un article
+            </a>
+        </div>
 
         <div class="table-container">
             <table id="actualityTable" aria-label="Liste des actualités">
@@ -53,45 +63,43 @@ Actualités
             </div>
         {% endif %}
 
-        <div class="create-actuality-form">
-            <form id="actuality-form" method="POST" action="index.php?route=admin-create-actuality" enctype="multipart/form-data" aria-labelledby="titre-creation-actualite">
-                <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session.csrf_token }}" >
-                
-                <h3 id="titre-creation-actualite">Créer une nouvelle actualité</h3>
-                
-                <input type="hidden" name="id" id="actuality-id">
-                <input type="hidden" name="media_id" id="media-id">
+        <div id="actulity-modal" class="modal" aria-labelledby="titre-creation-actuality">
+            <div class="modal-content">
+                <span class="close" aria-label="Fermer le formulaire">&times;</span>
+                <div class="create-actuality-form">
+                    <form id="actuality-form" method="POST" action="index.php?route=admin-create-actuality" enctype="multipart/form-data" aria-labelledby="titre-creation-actualite">
+                        <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session.csrf_token }}" >
+                        
+                        <h3 id="titre-creation-actualite">Créer une nouvelle actualité</h3>
+                        
+                        <input type="hidden" name="id" id="actuality-id">
+                        <input type="hidden" name="media_id" id="media-id">
 
-                <label for="title">Titre de l'actualité</label>
-                <input type="text" name="title" id="title" placeholder="Titre de l'actualité" required>
+                        <label for="title">Titre de l'actualité</label>
+                        <input type="text" name="title" id="title" placeholder="Titre de l'actualité" required>
 
-                <label for="date">Date</label>
-                <input type="date" name="date" id="date" required>
+                        <label for="date">Date</label>
+                        <input type="date" name="date" id="date" required>
 
-                <label for="content">Contenu</label>
-                <textarea name="content" id="content" placeholder="Contenu de l'actualité" required></textarea>
+                        <label for="content">Contenu</label>
+                        <textarea name="content" id="content" placeholder="Contenu de l'actualité" required></textarea>
 
-                <div id="current-image"></div>
+                        <div id="current-image"></div>
 
-                <label for="media">Image de l'actualité</label>
-                <input type="file" name="media" id="media" accept="image/*">
+                        <label for="media">Image de l'actualité</label>
+                        <input type="file" name="media" id="media" accept="image/*">
 
-                <label for="image_name">Nom de l'image</label>
-                <input type="text" name="image_name" id="image_name" placeholder="Nom de l'image">
+                        <label for="image_name">Nom de l'image</label>
+                        <input type="text" name="image_name" id="image_name" placeholder="Nom de l'image">
 
-                <label for="alt-img">Description de l'image</label>
-                <input type="text" name="alt-img" id="alt-img" placeholder="Description de l'image">
+                        <label for="alt-img">Description de l'image</label>
+                        <input type="text" name="alt-img" id="alt-img" placeholder="Description de l'image">
 
-                <button type="submit">Créer l'actualité</button>
-            </form>
+                        <button type="submit">Créer l'actualité</button>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div class="action-buttons">
-            <a href="#" id="add-actu-button" class="add-button" aria-label="Ajouter un nouvel article">
-                <i class="fas fa-plus" aria-hidden="true"></i> Ajouter un article
-            </a>
-        </div>
-        
     </section>
 </main>
 {% endblock %}

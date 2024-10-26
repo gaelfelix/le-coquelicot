@@ -11,6 +11,10 @@ Interface d'administration des événements du Coquelicot. Gérez, modifiez et c
 {% block main %}
 <main id="admin-events">
     <section aria-labelledby="titre-admin-evenements">
+        <a href="index.php?route=espace-admin" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Revenir au menu d'administration
+        </a>
         <h2 id="titre-admin-evenements">Administration des évènements</h2>
 
         <fieldset>
@@ -25,6 +29,12 @@ Interface d'administration des événements du Coquelicot. Gérez, modifiez et c
                 {% endfor %}
             </select>
         </fieldset>
+
+        <div class="action-buttons">
+            <a href="#" id="add-event-button" class="add-button" aria-label="Ajouter un nouvel événement">
+                <i class="fas fa-plus" aria-hidden="true"></i> Ajouter un événement
+            </a>
+        </div>
 
         <div class="table-container">
             <table id="eventTable" aria-label="Liste des événements">
@@ -162,13 +172,6 @@ Interface d'administration des événements du Coquelicot. Gérez, modifiez et c
                 </div>
             </div>
         </div>
-
-        <div class="action-buttons">
-            <a href="#" id="add-event-button" class="add-button" aria-label="Ajouter un nouvel événement">
-                <i class="fas fa-plus" aria-hidden="true"></i> Ajouter un événement
-            </a>
-        </div>
-
     </section>
 </main>
 {% endblock %}

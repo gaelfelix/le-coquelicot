@@ -11,6 +11,10 @@ Détails de l'événement {{ event.name|e }} au Coquelicot, café-concert associ
 {% block main %}
 <main id="event">
     <section aria-labelledby="titre-evenement">
+        <a href="index.php?route=programmation" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Revenir à la programmation
+        </a>
         <h2 id="titre-evenement">{{ event.name|e }}</h2>
         <div class="event-container">
             <div class="event-card-container">

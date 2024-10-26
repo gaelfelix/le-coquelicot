@@ -858,6 +858,29 @@ class DashboardController extends AbstractController
         }
     }
 
+    public function markMessageAsUnread(): void
+    {
+        if ($this->isAjaxRequest()) {
+            try {
+                $messageId = $_GET['id'] ?? null;
+                if ($messageId && is_numeric($messageId)) {
+                    $contactManager = new ContactManager();
+                    $result = $contactManager->markAsUnread((int)$messageId);
+                    if ($result) {
+                        echo json_encode(['success' => true, 'message' => 'Message marqué comme non lu.']);
+                    } else {
+                        echo json_encode(['success' => false, 'message' => 'Erreur lors de la modification du statut du message.']);
+                    }
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'ID de message invalide.']);
+                }
+            } catch (Exception $e) {
+                echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            }
+            exit;
+        }
+    }
+
     public function deleteMessage(): void
     {
         if ($this->isAjaxRequest()) {

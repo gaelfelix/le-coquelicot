@@ -80,6 +80,18 @@ class ContactManager extends AbstractManager
         return $query->execute();
     }
 
+    public function markAsUnread(int $id): bool
+    {
+        try {
+            $query = $this->db->prepare("UPDATE contact SET `read` = 0 WHERE id = :id");
+            $query->bindValue(':id', $id, PDO::PARAM_INT);
+            return $query->execute();
+        } catch (PDOException $e) {
+            error_log("Erreur PDO dans markAsUnread: " . $e->getMessage());
+            return false;
+        }
+    }
+
     private function createContactFromArray(array $contactData): Contact
     {
         $contact = new Contact(

@@ -14,7 +14,8 @@ class AuthController extends AbstractController
     
     public function login() : void
     {
-        $scripts = $this->addScripts([]);
+        $scripts = $this->addScripts(['assets/js/passwordEye.js']);
+
         $this->render("connexion.html.twig", [], $scripts);
     }
 
@@ -64,7 +65,7 @@ class AuthController extends AbstractController
 
     public function register() : void
     {
-        $scripts = $this->addScripts(['assets/js/selectRegister.js']);
+        $scripts = $this->addScripts(['assets/js/selectRegister.js', 'assets/js/passwordEye.js']);
         $this->render("inscription.html.twig", [], $scripts);
     }
 

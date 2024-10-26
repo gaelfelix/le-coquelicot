@@ -11,6 +11,10 @@
 {% block main %}
 <main id="actualite">
     <section class="actu-container" aria-labelledby="actuality-titre">
+        <a href="index.php?route=actualites" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Revenir aux actualités
+        </a>
         <img src="{{ actuality.media.url|e }}" alt="{{ actuality.media.alt|e }}">
         <div class="actu-info-container">
             <h3 id="actuality-title">{{ actuality.title|e }}</h3>
