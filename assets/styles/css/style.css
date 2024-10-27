@@ -2158,7 +2158,7 @@ footer .footer-copyright {
   height: 44px;
   text-align: center;
   position: relative;
-  top: 8px;
+  top: 9px;
   margin-left: 10px;
   padding-top: 1.2rem;
   border: 3px solid #FFB571;
@@ -2180,6 +2180,39 @@ footer .footer-copyright {
   #inscription p {
     font-size: 1.8rem;
   }
+}
+
+#artiste-pro h3 {
+  margin: 2rem 0;
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+#artiste-pro h4 {
+  margin: 3rem 0;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+#artiste-pro p {
+  width: 90%;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+#artiste-pro span {
+  font-weight: bold;
+}
+#artiste-pro .technic-info-container {
+  width: 90%;
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+#artiste-pro .technic-info-container div {
+  max-width: 300px;
 }
 
 #espace-admin section ul li {
@@ -2633,6 +2666,40 @@ footer .footer-copyright {
 }
 #admin-types-styles ul button:hover {
   background-color: #D13B2C;
+}
+
+#erreur404 img {
+  width: 90%;
+  max-width: 600px;
+}
+#erreur404 p {
+  margin: 2rem auto;
+}
+#erreur404 a {
+  display: block;
+  font-family: "Roboto", sans-serif Arial;
+  font-size: 1.6rem;
+  font-weight: bolder;
+  text-transform: uppercase;
+  margin: auto;
+  margin-top: 2rem;
+  border-radius: 15px;
+  padding: 1rem 2.5rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+  background-color: #FFB571;
+  color: #F3F2E9;
+  border: 3px solid #F3F2E9;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 2rem auto;
+}
+#erreur404 a:hover {
+  background-color: #F3F2E9;
+  color: #FF922C;
+  border: 3px solid #FFB571;
 }
 
 /********** GLOBAL STYLES **********/
