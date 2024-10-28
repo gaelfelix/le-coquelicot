@@ -1263,7 +1263,7 @@ footer .footer-copyright {
 }
 #programmation fieldset .search-bar button {
   margin: 0;
-  padding: 12px;
+  padding: 12.5px;
   background-color: #FFB571;
   border: none;
   color: #F3F2E9;
@@ -1303,6 +1303,9 @@ footer .footer-copyright {
   #programmation fieldset select {
     width: 80%;
   }
+  #programmation fieldset .search-bar button {
+    padding: 13px;
+  }
   #programmation fieldset .search-bar button i {
     font-size: 2rem;
   }
@@ -1324,11 +1327,6 @@ footer .footer-copyright {
   }
   #programmation .programmation-events-container .event-card-container {
     margin: 2rem;
-  }
-}
-@media screen and (min-width: 893px) {
-  #programmation fieldset .search-bar button i {
-    font-size: 2.2rem;
   }
 }
 
@@ -2289,7 +2287,7 @@ footer .footer-copyright {
 #admin-users fieldset form,
 #admin-users fieldset select {
   width: 85%;
-  margin: 0 0 2rem 0;
+  margin: 0 0 3rem 0;
 }
 #admin-actus fieldset .search-bar,
 #admin-events fieldset .search-bar,
@@ -2313,7 +2311,7 @@ footer .footer-copyright {
 #admin-types-styles fieldset .search-bar button,
 #admin-users fieldset .search-bar button {
   margin: 0;
-  padding: 12px;
+  padding: 12.5px;
   background-color: #FFB571;
   border: none;
   color: #F3F2E9;
@@ -2372,6 +2370,13 @@ footer .footer-copyright {
   #admin-users fieldset select {
     width: 80%;
   }
+  #admin-actus fieldset .search-bar button,
+  #admin-events fieldset .search-bar button,
+  #admin-messages fieldset .search-bar button,
+  #admin-types-styles fieldset .search-bar button,
+  #admin-users fieldset .search-bar button {
+    padding: 13px;
+  }
   #admin-actus fieldset .search-bar button i,
   #admin-events fieldset .search-bar button i,
   #admin-messages fieldset .search-bar button i,
@@ -2410,15 +2415,6 @@ footer .footer-copyright {
   #admin-users fieldset select {
     width: 30%;
     max-width: 500px;
-  }
-}
-@media screen and (min-width: 893px) {
-  #admin-actus fieldset .search-bar button i,
-  #admin-events fieldset .search-bar button i,
-  #admin-messages fieldset .search-bar button i,
-  #admin-types-styles fieldset .search-bar button i,
-  #admin-users fieldset .search-bar button i {
-    font-size: 2.2rem;
   }
 }
 

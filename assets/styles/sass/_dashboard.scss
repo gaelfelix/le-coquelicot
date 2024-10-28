@@ -43,7 +43,7 @@
         form,
         select {
             width: 85%;
-            margin: 0 0 2rem 0;
+            margin: 0 0 3rem 0;
         }
     
         .search-bar {
@@ -57,7 +57,7 @@
       
           button {
             margin: 0;
-            padding: 12px;
+            padding: 12.5px;
             background-color: $orange;
             border: none;
             color: $beige;
@@ -73,7 +73,7 @@
             }
           }
         }
-      }
+    }
 
     .table-container {
         width: 90%;
@@ -100,39 +100,36 @@
                 width: 80%;
             }
     
-            .search-bar button i {
-                font-size: 2rem;
+            .search-bar button {
+            padding: 13px;
+            
+                i {
+                    font-size: 2rem;
+                }
             }
         }
-      }
+    }
       
-      @media #{$medium} {
-        // Styles pour les appareils moyens (min-width: 768px)
+    @media #{$medium} {
+    // Styles pour les appareils moyens (min-width: 768px)
         fieldset .search-bar button i {
             font-size: 2.1rem;
         }
-      }
-      
-      @media #{$medium-large} {
-        // Styles pour les appareils intermédiaires (min-width: 850px)
+    }
+    
+    @media #{$medium-large} {
+    // Styles pour les appareils intermédiaires (min-width: 850px)
         fieldset {
             justify-content: center;
             gap: 10%;
-    
+
             form,
             select {
                 width: 30%;
                 max-width: 500px;
             }
         }
-      }
-    
-      @media screen and (min-width: 893px) {
-        fieldset .search-bar button i {
-          font-size: 2.2rem;
-        }
-      }
-
+    }
 }
 
 #admin-actus,

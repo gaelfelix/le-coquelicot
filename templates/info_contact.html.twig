@@ -18,17 +18,17 @@ Info / Contact
             
             <div class="separation"></div>
 
-            <div class="adress-container" aria-label="Adresse">
+            <div class="adress-container">
                 <p>Le Coquelicot</p>
                 <p>18 Rue de Vitré</p>
                 <p>35300 Fougères</p>
             </div>
 
-            <div class="contact-tel-container" aria-label="Numéro de téléphone">
+            <div class="contact-tel-container">
                 <i class="fa-sharp fa-solid fa-phone" aria-hidden="true"></i>
                 <p class="no-toggle-dyslexia no-toggle-line-spacing">02 99 99 84 52</p>
             </div>
-            <div class="contact-mail-container" aria-label="Adresse e-mail">
+            <div class="contact-mail-container">
                 <i class="fa-solid fa-envelope" aria-hidden="true"></i>
                 <p class="no-toggle-dyslexia no-toggle-line-spacing">communicationjazzetjava@gmail.com</p>
             </div>
@@ -53,11 +53,11 @@ Info / Contact
         </div>
     </section>
 
-    <section class="schedule-section" aria-labelledby="titre-horaires">
+    <section class="schedule-section">
         <h3 id="titre-horaires">Horaires du Coquelicot</h3>
         <div class="schedule-container">
             <img src="assets/img/devanture-coquelicot.jpeg" alt="Image de la devanture du Coquelicot">
-            <div class="schedule-info" aria-label="Horaires d'ouverture">
+            <div class="schedule-info">
                 <div>
                     <p>Mercredi</p>
                     <p>17:00 / 00:00</p>
@@ -78,10 +78,11 @@ Info / Contact
         </div>
     </section>
 
-    <section class="contact-section" aria-labelledby="titre-contact">
+    <section class="contact-section">
         <h3 id="titre-contact">Nous contacter</h3>
-        <form action="index.php?route=envoi-message" method="post" novalidate aria-labelledby="titre-contact">
-            <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session.csrf_token }}" />
+        <form action="index.php?route=envoi-message" method="post" novalidate>
+            <input type="hidden" name="csrf-token" id="csrf-token" value="{{ session.csrf_token }}">
+           
             <div class="contact-input-container">
                 <div class="firstname-contact-input">
                     <label for="firstName">Prénom<sup> *</sup></label>

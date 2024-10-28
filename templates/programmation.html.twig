@@ -31,14 +31,14 @@ Programmation
                 <div class="event-card-container">
                     <article class="event-card" style="background-image: url('{{ event.event.media.url|e }}')" aria-labelledby="event-title-{{ event.event.id|e }}">
                         <a href="index.php?route=evenement&id={{ event.event.id|e }}">
-                            <div class="card-block-date mono" aria-label="Date de l'événement">
+                            <div class="card-block-date mono">
                                 <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortDay|e }}</p>
                                 <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.number|e }}</p>
                                 <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.shortMonth|e }}</p>                              
                             </div>                        
                             <div class="info-event-container">
                                 <h3 id="event-title-{{ event.event.id|e }}" class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.name|e }}</h3>
-                                <div class="rect-event-container" aria-label="Catégories de l'événement">
+                                <div class="rect-event-container">
                                     <div class="rect-event type no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.type.name|e }}</div>
                                     <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style1.name|e }}</div>
                                     <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.event.style2.name|e }}</div>

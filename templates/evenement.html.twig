@@ -20,14 +20,14 @@ Détails de l'événement {{ event.name|e }} au Coquelicot, café-concert associ
             <div class="event-card-container">
                 <article class="event-card" style="background-image: url('{{ event.media.url|e }}')" aria-labelledby="titre-evenement">
                     <a>
-                        <div class="card-block-date mono" aria-label="Date de l'événement">
+                        <div class="card-block-date mono">
                             <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ shortDay|e }}</p>
                             <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ number|e }}</p>
                             <p class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ shortMonth|e }}</p>
                         </div>
                         <div class="info-event-container">
                             <h3 class="mono no-toggle-dyslexia no-toggle-line-spacing">{{ event.name|e }}</h3>
-                            <div class="rect-event-container" aria-label="Catégories de l'événement">
+                            <div class="rect-event-container">
                                 <div class="rect-event type no-toggle-dyslexia no-toggle-line-spacing">{{ event.type.name|e }}</div>
                                 <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.style1.name|e }}</div>
                                 <div class="rect-event style no-toggle-dyslexia no-toggle-line-spacing">{{ event.style2.name|e }}</div>
@@ -50,7 +50,7 @@ Détails de l'événement {{ event.name|e }} au Coquelicot, café-concert associ
                 <p>{{ event.description|e }}</p>
                 <div class="price-reservation-container">
                 {% if (event.ticketprice == 0 or event.ticketprice is null) and event.date|date('c', 'Europe/Paris') > "now"|date("Y-m-d H:i:s") %}
-                    <p aria-label="Entrée gratuite">Tarif : Gratuit</p>
+                    <p>Tarif : Gratuit</p>
                 {% else %}
                     {% if event.date|date('c', 'Europe/Paris') > "now"|date("Y-m-d H:i:s") %}
                         <p class="price" aria-label="Prix du billet">Tarif : {{ event.ticketprice|e }}€</p>
